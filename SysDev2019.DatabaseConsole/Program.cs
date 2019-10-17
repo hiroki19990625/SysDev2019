@@ -36,10 +36,10 @@ namespace SysDev2019.DatabaseConsole
 
                 productTable.Union(manufacturerTable);
                 employeeTable.Union(departmentTable);
-                orderTable.Union(productTable);
-                orderTable.Union(employeeTable);
-                orderingTable.Union(productTable);
-                orderingTable.Union(employeeTable);
+                orderTable.Union(employeeTable, "EmployeeId");
+                orderTable.Union(productTable, "ProductId");
+                orderingTable.Union(productTable, "ProductId");
+                orderingTable.Union(employeeTable, "EmployeeId");
                 stockTable.Union(productTable);
 
                 // All Delete
