@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="SysDev2019.DataModels.Department">
-    <Position X="4.5" Y="3.75" Width="1.5" />
+    <Position X="4.25" Y="3.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
       <FileName>DataModels\Department.cs</FileName>
@@ -18,20 +18,20 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="SysDev2019.DataModels.Manufacturer">
-    <Position X="11.5" Y="3.75" Width="1.5" />
+    <Position X="11.75" Y="3.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAIAAAEAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DataModels\Manufacturer.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SysDev2019.DataModels.Order">
-    <Position X="0.5" Y="3.75" Width="1.5" />
+    <Position X="0.5" Y="3.75" Width="1.75" />
     <AssociationLine Name="Product" Type="SysDev2019.DataModels.Product" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="1.312" Y="6.329" />
-        <Point X="1.312" Y="6.768" />
-        <Point X="15.625" Y="6.768" />
-        <Point X="15.625" Y="5.56" />
+        <Point X="1.447" Y="6.329" />
+        <Point X="1.447" Y="6.768" />
+        <Point X="16.125" Y="6.768" />
+        <Point X="16.125" Y="5.56" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -44,18 +44,18 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="SysDev2019.DataModels.Ordering">
-    <Position X="9.75" Y="3.75" Width="1.5" />
+    <Position X="9.75" Y="3.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>EAACAAAACAAAAAAAAAAABAAACAAAAAQAAIAAAAACEAA=</HashCode>
       <FileName>DataModels\Ordering.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Employee" />
       <Property Name="Product" />
+      <Property Name="Employee" />
     </ShowAsAssociation>
   </Class>
   <Class Name="SysDev2019.DataModels.Product">
-    <Position X="14.25" Y="3.75" Width="1.5" />
+    <Position X="14.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>MAgAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAIAAA=</HashCode>
       <FileName>DataModels\Product.cs</FileName>
@@ -70,8 +70,8 @@
       <Path>
         <Point X="3.688" Y="5.752" />
         <Point X="3.688" Y="6.387" />
-        <Point X="14.5" Y="6.387" />
-        <Point X="14.5" Y="5.56" />
+        <Point X="15" Y="6.387" />
+        <Point X="15" Y="5.56" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -84,6 +84,37 @@
   </Class>
   <Class Name="ObjectDatabase.DataModel" Collapsed="true">
     <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SysDev2019.LoginForm">
+    <Position X="18.5" Y="4.75" Width="1.5" />
+    <Members>
+      <Field Name="components" Hidden="true" />
+      <Method Name="Dispose" Hidden="true" />
+      <Method Name="InitializeComponent" Hidden="true" />
+      <Method Name="LoginForm" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAACAIAAAIAACAAAgCABBAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>LoginForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SysDev2019.DatabaseInstance">
+    <Position X="18.5" Y="1.5" Width="1.75" />
+    <Members>
+      <Method Name="DatabaseInstance" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>IAAABABAAEAAAAACAAAAAAACAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>DatabaseInstance.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="Database" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ObjectDatabase.ObjectDatabase">
+    <Position X="22" Y="1.5" Width="2.25" />
     <TypeIdentifier />
     <Lollipop Position="0.2" />
   </Class>
