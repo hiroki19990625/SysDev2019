@@ -58,13 +58,14 @@ namespace SysDev2019
             ErrorMessage("権限がありません。");
         }
 
-        private string ToSha256(string password)
+        static string ToSha256(string password)
         {
             SHA256 sha256 = SHA256.Create();
             sha256.Initialize();
 
             Encoding encoding = Encoding.UTF8;
-            return encoding.GetString(sha256.ComputeHash(encoding.GetBytes(password)));
+            byte[] hash = sha256.ComputeHash(encoding.GetBytes(password));
+            return Convert.ToBase64String(hash);
         }
     }
 }
