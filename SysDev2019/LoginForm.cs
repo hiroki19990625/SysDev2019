@@ -36,9 +36,21 @@ namespace SysDev2019
             return DatabaseInstance.EmployeeTable.Where(e => e.DepartmentId == "10" && e.EmployeeId == employeeId).FirstOrDefault() != null;
         }
 
-        public void NextForm()
+        public void NextForm(string employeeId)
         {
-            throw new System.NotImplementedException();
+            if (IsSalesStaff(employeeId))
+            {
+                MessageBox.Show("営業担当メニュー");
+            }
+            else if (IsLogisticsManager(employeeId))
+            {
+                MessageBox.Show("物流担当メニュー");
+            }
+            else
+            {
+                NotPermissionMessage();
+            }
+        
         }
 
         public void InvalidAuthMessage()
@@ -83,8 +95,7 @@ namespace SysDev2019
 
            if (Login(empId, pass))
             {
-                NextForm();
-            
+                NextForm(empId);
             }
             else
             {
