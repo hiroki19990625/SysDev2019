@@ -40,7 +40,12 @@ namespace SysDev2019
         {
             if (IsSalesStaff(employeeId))
             {
-                MessageBox.Show("営業担当メニュー");
+                Visible = false;
+
+                SalesStaffMenuForm staffMenuForm = new SalesStaffMenuForm(employeeId);
+                staffMenuForm.ShowDialog();
+
+                Close();
             }
             else if (IsLogisticsManager(employeeId))
             {

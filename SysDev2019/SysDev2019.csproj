@@ -72,6 +72,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SalesStaffMenuForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SalesStaffMenuForm.Designer.cs">
+      <DependentUpon>SalesStaffMenuForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -85,6 +91,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SalesStaffMenuForm.resx">
+      <DependentUpon>SalesStaffMenuForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Diagram\SysDev2019.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
