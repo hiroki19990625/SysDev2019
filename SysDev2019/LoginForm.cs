@@ -28,14 +28,12 @@ namespace SysDev2019
 
         public bool IsLogisticsManager(string employeeId)
         {
-            return DatabaseInstance.EmployeeTable.Where(e => e.EmployeeId == employeeId).FirstOrDefault()
-                       ?.DepartmentId == "20";
+            return DatabaseInstance.EmployeeTable.Where(e => e.DepartmentId == "11" && e.EmployeeId == employeeId).FirstOrDefault() != null; 
         }
 
         public bool IsSalesStaff(string employeeId)
         {
-            return DatabaseInstance.EmployeeTable.Where(e => e.EmployeeId == employeeId).FirstOrDefault()
-                       ?.DepartmentId == "10";
+            return DatabaseInstance.EmployeeTable.Where(e => e.DepartmentId == "10" && e.EmployeeId == employeeId).FirstOrDefault() != null;
         }
 
         public void NextForm()
@@ -66,6 +64,32 @@ namespace SysDev2019
             Encoding encoding = Encoding.UTF8;
             byte[] hash = sha256.ComputeHash(encoding.GetBytes(password));
             return Convert.ToBase64String(hash);
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string empId = Employeenumber.Text;
+            string pass = Password.Text;
+
+           if (Login(empId, pass))
+            {
+                NextForm();
+            
+            }
+            else
+            {
+                InvalidAuthMessage();
+            }
         }
     }
 }
