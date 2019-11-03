@@ -40,7 +40,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("MS UI Gothic", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label1.Location = new System.Drawing.Point(313, 28);
+            this.label1.Location = new System.Drawing.Point(324, 21);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(173, 50);
             this.label1.TabIndex = 0;
@@ -71,7 +71,7 @@
             // Employeenumber
             // 
             this.Employeenumber.Font = new System.Drawing.Font("MS UI Gothic", 14F);
-            this.Employeenumber.Location = new System.Drawing.Point(300, 136);
+            this.Employeenumber.Location = new System.Drawing.Point(300, 133);
             this.Employeenumber.Name = "Employeenumber";
             this.Employeenumber.Size = new System.Drawing.Size(209, 31);
             this.Employeenumber.TabIndex = 3;
@@ -81,6 +81,7 @@
             this.Password.Font = new System.Drawing.Font("MS UI Gothic", 14F);
             this.Password.Location = new System.Drawing.Point(300, 210);
             this.Password.Name = "Password";
+            this.Password.PasswordChar = '*';
             this.Password.Size = new System.Drawing.Size(209, 31);
             this.Password.TabIndex = 4;
             // 
@@ -106,7 +107,11 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "LoginForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LoginForm";
             this.ResumeLayout(false);
             this.PerformLayout();
