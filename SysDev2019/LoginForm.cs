@@ -51,7 +51,12 @@ namespace SysDev2019
             }
             else if (IsLogisticsManager(employeeId))
             {
-                MessageBox.Show("物流担当メニュー");
+                Visible = false;
+
+                LogisticsManagerMenuForm LogisticsManagerMenuForm = new LogisticsManagerMenuForm(employeeId);
+                LogisticsManagerMenuForm.ShowDialog();
+
+                Close();
             }
             else
             {
