@@ -53,7 +53,7 @@
             this.label2.Font = new System.Drawing.Font("MS UI Gothic", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.label2.Location = new System.Drawing.Point(109, 133);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(151, 34);
+            this.label2.Size = new System.Drawing.Size(147, 33);
             this.label2.TabIndex = 1;
             this.label2.Text = "社員番号";
             this.label2.Click += new System.EventHandler(this.label2_Click);
@@ -64,7 +64,7 @@
             this.label3.Font = new System.Drawing.Font("MS UI Gothic", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.label3.Location = new System.Drawing.Point(112, 205);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(148, 34);
+            this.label3.Size = new System.Drawing.Size(143, 33);
             this.label3.TabIndex = 2;
             this.label3.Text = "パスワード";
             // 
@@ -113,6 +113,7 @@
             this.Name = "LoginForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LoginForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.LoginForm_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

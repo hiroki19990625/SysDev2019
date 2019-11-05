@@ -25,7 +25,12 @@ namespace SysDev2019
 
         public void OpenOrderEntryForm()
         {
+            Visible = false;
 
+            OrderEntryForm OrderEntryForm = new OrderEntryForm(employeeId);
+            OrderEntryForm.ShowDialog();
+
+            Visible = true;
         }
 
         public void OpenOrderConfirmForm()
