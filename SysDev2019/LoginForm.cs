@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LogAdapter;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,6 +19,7 @@ namespace SysDev2019
             InitializeComponent();
 
             var _ = DatabaseInstance.Database;
+            _.AddLogEvent(OnLog);
         }
 
         public bool Login(string employeeId, string password)
@@ -106,6 +108,16 @@ namespace SysDev2019
             {
                 InvalidAuthMessage();
             }
+        }
+
+        private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            // DatabaseInstance.Database.Dispose();
+        }
+
+        private void OnLog(ILogMessage msg)
+        {
+            // MessageBox.Show(msg.Data.ToString());
         }
     }
 }
