@@ -58,6 +58,9 @@ namespace SysDev2019
         private void orderEntryButton_Click(object sender, EventArgs e)
         {
             Order();
+
+            product.SelectedIndex = -1;
+            count.Value = 1;
         }
 
         private void orderConfirmButton_Click(object sender, EventArgs e)
