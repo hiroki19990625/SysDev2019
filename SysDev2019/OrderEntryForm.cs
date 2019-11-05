@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -22,7 +23,6 @@ namespace SysDev2019
             count.Minimum = 1;
 
             this.employeeId = employeeId;
-            InitializeProductList();
         }
 
         public void OpenOrderConfirmForm()
@@ -32,12 +32,28 @@ namespace SysDev2019
 
         public void InitializeProductList()
         {
-            var products = DatabaseInstance.ProductTable.ToArray();
-            foreach (var product in products)
+            Task.Run(() =>
             {
-                this.product.Items.Add($"{product.ProductId}:{product.ProductName}");
-            }
+                var products = DatabaseInstance.ProductTable.ToArray();
+                foreach (var product in products)
+                {
+                    try
+                    {
+                        Invoke(new AsyncAction(() =>
+                        {
+                            this.product.Items.Add($"{product.ProductId}:{product.ProductName}");
+                        }));
+                    }
+                    catch (ObjectDisposedException _)
+                    {
+                        // ignore
+                    }
+                }
+            });
+           
         }
+
+        delegate void AsyncAction();
 
         private void orderEntryButton_Click(object sender, EventArgs e)
         {
@@ -78,9 +94,16 @@ namespace SysDev2019
 
                         DatabaseInstance.OrderTable.Insert(order);
                         DatabaseInstance.OrderTable.Sync();
+
+                        MessageBox.Show("注文を完了しました", "情報", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
+        }
+
+        private void OrderEntryForm_Shown(object sender, EventArgs e)
+        {
+            InitializeProductList();
         }
     }
 }

@@ -125,6 +125,7 @@
             this.Name = "OrderEntryForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OrderEntryForm";
+            this.Shown += new System.EventHandler(this.OrderEntryForm_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.count)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
