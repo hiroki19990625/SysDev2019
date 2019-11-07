@@ -23,7 +23,12 @@ namespace SysDev2019
 
         public void OpenStockList()
         {
+            Visible = false;
 
+            OpenStockListForm OpenStockListForm = new OpenStockListForm(employeeId);
+            OpenStockListForm.ShowDialog();
+
+            Visible = true;
         }
 
         public void OpenOrderingForm()
