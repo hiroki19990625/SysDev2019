@@ -33,7 +33,12 @@ namespace SysDev2019
 
         public void OpenOrderingForm()
         {
+            Visible = false;
 
+            OpenOrderingForm OpenOrderingForm = new OpenOrderingForm(employeeId);
+            OpenOrderingForm.ShowDialog();
+
+            Visible = true;
         }
 
         public void OpenOrderingConfirmationForm()

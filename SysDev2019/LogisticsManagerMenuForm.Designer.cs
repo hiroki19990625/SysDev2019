@@ -30,10 +30,10 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.EmpName = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.stockListButton = new System.Windows.Forms.Button();
+            this.orderingButton = new System.Windows.Forms.Button();
+            this.orderingConfirmationButton = new System.Windows.Forms.Button();
+            this.orderConfirmationButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -57,59 +57,59 @@
             this.EmpName.TabIndex = 1;
             this.EmpName.Text = "名前";
             // 
-            // button1
+            // stockListButton
             // 
-            this.button1.Font = new System.Drawing.Font("MS UI Gothic", 19.8F, System.Drawing.FontStyle.Bold);
-            this.button1.Location = new System.Drawing.Point(52, 146);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(413, 51);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "在庫一覧・発注点設定画面";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.stockListButton.Font = new System.Drawing.Font("MS UI Gothic", 19.8F, System.Drawing.FontStyle.Bold);
+            this.stockListButton.Location = new System.Drawing.Point(52, 146);
+            this.stockListButton.Name = "stockListButton";
+            this.stockListButton.Size = new System.Drawing.Size(413, 51);
+            this.stockListButton.TabIndex = 2;
+            this.stockListButton.Text = "在庫一覧・発注点設定画面";
+            this.stockListButton.UseVisualStyleBackColor = true;
+            this.stockListButton.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // orderingButton
             // 
-            this.button2.Font = new System.Drawing.Font("MS UI Gothic", 19.8F, System.Drawing.FontStyle.Bold);
-            this.button2.Location = new System.Drawing.Point(495, 146);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(240, 51);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "発注画面";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.orderingButton.Font = new System.Drawing.Font("MS UI Gothic", 19.8F, System.Drawing.FontStyle.Bold);
+            this.orderingButton.Location = new System.Drawing.Point(495, 146);
+            this.orderingButton.Name = "orderingButton";
+            this.orderingButton.Size = new System.Drawing.Size(240, 51);
+            this.orderingButton.TabIndex = 3;
+            this.orderingButton.Text = "発注画面";
+            this.orderingButton.UseVisualStyleBackColor = true;
+            this.orderingButton.Click += new System.EventHandler(this.button2_Click);
             // 
-            // button3
+            // orderingConfirmationButton
             // 
-            this.button3.Font = new System.Drawing.Font("MS UI Gothic", 19.8F, System.Drawing.FontStyle.Bold);
-            this.button3.Location = new System.Drawing.Point(89, 256);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(296, 57);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "発注確認画面";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.orderingConfirmationButton.Font = new System.Drawing.Font("MS UI Gothic", 19.8F, System.Drawing.FontStyle.Bold);
+            this.orderingConfirmationButton.Location = new System.Drawing.Point(89, 256);
+            this.orderingConfirmationButton.Name = "orderingConfirmationButton";
+            this.orderingConfirmationButton.Size = new System.Drawing.Size(296, 57);
+            this.orderingConfirmationButton.TabIndex = 4;
+            this.orderingConfirmationButton.Text = "発注確認画面";
+            this.orderingConfirmationButton.UseVisualStyleBackColor = true;
+            this.orderingConfirmationButton.Click += new System.EventHandler(this.button3_Click);
             // 
-            // button4
+            // orderConfirmationButton
             // 
-            this.button4.Font = new System.Drawing.Font("MS UI Gothic", 19.8F, System.Drawing.FontStyle.Bold);
-            this.button4.Location = new System.Drawing.Point(474, 256);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(273, 57);
-            this.button4.TabIndex = 5;
-            this.button4.Text = "受注確認画面";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.orderConfirmationButton.Font = new System.Drawing.Font("MS UI Gothic", 19.8F, System.Drawing.FontStyle.Bold);
+            this.orderConfirmationButton.Location = new System.Drawing.Point(474, 256);
+            this.orderConfirmationButton.Name = "orderConfirmationButton";
+            this.orderConfirmationButton.Size = new System.Drawing.Size(273, 57);
+            this.orderConfirmationButton.TabIndex = 5;
+            this.orderConfirmationButton.Text = "受注確認画面";
+            this.orderConfirmationButton.UseVisualStyleBackColor = true;
+            this.orderConfirmationButton.Click += new System.EventHandler(this.button4_Click);
             // 
             // LogisticsManagerMenuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.orderConfirmationButton);
+            this.Controls.Add(this.orderingConfirmationButton);
+            this.Controls.Add(this.orderingButton);
+            this.Controls.Add(this.stockListButton);
             this.Controls.Add(this.EmpName);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -125,9 +125,9 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label EmpName;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button stockListButton;
+        private System.Windows.Forms.Button orderingButton;
+        private System.Windows.Forms.Button orderingConfirmationButton;
+        private System.Windows.Forms.Button orderConfirmationButton;
     }
 }
