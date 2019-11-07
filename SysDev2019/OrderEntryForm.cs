@@ -27,7 +27,12 @@ namespace SysDev2019
 
         public void OpenOrderConfirmForm()
         {
+            Visible = false;
 
+            OrderConfirmForm OrderConfirmForm = new OrderConfirmForm(employeeId);
+            OrderConfirmForm.ShowDialog();
+
+            Visible = true;
         }
 
         public void InitializeProductList()
@@ -67,6 +72,8 @@ namespace SysDev2019
         {
             Order();
 
+            product.SelectedIndex = -1;
+            count.Value = 1;
             OpenOrderConfirmForm();
 
         }
