@@ -12,11 +12,21 @@ namespace SysDev2019
 {
     public partial class OrderConfirmForm : Form
     {
+        private string employeeId;
         public OrderConfirmForm(string employeeId)
         {
             InitializeComponent();
         }
 
+        public void OpenFilter_SearchForm()
+        {
+            Visible = false;
+
+            Filter_SearchForm filter_SearchForm = new Filter_SearchForm(employeeId);
+            filter_SearchForm.ShowDialog();
+
+            Close();
+        }
         private void backButton_Click(object sender, EventArgs e)
         {
 
@@ -24,7 +34,7 @@ namespace SysDev2019
 
         private void filterButton_Click(object sender, EventArgs e)
         {
-
+            OpenFilter_SearchForm();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)

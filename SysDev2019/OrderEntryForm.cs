@@ -72,8 +72,7 @@ namespace SysDev2019
         {
             Order();
 
-            product.SelectedIndex = -1;
-            count.Value = 1;
+
             OpenOrderConfirmForm();
 
         }

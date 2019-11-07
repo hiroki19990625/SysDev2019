@@ -75,6 +75,7 @@
             this.filterButton.TabIndex = 9;
             this.filterButton.Text = "絞り込み";
             this.filterButton.UseVisualStyleBackColor = true;
+            this.filterButton.Click += new System.EventHandler(this.filterButton_Click);
             // 
             // printing
             // 

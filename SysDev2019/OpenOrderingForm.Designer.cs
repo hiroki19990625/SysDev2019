@@ -117,6 +117,7 @@
             this.orderingButton.TabIndex = 10;
             this.orderingButton.Text = "発注";
             this.orderingButton.UseVisualStyleBackColor = true;
+            this.orderingButton.Click += new System.EventHandler(this.orderingButton_Click);
             // 
             // orderingConfirmButton
             // 

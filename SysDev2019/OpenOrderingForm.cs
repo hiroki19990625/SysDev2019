@@ -38,5 +38,10 @@ namespace SysDev2019
         {
             OpenOrderingConfirmationForm();
         }
+
+        private void orderingButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
