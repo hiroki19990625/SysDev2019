@@ -127,6 +127,7 @@
             this.orderingConfirmButton.TabIndex = 11;
             this.orderingConfirmButton.Text = "発注して確認";
             this.orderingConfirmButton.UseVisualStyleBackColor = true;
+            this.orderingConfirmButton.Click += new System.EventHandler(this.orderingConfirmButton_Click);
             // 
             // OpenOrderingForm
             // 

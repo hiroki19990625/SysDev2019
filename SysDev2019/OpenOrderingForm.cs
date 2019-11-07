@@ -12,14 +12,31 @@ namespace SysDev2019
 {
     public partial class OpenOrderingForm : Form
     {
+        private string employeeId;
         public OpenOrderingForm(string employeeId)
         {
             InitializeComponent();
         }
 
+        public void OpenOrderingConfirmationForm()
+        {
+            Visible = false;
+
+            OpenOrderingConfirmationForm OpenOrderingConfirmationForm = new OpenOrderingConfirmationForm(employeeId);
+            OpenOrderingConfirmationForm.ShowDialog();
+
+            Visible = true;
+        }
+
+
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void orderingConfirmButton_Click(object sender, EventArgs e)
+        {
+            OpenOrderingConfirmationForm();
         }
     }
 }

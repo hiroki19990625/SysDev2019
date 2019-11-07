@@ -76,6 +76,12 @@
     <Compile Include="LogisticsManagerMenuForm.Designer.cs">
       <DependentUpon>LogisticsManagerMenuForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="OpenOrderingConfirmationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OpenOrderingConfirmationForm.Designer.cs">
+      <DependentUpon>OpenOrderingConfirmationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="OpenOrderingForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +119,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LogisticsManagerMenuForm.resx">
       <DependentUpon>LogisticsManagerMenuForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OpenOrderingConfirmationForm.resx">
+      <DependentUpon>OpenOrderingConfirmationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OpenOrderingForm.resx">
       <DependentUpon>OpenOrderingForm.cs</DependentUpon>

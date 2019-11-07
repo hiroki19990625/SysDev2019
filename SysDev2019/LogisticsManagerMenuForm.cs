@@ -43,7 +43,11 @@ namespace SysDev2019
 
         public void OpenOrderingConfirmationForm()
         {
+            Visible = false;
+            OpenOrderingConfirmationForm OpenOrderingConfirmationForm = new OpenOrderingConfirmationForm(employeeId);
+            OpenOrderingConfirmationForm.ShowDialog();
 
+            Visible = true;
         }
 
         public void OpenOrderConfirmationForm()
