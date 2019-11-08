@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SysDev2019.DataModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,6 +17,11 @@ namespace SysDev2019
         public OpenOrderingForm(string employeeId)
         {
             InitializeComponent();
+
+            count.Maximum = 100000;
+            count.Minimum = 1;
+
+            this.employeeId = employeeId;
         }
 
         public void OpenOrderingConfirmationForm()
@@ -28,20 +34,115 @@ namespace SysDev2019
             Visible = true;
         }
 
+        public void InitializeManufacturerList()
+        {
+            Task.Run(() =>
+            {
+                var manufacturers = DatabaseInstance.ManufacturerTable.ToArray();
+                foreach (var manufacturer in manufacturers)
+                {
+                    try
+                    {
+                        Invoke(new AsyncAction(() =>
+                        {
+                            this.Manufacturer.Items.Add($"{manufacturer.ManufacturerId}:{manufacturer.ManufacturerName}");
+                        }));
+                    }
+                    catch (ObjectDisposedException _)
+                    {
+                        // ignore
+                    }
+                }
+            });
+
+
+        }
+        
+
+        public void InitializeProductList()
+        {
+            Task.Run(() =>
+            {
+                var products = DatabaseInstance.ProductTable.ToArray();
+                foreach (var product in products)
+                {
+                    try
+                    {
+                        Invoke(new AsyncAction(() =>
+                        {
+                            this.product.Items.Add($"{product.ProductId}:{product.ProductName}");
+                        }));
+                    }
+                    catch (ObjectDisposedException _)
+                    {
+                        // ignore
+                    }
+                }
+            });
+
+        }
+
+        delegate void AsyncAction();
 
         private void label1_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void orderingConfirmButton_Click(object sender, EventArgs e)
-        {
-            OpenOrderingConfirmationForm();
-        }
+      
 
         private void orderingButton_Click(object sender, EventArgs e)
         {
+            Ordering();
 
+            product.SelectedIndex = -1;
+            count.Value = 1;
         }
+
+        private void orderingConfirmButton_Click(object sender, EventArgs e)
+        {
+            Ordering();
+            product.SelectedIndex = -1;
+            count.Value = 1;
+
+            OpenOrderingConfirmationForm();
+        }
+
+        private void Ordering()
+        {
+            if (product.SelectedIndex != -1)
+            {
+                var prod = product.Text.Split(':');
+
+                if (prod.Length > 0)
+                {
+                    var p = DatabaseInstance.ProductTable.Where(e => e.ProductId == prod[0]).FirstOrDefault();
+                    if (p != null)
+                    {
+                        var ordering = new Ordering
+                        {
+                            OrderingId = Guid.NewGuid().ToString(),
+                            ProductId = p.ProductId,
+                            EmployeeId = employeeId,
+                            OrderingVolume = (int)count.Value,
+                            OrderingDate = DateTime.Now.ToString()
+                        };
+
+                        DatabaseInstance.OrderingTable.Insert(ordering);
+                        DatabaseInstance.OrderingTable.Sync();
+
+                        MessageBox.Show("受注を完了しました", "情報", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+        }
+
+        private void OpenOrderingFrom_Shown(object sender, EventArgs e)
+        {
+            InitializeProductList();
+            InitializeManufacturerList();
+        }
+
+       
     }
 }

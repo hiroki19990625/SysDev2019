@@ -148,6 +148,7 @@
             this.Name = "OpenOrderingForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OpenOrderingForm";
+            this.Shown += new System.EventHandler(this.OpenOrderingFrom_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.count)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
