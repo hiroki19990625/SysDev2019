@@ -91,6 +91,7 @@
             this.Name = "SalesStaffMenuForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SalesStaffMenuForm";
+            this.Load += new System.EventHandler(this.SalesStaffMenuForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

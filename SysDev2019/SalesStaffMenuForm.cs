@@ -35,7 +35,12 @@ namespace SysDev2019
 
         public void OpenOrderConfirmForm()
         {
+            Visible = false;
 
+            OrderConfirmForm OrderConfirmForm = new OrderConfirmForm(employeeId);
+            OrderConfirmForm.ShowDialog();
+
+            Visible = true;
         }
 
         private string GetEmployeeName()
@@ -52,6 +57,11 @@ namespace SysDev2019
         private void button2_Click(object sender, EventArgs e)
         {
             OpenOrderConfirmForm();
+
+        }
+
+        private void SalesStaffMenuForm_Load(object sender, EventArgs e)
+        {
 
         }
     }
