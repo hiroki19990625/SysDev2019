@@ -13,11 +13,15 @@ namespace SysDev2019
     public partial class OrderConfirmForm : Form
     {
         private string employeeId;
-        public OrderConfirmForm(string employeeId)
+        private bool openEntry;
+
+        public bool CloseFlag = true;
+        public OrderConfirmForm(string employeeId, bool openEntry = false)
         {
             InitializeComponent();
 
             this.employeeId = employeeId;
+            this.openEntry = openEntry;
         }
 
         public void OpenFilter_SearchForm()
@@ -29,9 +33,28 @@ namespace SysDev2019
 
             Close();
         }
+
         private void backButton_Click(object sender, EventArgs e)
         {
+            OpenOrderEntryForm();
+        }
 
+        private void OpenOrderEntryForm()
+        {
+            if (openEntry)
+            {
+                CloseFlag = false;
+                Close();
+            }
+            else
+            {
+                Visible = false;
+
+                OrderEntryForm form = new OrderEntryForm(employeeId);
+                form.ShowDialog();
+
+                Close();
+            }
         }
 
         private void filterButton_Click(object sender, EventArgs e)

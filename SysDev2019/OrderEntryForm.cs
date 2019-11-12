@@ -29,10 +29,13 @@ namespace SysDev2019
         {
             Visible = false;
 
-            OrderConfirmForm OrderConfirmForm = new OrderConfirmForm(employeeId);
+            OrderConfirmForm OrderConfirmForm = new OrderConfirmForm(employeeId, true);
             OrderConfirmForm.ShowDialog();
 
-            Visible = true;
+            if (OrderConfirmForm.CloseFlag)
+                Close();
+            else
+                Visible = true;
         }
 
         public void InitializeProductList()
