@@ -62,7 +62,7 @@
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(213, 56);
             this.backButton.TabIndex = 6;
-            this.backButton.Text = "戻る";
+            this.backButton.Text = "注文入力画面へ";
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
