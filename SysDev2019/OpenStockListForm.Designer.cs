@@ -53,11 +53,12 @@
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(732, 283);
             this.dataGridView1.TabIndex = 3;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // backButton
             // 
             this.backButton.Font = new System.Drawing.Font("MS UI Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.backButton.Location = new System.Drawing.Point(109, 382);
+            this.backButton.Location = new System.Drawing.Point(118, 382);
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(213, 56);
             this.backButton.TabIndex = 7;
@@ -89,6 +90,7 @@
             this.Name = "OpenStockListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OpenStockListForm";
+            this.Shown += new System.EventHandler(this.OpenStockListForm_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

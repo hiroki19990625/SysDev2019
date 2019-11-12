@@ -101,6 +101,8 @@
             this.Name = "OpenOrderingConfirmationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OpenOrderingConfirmationForm";
+            this.Load += new System.EventHandler(this.OpenOrderingConfirmationForm_Load);
+            this.Shown += new System.EventHandler(this.OpenOrderingConfirmationForm_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

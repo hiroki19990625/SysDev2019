@@ -16,6 +16,8 @@ namespace SysDev2019
         public OpenOrderingConfirmationForm(string employeeId)
         {
             InitializeComponent();
+
+            this.employeeId = employeeId;
         }
 
         public void OpenFilter_SearchForm()
@@ -37,5 +39,41 @@ namespace SysDev2019
         {
             OpenFilter_SearchForm();
         }
+
+        private void OpenOrderingConfirmationForm_Load(object sender, EventArgs e)
+        {
+
+        }
+        public void InitializeOrderingList()
+        {
+            Task.Run(() =>
+            {
+                var orders = DatabaseInstance.OrderingTable.Where(e => e.EmployeeId == employeeId).ToArray();
+               
+                try
+                {
+                    Invoke(new AsyncAction(() =>
+                    {
+                        dataGridView1.DataSource = orders;
+                        var cols = dataGridView1.Columns;
+                        cols.RemoveAt(cols.Count - 1);
+                        cols.RemoveAt(cols.Count - 1);
+                    }));
+                }
+                catch (ObjectDisposedException _)
+                {
+                    // ignore
+                }
+            });
+
+        }
+
+        delegate void AsyncAction();
+
+        private void OpenOrderingConfirmationForm_Shown(object sender, EventArgs e)
+        {
+            InitializeOrderingList();
+        }
     }
 }
+
