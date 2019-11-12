@@ -44,9 +44,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("MS UI Gothic", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label1.Location = new System.Drawing.Point(278, 33);
+            this.label1.Location = new System.Drawing.Point(452, 53);
+            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(226, 50);
+            this.label1.Size = new System.Drawing.Size(358, 80);
             this.label1.TabIndex = 1;
             this.label1.Text = "発注画面";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -55,36 +56,43 @@
             // 
             this.Manufacturer.Font = new System.Drawing.Font("MS UI Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Manufacturer.FormattingEnabled = true;
-            this.Manufacturer.Location = new System.Drawing.Point(325, 138);
+            this.Manufacturer.Location = new System.Drawing.Point(528, 221);
+            this.Manufacturer.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.Manufacturer.Name = "Manufacturer";
-            this.Manufacturer.Size = new System.Drawing.Size(209, 31);
+            this.Manufacturer.Size = new System.Drawing.Size(337, 45);
             this.Manufacturer.TabIndex = 4;
+            this.Manufacturer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Manufacturer_KeyDown);
             // 
             // product
             // 
             this.product.Font = new System.Drawing.Font("MS UI Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.product.FormattingEnabled = true;
-            this.product.Location = new System.Drawing.Point(325, 209);
+            this.product.Location = new System.Drawing.Point(528, 334);
+            this.product.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.product.Name = "product";
-            this.product.Size = new System.Drawing.Size(209, 31);
+            this.product.Size = new System.Drawing.Size(337, 45);
             this.product.TabIndex = 5;
+            this.product.KeyDown += new System.Windows.Forms.KeyEventHandler(this.product_KeyDown);
             // 
             // count
             // 
             this.count.Font = new System.Drawing.Font("MS UI Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.count.Location = new System.Drawing.Point(325, 287);
+            this.count.Location = new System.Drawing.Point(528, 459);
+            this.count.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.count.Name = "count";
-            this.count.Size = new System.Drawing.Size(209, 30);
+            this.count.Size = new System.Drawing.Size(340, 44);
             this.count.TabIndex = 6;
             this.count.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.count.KeyDown += new System.Windows.Forms.KeyEventHandler(this.count_KeyDown);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("MS UI Gothic", 18F);
-            this.label2.Location = new System.Drawing.Point(204, 139);
+            this.label2.Location = new System.Drawing.Point(332, 222);
+            this.label2.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(103, 30);
+            this.label2.Size = new System.Drawing.Size(165, 48);
             this.label2.TabIndex = 7;
             this.label2.Text = "メーカー";
             // 
@@ -92,9 +100,10 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("MS UI Gothic", 18F);
-            this.label3.Location = new System.Drawing.Point(216, 210);
+            this.label3.Location = new System.Drawing.Point(351, 336);
+            this.label3.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(73, 30);
+            this.label3.Size = new System.Drawing.Size(116, 48);
             this.label3.TabIndex = 8;
             this.label3.Text = "商品";
             // 
@@ -102,18 +111,20 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("MS UI Gothic", 18F);
-            this.label4.Location = new System.Drawing.Point(216, 287);
+            this.label4.Location = new System.Drawing.Point(351, 459);
+            this.label4.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(73, 30);
+            this.label4.Size = new System.Drawing.Size(116, 48);
             this.label4.TabIndex = 9;
             this.label4.Text = "個数";
             // 
             // orderingButton
             // 
             this.orderingButton.Font = new System.Drawing.Font("MS UI Gothic", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.orderingButton.Location = new System.Drawing.Point(128, 377);
+            this.orderingButton.Location = new System.Drawing.Point(208, 603);
+            this.orderingButton.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.orderingButton.Name = "orderingButton";
-            this.orderingButton.Size = new System.Drawing.Size(221, 51);
+            this.orderingButton.Size = new System.Drawing.Size(359, 82);
             this.orderingButton.TabIndex = 10;
             this.orderingButton.Text = "発注";
             this.orderingButton.UseVisualStyleBackColor = true;
@@ -122,9 +133,10 @@
             // orderingConfirmButton
             // 
             this.orderingConfirmButton.Font = new System.Drawing.Font("MS UI Gothic", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.orderingConfirmButton.Location = new System.Drawing.Point(458, 377);
+            this.orderingConfirmButton.Location = new System.Drawing.Point(744, 603);
+            this.orderingConfirmButton.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.orderingConfirmButton.Name = "orderingConfirmButton";
-            this.orderingConfirmButton.Size = new System.Drawing.Size(250, 51);
+            this.orderingConfirmButton.Size = new System.Drawing.Size(406, 82);
             this.orderingConfirmButton.TabIndex = 11;
             this.orderingConfirmButton.Text = "発注して確認";
             this.orderingConfirmButton.UseVisualStyleBackColor = true;
@@ -132,9 +144,9 @@
             // 
             // OpenOrderingForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1300, 720);
             this.Controls.Add(this.orderingConfirmButton);
             this.Controls.Add(this.orderingButton);
             this.Controls.Add(this.label4);
@@ -145,6 +157,7 @@
             this.Controls.Add(this.Manufacturer);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.Name = "OpenOrderingForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OpenOrderingForm";
