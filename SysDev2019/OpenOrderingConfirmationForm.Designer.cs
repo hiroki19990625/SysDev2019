@@ -63,8 +63,9 @@
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(213, 56);
             this.backButton.TabIndex = 8;
-            this.backButton.Text = "戻る";
+            this.backButton.Text = "発注画面へ";
             this.backButton.UseVisualStyleBackColor = true;
+            this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
             // filterButton
             // 
