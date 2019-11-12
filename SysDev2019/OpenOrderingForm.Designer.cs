@@ -59,6 +59,7 @@
             this.Manufacturer.Name = "Manufacturer";
             this.Manufacturer.Size = new System.Drawing.Size(209, 31);
             this.Manufacturer.TabIndex = 4;
+            this.Manufacturer.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Manufacturer_KeyPress);
             // 
             // product
             // 
@@ -68,6 +69,7 @@
             this.product.Name = "product";
             this.product.Size = new System.Drawing.Size(209, 31);
             this.product.TabIndex = 5;
+            this.product.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.product_KeyPress);
             // 
             // count
             // 
@@ -77,6 +79,7 @@
             this.count.Size = new System.Drawing.Size(209, 30);
             this.count.TabIndex = 6;
             this.count.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.count.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.count_KeyPress);
             // 
             // label2
             // 
