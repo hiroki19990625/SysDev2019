@@ -54,7 +54,7 @@ namespace SysDev2019
             Task.Run(() =>
             {
                 var orders = DatabaseInstance.OrderTable.Where(e => e.EmployeeId == employeeId).ToArray();
-                MessageBox.Show(orders.Length.ToString());
+               
                 try
                 {
                     Invoke(new AsyncAction(() =>

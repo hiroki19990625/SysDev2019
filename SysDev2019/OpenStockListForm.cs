@@ -16,6 +16,8 @@ namespace SysDev2019
         public OpenStockListForm(string employeeId)
         {
             InitializeComponent();
+
+            this.employeeId = employeeId;
         }
 
         public void OpenFilter_SearchForm()
@@ -34,6 +36,42 @@ namespace SysDev2019
         private void backButton_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        public void InitializeStockList()
+        {
+            Task.Run(() =>
+            {
+                var orders = DatabaseInstance.StockTable.ToArray();
+                
+                try
+                {
+                    Invoke(new AsyncAction(() =>
+                    {
+                        dataGridView1.DataSource = orders;
+                        var cols = dataGridView1.Columns;
+                        cols.RemoveAt(cols.Count - 1);
+
+                    }));
+                }
+                catch (ObjectDisposedException _)
+                {
+                    // ignore
+                }
+            });
+
+        }
+
+        delegate void AsyncAction();
+
+        private void OpenStockListForm_Shown(object sender, EventArgs e)
+        {
+            InitializeStockList();
         }
     }
 }
