@@ -129,5 +129,21 @@ namespace SysDev2019
         {
             // MessageBox.Show(msg.Data.ToString());
         }
+
+        private void Employeenumber_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SendKeys.Send("{TAB}");
+            }
+        }
+
+        private void Password_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button1_Click(this, EventArgs.Empty);
+            }
+        }
     }
 }

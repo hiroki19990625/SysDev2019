@@ -75,6 +75,7 @@
             this.Employeenumber.Name = "Employeenumber";
             this.Employeenumber.Size = new System.Drawing.Size(209, 31);
             this.Employeenumber.TabIndex = 3;
+            this.Employeenumber.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Employeenumber_KeyDown);
             // 
             // Password
             // 
@@ -84,6 +85,7 @@
             this.Password.PasswordChar = '*';
             this.Password.Size = new System.Drawing.Size(209, 31);
             this.Password.TabIndex = 4;
+            this.Password.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Password_KeyDown);
             // 
             // button1
             // 
