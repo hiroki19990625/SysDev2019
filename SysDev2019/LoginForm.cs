@@ -30,12 +30,14 @@ namespace SysDev2019
 
         public bool IsLogisticsManager(string employeeId)
         {
-            return DatabaseInstance.EmployeeTable.Where(e => e.DepartmentId == "11" && e.EmployeeId == employeeId).FirstOrDefault() != null; 
+            return DatabaseInstance.EmployeeTable.Where(e => e.DepartmentId == "11" && e.EmployeeId == employeeId)
+                       .FirstOrDefault() != null;
         }
 
         public bool IsSalesStaff(string employeeId)
         {
-            return DatabaseInstance.EmployeeTable.Where(e => e.DepartmentId == "10" && e.EmployeeId == employeeId).FirstOrDefault() != null;
+            return DatabaseInstance.EmployeeTable.Where(e => e.DepartmentId == "10" && e.EmployeeId == employeeId)
+                       .FirstOrDefault() != null;
         }
 
         public void NextForm(string employeeId)
@@ -47,7 +49,10 @@ namespace SysDev2019
                 SalesStaffMenuForm staffMenuForm = new SalesStaffMenuForm(employeeId);
                 staffMenuForm.ShowDialog();
 
-                Close();
+                Visible = true;
+
+                Employeenumber.Text = "";
+                Password.Text = "";
             }
             else if (IsLogisticsManager(employeeId))
             {
@@ -56,13 +61,15 @@ namespace SysDev2019
                 LogisticsManagerMenuForm LogisticsManagerMenuForm = new LogisticsManagerMenuForm(employeeId);
                 LogisticsManagerMenuForm.ShowDialog();
 
-                Close();
+                Visible = true;
+
+                Employeenumber.Text = "";
+                Password.Text = "";
             }
             else
             {
                 NotPermissionMessage();
             }
-        
         }
 
         public void InvalidAuthMessage()
@@ -92,12 +99,10 @@ namespace SysDev2019
 
         private void label1_Click(object sender, EventArgs e)
         {
-
         }
 
         private void label2_Click(object sender, EventArgs e)
         {
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -105,7 +110,7 @@ namespace SysDev2019
             string empId = Employeenumber.Text;
             string pass = Password.Text;
 
-           if (Login(empId, pass))
+            if (Login(empId, pass))
             {
                 NextForm(empId);
             }
@@ -123,6 +128,22 @@ namespace SysDev2019
         private void OnLog(ILogMessage msg)
         {
             // MessageBox.Show(msg.Data.ToString());
+        }
+
+        private void Employeenumber_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SendKeys.Send("{TAB}");
+            }
+        }
+
+        private void Password_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                button1_Click(this, EventArgs.Empty);
+            }
         }
     }
 }
