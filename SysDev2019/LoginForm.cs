@@ -53,6 +53,8 @@ namespace SysDev2019
 
                 Employeenumber.Text = "";
                 Password.Text = "";
+
+                Employeenumber.Focus();
             }
             else if (IsLogisticsManager(employeeId))
             {
@@ -65,6 +67,8 @@ namespace SysDev2019
 
                 Employeenumber.Text = "";
                 Password.Text = "";
+
+                Employeenumber.Focus();
             }
             else
             {
@@ -75,6 +79,7 @@ namespace SysDev2019
         public void InvalidAuthMessage()
         {
             ErrorMessage("ログインに失敗しました。");
+            Password.Text = "";
         }
 
         public void ErrorMessage(string message)
@@ -85,6 +90,9 @@ namespace SysDev2019
         public void NotPermissionMessage()
         {
             ErrorMessage("権限がありません。");
+            Employeenumber.Text = "";
+            Password.Text = "";
+            Employeenumber.Focus();
         }
 
         static string ToSha256(string password)
