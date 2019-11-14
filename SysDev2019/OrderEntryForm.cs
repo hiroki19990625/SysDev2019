@@ -109,6 +109,11 @@ namespace SysDev2019
                         DatabaseInstance.OrderTable.Sync();
 
                         MessageBox.Show("注文を完了しました", "情報", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        product.Text = "";
+                        count.Text = "";
+
+                        product.Focus();
                     }
                 }
             }
@@ -119,6 +124,22 @@ namespace SysDev2019
             InitializeProductList();
         }
 
+        private void count_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                orderEntryButton_Click(this, EventArgs.Empty);
+            }
+        }
+
+        private void product_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                SendKeys.Send("{TAB}");
+            }
+        }
+        
         private void product_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)Keys.Enter)
