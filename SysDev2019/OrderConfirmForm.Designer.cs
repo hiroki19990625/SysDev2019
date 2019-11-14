@@ -98,6 +98,7 @@
             this.Name = "OrderConfirmForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OrderConfirmForm";
+            this.Load += new System.EventHandler(this.OrderConfirmForm_Load);
             this.Shown += new System.EventHandler(this.OrderConfirmForm_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);

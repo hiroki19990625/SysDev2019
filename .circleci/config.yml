@@ -1,0 +1,27 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: mono
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - nuget-v1-{{ checksum "SysDev2019/packages.config" }}-{{ checksum "SysDev2019.DatabaseConsole/packages.config" }}
+            - nuget-v1-{{ checksum "SysDev2019/packages.config" }}-
+            - nuget-v1-
+
+      - run:
+          name: Nuget Restore
+          command: nuget restore
+
+      - save_cache:
+          key: nuget-v1-{{ checksum "SysDev2019/packages.config" }}-{{ checksum "SysDev2019.DatabaseConsole/packages.config" }}
+          paths:
+            - "packages"
+
+      - run:
+          name: Build
+          command: msbuild SysDev2019.sln

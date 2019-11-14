@@ -84,6 +84,7 @@
             this.Name = "OpenStockListForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OpenStockListForm";
+            this.Load += new System.EventHandler(this.OpenStockListForm_Load);
             this.Shown += new System.EventHandler(this.OpenStockListForm_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
