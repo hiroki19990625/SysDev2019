@@ -153,5 +153,22 @@ namespace SysDev2019
                 button1_Click(this, EventArgs.Empty);
             }
         }
+
+        private void Employeenumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void Password_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+            }
+        
+        }
     }
 }

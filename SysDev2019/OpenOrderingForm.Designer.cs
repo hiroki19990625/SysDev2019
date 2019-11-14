@@ -62,6 +62,7 @@
             this.Manufacturer.Size = new System.Drawing.Size(337, 45);
             this.Manufacturer.TabIndex = 4;
             this.Manufacturer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Manufacturer_KeyDown);
+            this.Manufacturer.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Manufacturer_KeyPress);
             // 
             // product
             // 
@@ -73,6 +74,7 @@
             this.product.Size = new System.Drawing.Size(337, 45);
             this.product.TabIndex = 5;
             this.product.KeyDown += new System.Windows.Forms.KeyEventHandler(this.product_KeyDown);
+            this.product.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.product_KeyPress);
             // 
             // count
             // 
@@ -84,6 +86,7 @@
             this.count.TabIndex = 6;
             this.count.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.count.KeyDown += new System.Windows.Forms.KeyEventHandler(this.count_KeyDown);
+            this.count.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.count_KeyPress);
             // 
             // label2
             // 

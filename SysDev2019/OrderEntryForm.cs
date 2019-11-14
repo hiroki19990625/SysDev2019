@@ -29,10 +29,13 @@ namespace SysDev2019
         {
             Visible = false;
 
-            OrderConfirmForm OrderConfirmForm = new OrderConfirmForm(employeeId);
+            OrderConfirmForm OrderConfirmForm = new OrderConfirmForm(employeeId, true);
             OrderConfirmForm.ShowDialog();
 
-            Visible = true;
+            if (OrderConfirmForm.CloseFlag)
+                Close();
+            else
+                Visible = true;
         }
 
         public void InitializeProductList()
@@ -134,6 +137,22 @@ namespace SysDev2019
             if (e.KeyCode == Keys.Enter)
             {
                 SendKeys.Send("{TAB}");
+            }
+        }
+        
+        private void product_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void count_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                e.Handled = true;
             }
         }
     }
