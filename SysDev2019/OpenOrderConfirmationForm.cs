@@ -76,6 +76,15 @@ namespace SysDev2019
                         dataGridView1.Columns[3].ReadOnly = true;
                         dataGridView1.Columns[4].ReadOnly = true;
 
+                        
+                        dataGridView1.Columns[0].HeaderText = "受注ID";
+                        dataGridView1.Columns[1].HeaderText = "社員ID";
+                        dataGridView1.Columns[2].HeaderText = "商品ID";
+                        dataGridView1.Columns[3].HeaderText = "受注量";
+                        dataGridView1.Columns[4].HeaderText = "受注日";
+                        dataGridView1.Columns[5].HeaderText = "受注完了";
+                        dataGridView1.Columns[6].HeaderText = "注文キャンセル";
+                        dataGridView1.Columns[7].HeaderText = "出荷完了";
                     }));
                 }
                 catch (ObjectDisposedException _)

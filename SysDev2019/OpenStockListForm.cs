@@ -64,6 +64,14 @@ namespace SysDev2019
                         dataGridView1.DataSource = orders;
                         var cols = dataGridView1.Columns;
                         cols.RemoveAt(cols.Count - 1);
+                        dataGridView1.Columns[0].HeaderText = "在庫ID";
+
+                        dataGridView1.Columns[1].HeaderText = "商品ID";
+                        dataGridView1.Columns[2].HeaderText = "在庫数";
+                        dataGridView1.Columns[3].HeaderText = "発注点";
+                        dataGridView1.Columns[4].HeaderText = "発注点量";
+
+                        
 
                         dataGridView1.Columns[0].ReadOnly = true;
                         dataGridView1.Columns[1].ReadOnly = true;
