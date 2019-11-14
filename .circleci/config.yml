@@ -24,4 +24,4 @@ jobs:
 
       - run:
           name: Build
-          command: nsbuild SysDev2019.sln
+          command: msbuild SysDev2019.sln
