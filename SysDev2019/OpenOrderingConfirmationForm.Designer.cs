@@ -40,9 +40,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("MS UI Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label1.Location = new System.Drawing.Point(254, 28);
+            this.label1.Location = new System.Drawing.Point(413, 45);
+            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(257, 40);
+            this.label1.Size = new System.Drawing.Size(412, 64);
             this.label1.TabIndex = 2;
             this.label1.Text = "発注確認画面";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -50,18 +51,21 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(34, 84);
+            this.dataGridView1.Location = new System.Drawing.Point(55, 134);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 82;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(732, 283);
+            this.dataGridView1.Size = new System.Drawing.Size(1190, 453);
             this.dataGridView1.TabIndex = 4;
             // 
             // backButton
             // 
             this.backButton.Font = new System.Drawing.Font("MS UI Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.backButton.Location = new System.Drawing.Point(138, 382);
+            this.backButton.Location = new System.Drawing.Point(224, 611);
+            this.backButton.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.backButton.Name = "backButton";
-            this.backButton.Size = new System.Drawing.Size(213, 56);
+            this.backButton.Size = new System.Drawing.Size(346, 90);
             this.backButton.TabIndex = 8;
             this.backButton.Text = "発注画面へ";
             this.backButton.UseVisualStyleBackColor = true;
@@ -70,9 +74,10 @@
             // filterButton
             // 
             this.filterButton.Font = new System.Drawing.Font("MS UI Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.filterButton.Location = new System.Drawing.Point(423, 382);
+            this.filterButton.Location = new System.Drawing.Point(687, 611);
+            this.filterButton.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.filterButton.Name = "filterButton";
-            this.filterButton.Size = new System.Drawing.Size(213, 56);
+            this.filterButton.Size = new System.Drawing.Size(346, 90);
             this.filterButton.TabIndex = 9;
             this.filterButton.Text = "絞り込み";
             this.filterButton.UseVisualStyleBackColor = true;
@@ -81,24 +86,28 @@
             // printing
             // 
             this.printing.Font = new System.Drawing.Font("MS UI Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.printing.Location = new System.Drawing.Point(553, 22);
+            this.printing.Location = new System.Drawing.Point(899, 35);
+            this.printing.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.printing.Name = "printing";
-            this.printing.Size = new System.Drawing.Size(213, 56);
+            this.printing.Size = new System.Drawing.Size(346, 90);
             this.printing.TabIndex = 10;
             this.printing.Text = "発注表の印刷";
             this.printing.UseVisualStyleBackColor = true;
             // 
             // OpenOrderingConfirmationForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1300, 720);
             this.Controls.Add(this.printing);
             this.Controls.Add(this.filterButton);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "OpenOrderingConfirmationForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OpenOrderingConfirmationForm";
