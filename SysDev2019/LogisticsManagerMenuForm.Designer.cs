@@ -116,6 +116,7 @@
             this.Name = "LogisticsManagerMenuForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LogisticsManagerMenuForm";
+            this.Load += new System.EventHandler(this.LogisticsManagerMenuForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

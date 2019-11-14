@@ -52,7 +52,11 @@ namespace SysDev2019
 
         public void OpenOrderConfirmationForm()
         {
+            Visible = false;
+            OpenOrder_Confirmation_Form Openorder_Confirmation_Form = new OpenOrder_Confirmation_Form(employeeId);
+            Openorder_Confirmation_Form.ShowDialog();
 
+            Visible = true;
         }
 
         private string GetEmployeeName()
@@ -86,6 +90,11 @@ namespace SysDev2019
         private void button4_Click(object sender, EventArgs e)
         {
             OpenOrderConfirmationForm();
+        }
+
+        private void LogisticsManagerMenuForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
