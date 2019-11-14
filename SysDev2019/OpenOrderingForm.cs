@@ -131,7 +131,7 @@ namespace SysDev2019
                         DatabaseInstance.OrderingTable.Insert(ordering);
                         DatabaseInstance.OrderingTable.Sync();
 
-                        MessageBox.Show("受注を完了しました", "情報", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("発注を完了しました", "情報", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                         Manufacturer.Text = "";
                         product.Text = "";
