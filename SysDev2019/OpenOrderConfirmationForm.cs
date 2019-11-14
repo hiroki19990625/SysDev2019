@@ -10,30 +10,44 @@ using System.Windows.Forms;
 
 namespace SysDev2019
 {
-    public partial class OpenStockListForm : Form
+    public partial class OpenOrder_Confirmation_Form : Form
     {
         private string employeeId;
-        public OpenStockListForm(string employeeId)
+        public OpenOrder_Confirmation_Form(string employeeId)
         {
             InitializeComponent();
 
             this.employeeId = employeeId;
         }
 
-        public void LogisticsManagerMenuForm()
-        {
-            Visible = false;
-            LogisticsManagerMenuForm LogisticsManagerMenuForm = new LogisticsManagerMenuForm(employeeId);
-            LogisticsManagerMenuForm.ShowDialog();
-            Close();
-        }
-
         public void OpenFilter_SearchForm()
         {
             Visible = false;
+
             Filter_SearchForm filter_SearchForm = new Filter_SearchForm(employeeId);
             filter_SearchForm.ShowDialog();
+
             Close();
+        }
+
+        private void OpenOrder_Confirmatioin_Form_Shown(object sender, EventArgs e)
+        {
+            InitializeOrderList();
+        }
+
+        public OpenOrder_Confirmation_Form()
+        {
+            InitializeComponent();
+        }
+
+        private void OpenOrder_Confirmation_Form_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -41,22 +55,12 @@ namespace SysDev2019
             OpenFilter_SearchForm();
         }
 
-        private void backButton_Click(object sender, EventArgs e)
-        {
-            LogisticsManagerMenuForm();
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        public void InitializeStockList()
+        public void InitializeOrderList()
         {
             Task.Run(() =>
             {
-                var orders = DatabaseInstance.StockTable.ToArray();
-                
+                var orders = DatabaseInstance.OrderTable.Where(e => e.EmployeeId == employeeId).ToArray();
+
                 try
                 {
                     Invoke(new AsyncAction(() =>
@@ -64,7 +68,7 @@ namespace SysDev2019
                         dataGridView1.DataSource = orders;
                         var cols = dataGridView1.Columns;
                         cols.RemoveAt(cols.Count - 1);
-
+                        cols.RemoveAt(cols.Count - 1);
                     }));
                 }
                 catch (ObjectDisposedException _)
@@ -77,9 +81,9 @@ namespace SysDev2019
 
         delegate void AsyncAction();
 
-        private void OpenStockListForm_Shown(object sender, EventArgs e)
+        private void OpenOrderConfirmationForm_Shown(object sender, EventArgs e)
         {
-            InitializeStockList();
+            InitializeOrderList();
         }
     }
 }
