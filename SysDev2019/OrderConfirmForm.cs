@@ -86,6 +86,14 @@ namespace SysDev2019
                         var cols = dataGridView1.Columns;
                         cols.RemoveAt(cols.Count - 1);
                         cols.RemoveAt(cols.Count - 1);
+
+                        dataGridView1.Columns[0].ReadOnly = true;
+                        dataGridView1.Columns[1].ReadOnly = true;
+                        dataGridView1.Columns[2].ReadOnly = true;
+                        dataGridView1.Columns[3].ReadOnly = true;
+                        dataGridView1.Columns[4].ReadOnly = true;
+
+
                     }));
                 }
                 catch (ObjectDisposedException _)
@@ -97,5 +105,10 @@ namespace SysDev2019
         }
 
         delegate void AsyncAction();
+
+        private void OrderConfirmForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -65,6 +65,10 @@ namespace SysDev2019
                         var cols = dataGridView1.Columns;
                         cols.RemoveAt(cols.Count - 1);
 
+                        dataGridView1.Columns[0].ReadOnly = true;
+                        dataGridView1.Columns[1].ReadOnly = true;
+                        dataGridView1.Columns[2].ReadOnly = true;
+
                     }));
                 }
                 catch (ObjectDisposedException _)
@@ -80,6 +84,11 @@ namespace SysDev2019
         private void OpenStockListForm_Shown(object sender, EventArgs e)
         {
             InitializeStockList();
+        }
+
+        private void OpenStockListForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
