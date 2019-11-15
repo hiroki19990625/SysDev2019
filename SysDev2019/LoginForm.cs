@@ -135,7 +135,7 @@ namespace SysDev2019
 
         private void OnLog(ILogMessage msg)
         {
-             MessageBox.Show(msg.Data.ToString());
+            // MessageBox.Show(msg.Data.ToString());
         }
 
         private void Employeenumber_KeyDown(object sender, KeyEventArgs e)
