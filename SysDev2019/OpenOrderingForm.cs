@@ -41,7 +41,7 @@ namespace SysDev2019
 
         public void InitializeManufacturerList()
         {
-            Task.Run(() =>
+            Task.Factory.StartNew(() =>
             {
                 var manufacturers = DatabaseInstance.ManufacturerTable.ToArray();
                 foreach (var manufacturer in manufacturers)
@@ -63,13 +63,13 @@ namespace SysDev2019
                         // ignore
                     }
                 }
-            });
+            }, TaskCreationOptions.LongRunning);
         }
 
 
         public void InitializeProductList()
         {
-            Task.Run(() =>
+            Task.Factory.StartNew(() =>
             {
                 var products = DatabaseInstance.ProductTable.ToArray();
                 foreach (var product in products)
@@ -90,7 +90,7 @@ namespace SysDev2019
                         // ignore
                     }
                 }
-            });
+            }, TaskCreationOptions.LongRunning);
         }
 
         delegate void AsyncAction();

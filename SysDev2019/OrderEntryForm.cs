@@ -15,6 +15,7 @@ namespace SysDev2019
     public partial class OrderEntryForm : Form
     {
         private string employeeId;
+
         public OrderEntryForm(string employeeId)
         {
             InitializeComponent();
@@ -40,7 +41,7 @@ namespace SysDev2019
 
         public void InitializeProductList()
         {
-            Task.Run(() =>
+            Task.Factory.StartNew(() =>
             {
                 var products = DatabaseInstance.ProductTable.ToArray();
                 foreach (var product in products)
@@ -52,13 +53,16 @@ namespace SysDev2019
                             this.product.Items.Add($"{product.ProductId}:{product.ProductName}");
                         }));
                     }
-                    catch (ObjectDisposedException _)
+                    catch (ObjectDisposedException)
+                    {
+                        // ignore
+                    }
+                    catch (InvalidOperationException)
                     {
                         // ignore
                     }
                 }
-            });
-           
+            }, TaskCreationOptions.LongRunning);
         }
 
         delegate void AsyncAction();
@@ -78,12 +82,10 @@ namespace SysDev2019
             product.SelectedIndex = -1;
             count.Value = 1;
             OpenOrderConfirmForm();
-
         }
 
         private void product_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
 
         private void Order()
@@ -139,10 +141,10 @@ namespace SysDev2019
                 SendKeys.Send("{TAB}");
             }
         }
-        
+
         private void product_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Enter)
+            if (e.KeyChar == (char) Keys.Enter)
             {
                 e.Handled = true;
             }
@@ -150,7 +152,7 @@ namespace SysDev2019
 
         private void count_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Enter)
+            if (e.KeyChar == (char) Keys.Enter)
             {
                 e.Handled = true;
             }
