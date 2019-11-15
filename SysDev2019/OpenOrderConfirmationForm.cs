@@ -30,11 +30,6 @@ namespace SysDev2019
             Close();
         }
 
-        private void OpenOrder_Confirmatioin_Form_Shown(object sender, EventArgs e)
-        {
-            InitializeOrderList();
-        }
-
         public OpenOrder_Confirmation_Form()
         {
             InitializeComponent();
@@ -59,7 +54,7 @@ namespace SysDev2019
         {
             Task.Run(() =>
             {
-                var orders = DatabaseInstance.OrderTable.Where(e => e.EmployeeId == employeeId).ToArray();
+                var orders = DatabaseInstance.OrderTable.ToArray();
 
                 try
                 {
@@ -100,6 +95,16 @@ namespace SysDev2019
         private void OpenOrderConfirmationForm_Shown(object sender, EventArgs e)
         {
             InitializeOrderList();
+        }
+
+        private void OpenOrder_Confirmation_Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            DatabaseInstance.OrderTable.Sync();
+        }
+
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            DatabaseInstance.OrderTable.Sync();
         }
     }
 }

@@ -115,6 +115,16 @@ namespace SysDev2019
                 Close();
             }
         }
+
+        private void OpenOrderingConfirmationForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            DatabaseInstance.OrderingTable.Sync();
+        }
+
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            DatabaseInstance.OrderingTable.Sync();
+        }
     }
 }
 

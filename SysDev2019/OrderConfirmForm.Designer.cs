@@ -57,6 +57,7 @@
             this.dataGridView1.Size = new System.Drawing.Size(1190, 453);
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
             // 
             // backButton
             // 
@@ -98,6 +99,7 @@
             this.Name = "OrderConfirmForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OrderConfirmForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OrderConfirmForm_FormClosed);
             this.Load += new System.EventHandler(this.OrderConfirmForm_Load);
             this.Shown += new System.EventHandler(this.OrderConfirmForm_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
