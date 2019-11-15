@@ -92,6 +92,9 @@ namespace SysDev2019
                         dataGridView1.Columns[2].ReadOnly = true;
                         dataGridView1.Columns[3].ReadOnly = true;
                         dataGridView1.Columns[4].ReadOnly = true;
+                        dataGridView1.Columns[5].ReadOnly = true;
+                        dataGridView1.Columns[7].ReadOnly = true;
+
 
                         dataGridView1.Columns[0].HeaderText = "受注ID";
                         dataGridView1.Columns[1].HeaderText = "社員ID";
