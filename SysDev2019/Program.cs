@@ -16,6 +16,11 @@ namespace SysDev2019
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Application.ThreadException += (sender, args) =>
+            {
+                MessageBox.Show("再起動します", "情報", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Application.Restart();
+            };
             Application.Run(new LoginForm());
         }
     }

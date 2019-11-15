@@ -123,6 +123,29 @@ namespace SysDev2019
                                 break;
                         }
 
+                        stockCnt = DatabaseInstance.StockTable.Where(e => e.ProductId == p.ProductId)
+                            .Sum(s => s.StockQuantity);
+                        var orderingPointCnt = DatabaseInstance.StockTable
+                            .Where(e => e.ProductId == p.ProductId && e.ReorderPoint != -1).Sum(s => s.ReorderPoint);
+                        if (orderingPointCnt >= stockCnt)
+                        {
+                            var reorderCnt = DatabaseInstance.StockTable
+                                .Where(e => e.ProductId == p.ProductId && e.OrderQuantity != -1)
+                                .Sum(s => s.OrderQuantity);
+                            var reorder = reorderCnt - stockCnt;
+                            var ordering = new Ordering
+                            {
+                                OrderingId = Guid.NewGuid().ToString(),
+                                ProductId = p.ProductId,
+                                EmployeeId = "3000",
+                                OrderingVolume = reorder,
+                                OrderingDate = DateTime.Now.ToString()
+                            };
+
+                            DatabaseInstance.OrderingTable.Insert(ordering);
+                            DatabaseInstance.OrderingTable.Sync();
+                        }
+
 
                         var order = new Order
                         {
@@ -146,6 +169,7 @@ namespace SysDev2019
                 }
             }
         }
+
 
         private void OrderEntryForm_Shown(object sender, EventArgs e)
         {
