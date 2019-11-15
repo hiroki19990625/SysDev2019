@@ -98,6 +98,32 @@ namespace SysDev2019
                     var p = DatabaseInstance.ProductTable.Where(e => e.ProductId == prod[0]).FirstOrDefault();
                     if (p != null)
                     {
+                        var stockCnt = DatabaseInstance.StockTable.Where(e => e.ProductId == p.ProductId)
+                            .Sum(s => s.StockQuantity);
+                        if (stockCnt < count.Value)
+                        {
+                            MessageBox.Show("在庫数が不足しています", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        var stocks = DatabaseInstance.StockTable.Where(e => e.ProductId == p.ProductId);
+                        var diffs = (int) count.Value;
+                        foreach (Stock stock in stocks)
+                        {
+                            var diffAny = stock.StockQuantity;
+                            if (diffAny >= diffs)
+                            {
+                                stock.StockQuantity -= diffs;
+                                break;
+                            }
+
+                            diffs -= diffAny;
+                            stock.StockQuantity = 0;
+                            if (diffs == 0)
+                                break;
+                        }
+
+
                         var order = new Order
                         {
                             OrderId = Guid.NewGuid().ToString(),
