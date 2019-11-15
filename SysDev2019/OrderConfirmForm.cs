@@ -14,6 +14,7 @@ namespace SysDev2019
     {
         private string employeeId;
         private bool openEntry;
+        private bool initializing;
 
         public bool CloseFlag = true;
         public OrderConfirmForm(string employeeId, bool openEntry = false)
@@ -82,6 +83,7 @@ namespace SysDev2019
                 {
                     Invoke(new AsyncAction(() =>
                     {
+                        initializing = true;
                         dataGridView1.DataSource = orders;
                         var cols = dataGridView1.Columns;
                         cols.RemoveAt(cols.Count - 1);
@@ -104,6 +106,8 @@ namespace SysDev2019
                         dataGridView1.Columns[5].HeaderText = "受注完了";
                         dataGridView1.Columns[6].HeaderText = "注文キャンセル";
                         dataGridView1.Columns[7].HeaderText = "出荷完了";
+
+                        initializing = false;
                     }));
                 }
                 catch (ObjectDisposedException _)
