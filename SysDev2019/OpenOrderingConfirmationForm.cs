@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SysDev2019.DataModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,6 +15,7 @@ namespace SysDev2019
     {
         private string employeeId;
         private bool OpenOrdering;
+        private bool initializing;
 
         public bool CloseFlag = true;
         public OpenOrderingConfirmationForm(string employeeId, bool OpenOrdering = false)
@@ -58,6 +60,7 @@ namespace SysDev2019
                 {
                     Invoke(new AsyncAction(() =>
                     {
+                        initializing = true;
                         dataGridView1.DataSource = orders;
                         var cols = dataGridView1.Columns;
                         cols.RemoveAt(cols.Count - 1);
@@ -76,6 +79,8 @@ namespace SysDev2019
                         dataGridView1.Columns[4].HeaderText = "受注日";
                         dataGridView1.Columns[5].HeaderText = "受注完了";
                         dataGridView1.Columns[6].HeaderText = "受け取り完了";
+
+                        initializing = false;
                     }));
                 }
                 catch (ObjectDisposedException _)
@@ -123,7 +128,31 @@ namespace SysDev2019
 
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            DatabaseInstance.OrderingTable.Sync();
+            if (!initializing) { 
+                DatabaseInstance.OrderingTable.Sync();
+                if (e.ColumnIndex == 6)
+                {
+                    var check = (bool)dataGridView1[e.ColumnIndex, e.RowIndex].Value;
+                    var orderingId = (string)dataGridView1[0, e.RowIndex].Value;
+                    var ordering = DatabaseInstance.OrderingTable.Where(el => el.OrderingId == orderingId).FirstOrDefault();
+                    if (ordering != null)
+                    {
+                        if (check && MessageBox.Show("在庫を自動的に追加しますか?", "情報", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                        {
+                            var stock = new Stock
+                            {
+                                StockId = Guid.NewGuid().ToString(),
+                                ProductId = ordering.ProductId,
+                                StockQuantity = ordering.OrderingVolume,
+                                ReorderPoint = -1,
+                                OrderQuantity = -1
+                            };
+                            DatabaseInstance.StockTable.Insert(stock);
+                            DatabaseInstance.StockTable.Sync();
+                        }
+                    }
+                }
+            }
         }
     }
 }
