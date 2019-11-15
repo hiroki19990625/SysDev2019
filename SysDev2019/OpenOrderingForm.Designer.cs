@@ -57,7 +57,7 @@
             this.Manufacturer.Font = new System.Drawing.Font("MS UI Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.Manufacturer.FormattingEnabled = true;
             this.Manufacturer.Location = new System.Drawing.Point(528, 221);
-            this.Manufacturer.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Manufacturer.Margin = new System.Windows.Forms.Padding(5);
             this.Manufacturer.Name = "Manufacturer";
             this.Manufacturer.Size = new System.Drawing.Size(337, 45);
             this.Manufacturer.TabIndex = 4;
@@ -69,7 +69,7 @@
             this.product.Font = new System.Drawing.Font("MS UI Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.product.FormattingEnabled = true;
             this.product.Location = new System.Drawing.Point(528, 334);
-            this.product.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.product.Margin = new System.Windows.Forms.Padding(5);
             this.product.Name = "product";
             this.product.Size = new System.Drawing.Size(337, 45);
             this.product.TabIndex = 5;
@@ -80,7 +80,7 @@
             // 
             this.count.Font = new System.Drawing.Font("MS UI Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.count.Location = new System.Drawing.Point(528, 459);
-            this.count.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.count.Margin = new System.Windows.Forms.Padding(5);
             this.count.Name = "count";
             this.count.Size = new System.Drawing.Size(340, 44);
             this.count.TabIndex = 6;
@@ -125,7 +125,7 @@
             // 
             this.orderingButton.Font = new System.Drawing.Font("MS UI Gothic", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.orderingButton.Location = new System.Drawing.Point(208, 603);
-            this.orderingButton.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.orderingButton.Margin = new System.Windows.Forms.Padding(5);
             this.orderingButton.Name = "orderingButton";
             this.orderingButton.Size = new System.Drawing.Size(359, 82);
             this.orderingButton.TabIndex = 10;
@@ -137,7 +137,7 @@
             // 
             this.orderingConfirmButton.Font = new System.Drawing.Font("MS UI Gothic", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.orderingConfirmButton.Location = new System.Drawing.Point(744, 603);
-            this.orderingConfirmButton.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.orderingConfirmButton.Margin = new System.Windows.Forms.Padding(5);
             this.orderingConfirmButton.Name = "orderingConfirmButton";
             this.orderingConfirmButton.Size = new System.Drawing.Size(406, 82);
             this.orderingConfirmButton.TabIndex = 11;
@@ -160,7 +160,9 @@
             this.Controls.Add(this.Manufacturer);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "OpenOrderingForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OpenOrderingForm";

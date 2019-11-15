@@ -76,7 +76,7 @@
             this.product.Font = new System.Drawing.Font("MS UI Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.product.FormattingEnabled = true;
             this.product.Location = new System.Drawing.Point(564, 240);
-            this.product.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.product.Margin = new System.Windows.Forms.Padding(5);
             this.product.Name = "product";
             this.product.Size = new System.Drawing.Size(337, 45);
             this.product.TabIndex = 3;
@@ -88,7 +88,7 @@
             // 
             this.count.Font = new System.Drawing.Font("MS UI Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.count.Location = new System.Drawing.Point(564, 368);
-            this.count.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.count.Margin = new System.Windows.Forms.Padding(5);
             this.count.Name = "count";
             this.count.Size = new System.Drawing.Size(340, 44);
             this.count.TabIndex = 4;
@@ -100,7 +100,7 @@
             // 
             this.orderButton.Font = new System.Drawing.Font("MS UI Gothic", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.orderButton.Location = new System.Drawing.Point(107, 549);
-            this.orderButton.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.orderButton.Margin = new System.Windows.Forms.Padding(5);
             this.orderButton.Name = "orderButton";
             this.orderButton.Size = new System.Drawing.Size(492, 82);
             this.orderButton.TabIndex = 5;
@@ -112,7 +112,7 @@
             // 
             this.orderConfirmButton.Font = new System.Drawing.Font("MS UI Gothic", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.orderConfirmButton.Location = new System.Drawing.Point(738, 549);
-            this.orderConfirmButton.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.orderConfirmButton.Margin = new System.Windows.Forms.Padding(5);
             this.orderConfirmButton.Name = "orderConfirmButton";
             this.orderConfirmButton.Size = new System.Drawing.Size(492, 82);
             this.orderConfirmButton.TabIndex = 6;
@@ -133,7 +133,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "OrderEntryForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OrderEntryForm";

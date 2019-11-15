@@ -13,11 +13,15 @@ namespace SysDev2019
     public partial class OpenOrderingConfirmationForm : Form
     {
         private string employeeId;
-        public OpenOrderingConfirmationForm(string employeeId)
+        private bool OpenOrdering;
+
+        public bool CloseFlag = true;
+        public OpenOrderingConfirmationForm(string employeeId, bool OpenOrdering = false)
         {
             InitializeComponent();
 
             this.employeeId = employeeId;
+            this.OpenOrdering = OpenOrdering;
         }
 
         public void OpenFilter_SearchForm()
@@ -91,7 +95,25 @@ namespace SysDev2019
 
         private void backButton_Click(object sender, EventArgs e)
         {
+            OpenOrderingForm();
+        }
 
+        private void OpenOrderingForm()
+        {
+            if (OpenOrdering)
+            {
+                CloseFlag = false;
+                Close();
+            }
+            else
+            {
+                Visible = false;
+
+                OpenOrderingForm form = new OpenOrderingForm(employeeId);
+                form.ShowDialog();
+
+                Close();
+            }
         }
     }
 }

@@ -14,6 +14,7 @@ namespace SysDev2019
     public partial class OpenOrderingForm : Form
     {
         private string employeeId;
+
         public OpenOrderingForm(string employeeId)
         {
             InitializeComponent();
@@ -28,10 +29,13 @@ namespace SysDev2019
         {
             Visible = false;
 
-            OpenOrderingConfirmationForm OpenOrderingConfirmationForm = new OpenOrderingConfirmationForm(employeeId);
+            OpenOrderingConfirmationForm OpenOrderingConfirmationForm = new OpenOrderingConfirmationForm(employeeId,true);
             OpenOrderingConfirmationForm.ShowDialog();
 
-            Visible = true;
+            if (OpenOrderingConfirmationForm.CloseFlag)
+                Close();
+            else
+                Visible = true;
         }
 
         public void InitializeManufacturerList()
