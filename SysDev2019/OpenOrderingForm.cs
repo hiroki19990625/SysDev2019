@@ -29,7 +29,8 @@ namespace SysDev2019
         {
             Visible = false;
 
-            OpenOrderingConfirmationForm OpenOrderingConfirmationForm = new OpenOrderingConfirmationForm(employeeId,true);
+            OpenOrderingConfirmationForm OpenOrderingConfirmationForm =
+                new OpenOrderingConfirmationForm(employeeId, true);
             OpenOrderingConfirmationForm.ShowDialog();
 
             if (OpenOrderingConfirmationForm.CloseFlag)
@@ -49,19 +50,22 @@ namespace SysDev2019
                     {
                         Invoke(new AsyncAction(() =>
                         {
-                            this.Manufacturer.Items.Add($"{manufacturer.ManufacturerId}:{manufacturer.ManufacturerName}");
+                            this.Manufacturer.Items.Add(
+                                $"{manufacturer.ManufacturerId}:{manufacturer.ManufacturerName}");
                         }));
                     }
-                    catch (ObjectDisposedException _)
+                    catch (ObjectDisposedException)
+                    {
+                        // ignore
+                    }
+                    catch (InvalidOperationException)
                     {
                         // ignore
                     }
                 }
             });
-
-
         }
-        
+
 
         public void InitializeProductList()
         {
@@ -77,23 +81,24 @@ namespace SysDev2019
                             this.product.Items.Add($"{product.ProductId}:{product.ProductName}");
                         }));
                     }
-                    catch (ObjectDisposedException _)
+                    catch (ObjectDisposedException)
+                    {
+                        // ignore
+                    }
+                    catch (InvalidOperationException)
                     {
                         // ignore
                     }
                 }
             });
-
         }
 
         delegate void AsyncAction();
 
         private void label1_Click(object sender, EventArgs e)
         {
-
         }
 
-      
 
         private void orderingButton_Click(object sender, EventArgs e)
         {
@@ -128,7 +133,7 @@ namespace SysDev2019
                             OrderingId = Guid.NewGuid().ToString(),
                             ProductId = p.ProductId,
                             EmployeeId = employeeId,
-                            OrderingVolume = (int)count.Value,
+                            OrderingVolume = (int) count.Value,
                             OrderingDate = DateTime.Now.ToString()
                         };
 
@@ -176,10 +181,10 @@ namespace SysDev2019
                 orderingButton_Click(this, EventArgs.Empty);
             }
         }
-        
+
         private void Manufacturer_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Enter)
+            if (e.KeyChar == (char) Keys.Enter)
             {
                 e.Handled = true;
             }
@@ -187,7 +192,7 @@ namespace SysDev2019
 
         private void product_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Enter)
+            if (e.KeyChar == (char) Keys.Enter)
             {
                 e.Handled = true;
             }
@@ -195,7 +200,7 @@ namespace SysDev2019
 
         private void count_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Enter)
+            if (e.KeyChar == (char) Keys.Enter)
             {
                 e.Handled = true;
             }
