@@ -4,7 +4,7 @@ namespace SysDev2019.DataModels
 {
     public class Stock : DataModel
     {
-        [SerializeProperty("在庫ID", IsKey = true, RelationKey = false)]
+        [SerializeProperty("在庫ID", IsKey = true, RelationKey = true)]
         public string StockId { get; set; }
 
         [SerializeProperty("商品ID")] public string ProductId { get; set; }

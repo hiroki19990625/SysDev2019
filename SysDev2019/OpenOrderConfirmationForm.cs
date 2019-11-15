@@ -13,6 +13,7 @@ namespace SysDev2019
     public partial class OpenOrder_Confirmation_Form : Form
     {
         private string employeeId;
+        private bool initializing;
         public OpenOrder_Confirmation_Form(string employeeId)
         {
             InitializeComponent();
@@ -60,6 +61,7 @@ namespace SysDev2019
                 {
                     Invoke(new AsyncAction(() =>
                     {
+                        initializing = true;
                         dataGridView1.DataSource = orders;
                         var cols = dataGridView1.Columns;
                         cols.RemoveAt(cols.Count - 1);
@@ -81,6 +83,8 @@ namespace SysDev2019
                         dataGridView1.Columns[5].HeaderText = "受注完了";
                         dataGridView1.Columns[6].HeaderText = "注文キャンセル";
                         dataGridView1.Columns[7].HeaderText = "出荷完了";
+
+                        initializing = false;
                     }));
                 }
                 catch (ObjectDisposedException _)
