@@ -98,6 +98,55 @@ namespace SysDev2019
                     var p = DatabaseInstance.ProductTable.Where(e => e.ProductId == prod[0]).FirstOrDefault();
                     if (p != null)
                     {
+                        var stockCnt = DatabaseInstance.StockTable.Where(e => e.ProductId == p.ProductId)
+                            .Sum(s => s.StockQuantity);
+                        if (stockCnt < count.Value)
+                        {
+                            MessageBox.Show("在庫数が不足しています", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        var stocks = DatabaseInstance.StockTable.Where(e => e.ProductId == p.ProductId);
+                        var diffs = (int) count.Value;
+                        foreach (Stock stock in stocks)
+                        {
+                            var diffAny = stock.StockQuantity;
+                            if (diffAny >= diffs)
+                            {
+                                stock.StockQuantity -= diffs;
+                                break;
+                            }
+
+                            diffs -= diffAny;
+                            stock.StockQuantity = 0;
+                            if (diffs == 0)
+                                break;
+                        }
+
+                        stockCnt = DatabaseInstance.StockTable.Where(e => e.ProductId == p.ProductId)
+                            .Sum(s => s.StockQuantity);
+                        var orderingPointCnt = DatabaseInstance.StockTable
+                            .Where(e => e.ProductId == p.ProductId && e.ReorderPoint != -1).Sum(s => s.ReorderPoint);
+                        if (orderingPointCnt >= stockCnt)
+                        {
+                            var reorderCnt = DatabaseInstance.StockTable
+                                .Where(e => e.ProductId == p.ProductId && e.OrderQuantity != -1)
+                                .Sum(s => s.OrderQuantity);
+                            var reorder = reorderCnt - stockCnt;
+                            var ordering = new Ordering
+                            {
+                                OrderingId = Guid.NewGuid().ToString(),
+                                ProductId = p.ProductId,
+                                EmployeeId = "3000",
+                                OrderingVolume = reorder,
+                                OrderingDate = DateTime.Now.ToString()
+                            };
+
+                            DatabaseInstance.OrderingTable.Insert(ordering);
+                            DatabaseInstance.OrderingTable.Sync();
+                        }
+
+
                         var order = new Order
                         {
                             OrderId = Guid.NewGuid().ToString(),
@@ -120,6 +169,7 @@ namespace SysDev2019
                 }
             }
         }
+
 
         private void OrderEntryForm_Shown(object sender, EventArgs e)
         {
