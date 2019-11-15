@@ -75,9 +75,9 @@ namespace SysDev2019
                         dataGridView1.Columns[0].HeaderText = "発注ID";
                         dataGridView1.Columns[1].HeaderText = "商品ID";
                         dataGridView1.Columns[2].HeaderText = "社員ID";
-                        dataGridView1.Columns[3].HeaderText = "受注量";
-                        dataGridView1.Columns[4].HeaderText = "受注日";
-                        dataGridView1.Columns[5].HeaderText = "受注完了";
+                        dataGridView1.Columns[3].HeaderText = "発注量";
+                        dataGridView1.Columns[4].HeaderText = "発注日";
+                        dataGridView1.Columns[5].HeaderText = "発注完了";
                         dataGridView1.Columns[6].HeaderText = "受け取り完了";
 
                         initializing = false;

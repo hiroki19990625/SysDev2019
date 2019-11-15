@@ -38,32 +38,32 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("MS UI Gothic", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label1.Location = new System.Drawing.Point(427, 50);
-            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label1.Location = new System.Drawing.Point(263, 31);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(412, 64);
+            this.label1.Size = new System.Drawing.Size(257, 40);
             this.label1.TabIndex = 1;
             this.label1.Text = "受注確認画面";
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToOrderColumns = true;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(47, 134);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(5);
+            this.dataGridView1.Location = new System.Drawing.Point(29, 84);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 82;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(1190, 453);
+            this.dataGridView1.Size = new System.Drawing.Size(732, 283);
             this.dataGridView1.TabIndex = 3;
             this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
             // 
             // filterButton
             // 
             this.filterButton.Font = new System.Drawing.Font("MS UI Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.filterButton.Location = new System.Drawing.Point(450, 616);
-            this.filterButton.Margin = new System.Windows.Forms.Padding(5);
+            this.filterButton.Location = new System.Drawing.Point(277, 385);
             this.filterButton.Name = "filterButton";
-            this.filterButton.Size = new System.Drawing.Size(346, 90);
+            this.filterButton.Size = new System.Drawing.Size(213, 56);
             this.filterButton.TabIndex = 8;
             this.filterButton.Text = "絞り込み";
             this.filterButton.UseVisualStyleBackColor = true;
@@ -71,15 +71,14 @@
             // 
             // OpenOrder_Confirmation_Form
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(1300, 720);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.filterButton);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(5);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "OpenOrder_Confirmation_Form";
