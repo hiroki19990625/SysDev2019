@@ -1,8 +1,11 @@
-﻿using System;
+﻿using LogAdapter;
+using NLog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Logger = NLog.Logger;
 
 namespace SysDev2019
 {
@@ -14,6 +17,8 @@ namespace SysDev2019
         [STAThread]
         static void Main()
         {
+            var _ = DatabaseInstance.Database;
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.ThreadException += (sender, args) =>

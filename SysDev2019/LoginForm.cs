@@ -9,6 +9,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NLog;
+using NLogger = NLog.Logger;
 
 namespace SysDev2019
 {
@@ -17,9 +19,6 @@ namespace SysDev2019
         public LoginForm()
         {
             InitializeComponent();
-
-            var _ = DatabaseInstance.Database;
-            _.AddLogEvent(OnLog);
         }
 
         public bool Login(string employeeId, string password)
@@ -131,11 +130,6 @@ namespace SysDev2019
         private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             // DatabaseInstance.Database.Dispose();
-        }
-
-        private void OnLog(ILogMessage msg)
-        {
-            // MessageBox.Show(msg.Data.ToString());
         }
 
         private void Employeenumber_KeyDown(object sender, KeyEventArgs e)
