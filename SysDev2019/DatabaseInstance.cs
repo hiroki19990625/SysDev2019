@@ -1,10 +1,15 @@
-﻿using ObjectDatabase;
+﻿using LogAdapter;
+using NLog;
+using ObjectDatabase;
 using SysDev2019.DataModels;
+using Logger = NLog.Logger;
 
 namespace SysDev2019
 {
     public static class DatabaseInstance
     {
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
+
         public static readonly ObjectDatabase.ObjectDatabase Database;
 
         public static readonly DataTable<Product> ProductTable;
@@ -17,7 +22,7 @@ namespace SysDev2019
 
         static DatabaseInstance()
         {
-            Database = new ObjectDatabase.ObjectDatabase("SysDev2019.accdb");
+            Database = new ObjectDatabase.ObjectDatabase("SysDev2019.accdb", logCallback: OnLog);
             ProductTable = new DataTable<Product>("商品");
             ManufacturerTable = new DataTable<Manufacturer>("メーカー");
             DepartmentTable = new DataTable<Department>("部署");
@@ -40,6 +45,11 @@ namespace SysDev2019
             OrderingTable.Union(ProductTable, "ProductId");
             OrderingTable.Union(EmployeeTable, "EmployeeId");
             StockTable.Union(ProductTable);
+        }
+
+        private static void OnLog(ILogMessage msg)
+        {
+            _logger.Info(msg.Data);
         }
     }
 }
