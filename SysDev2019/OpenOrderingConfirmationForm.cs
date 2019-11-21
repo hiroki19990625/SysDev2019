@@ -181,19 +181,19 @@ namespace SysDev2019
             Patagames.Pdf.Net.PdfDocument pdf = Patagames.Pdf.Net.PdfDocument.Load(pdfFile);
             PdfPrintDocument document = new PdfPrintDocument(pdf);
 
-            PrintDialog dialog = new PrintDialog {Document = document};
-            dialog.HelpRequest += DialogOnHelpRequest;
-            dialog.ShowHelp = true;
-            dialog.ShowDialog();
-            document.Dispose();
-        }
-
-        private void DialogOnHelpRequest(object sender, EventArgs e)
-        {
-            Patagames.Pdf.Net.PdfDocument pdf = Patagames.Pdf.Net.PdfDocument.Load(pdfFile);
-            PdfPrintDocument document = new PdfPrintDocument(pdf);
-
             PrintPreviewDialog dialog = new PrintPreviewDialog {Document = document};
+            ToolStrip toolStrip = dialog.Controls[1] as ToolStrip;
+            toolStrip?.Items.RemoveAt(9);
+            toolStrip?.Items.Add(new ToolStripButton("詳細設定", null, (s, ev) =>
+            {
+                PrintDialog print = new PrintDialog {Document = document, UseEXDialog = true};
+                if (print.ShowDialog() == DialogResult.OK)
+                {
+                    ToolStripButton button = toolStrip.Items[0] as ToolStripButton;
+                    button?.PerformClick();
+                }
+            }));
+            dialog.WindowState = FormWindowState.Maximized;
             dialog.ShowDialog();
             document.Dispose();
         }
