@@ -92,6 +92,7 @@
             this.printing.TabIndex = 10;
             this.printing.Text = "発注表の印刷";
             this.printing.UseVisualStyleBackColor = true;
+            this.printing.Click += new System.EventHandler(this.printing_Click);
             // 
             // OpenOrderingConfirmationForm
             // 

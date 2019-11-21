@@ -4,20 +4,37 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BinaryIO;
+using iText.Kernel.Font;
+using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Canvas;
+using iText.Kernel.Pdf.Xobject;
+using iText.Layout;
+using iText.Layout.Element;
+using Patagames.Pdf.Net.Controls.WinForms;
+using Image = iText.Layout.Element.Image;
 
 namespace SysDev2019
 {
     public partial class OpenOrderingConfirmationForm : Form
     {
+        private string pdfFile;
         private string employeeId;
         private bool OpenOrdering;
         private bool initializing;
 
         public bool CloseFlag = true;
+
+        static OpenOrderingConfirmationForm()
+        {
+        }
+
         public OpenOrderingConfirmationForm(string employeeId, bool OpenOrdering = false)
         {
             InitializeComponent();
@@ -38,7 +55,6 @@ namespace SysDev2019
 
         private void label1_Click(object sender, EventArgs e)
         {
-
         }
 
         private void filterButton_Click(object sender, EventArgs e)
@@ -48,14 +64,15 @@ namespace SysDev2019
 
         private void OpenOrderingConfirmationForm_Load(object sender, EventArgs e)
         {
-
         }
+
         public void InitializeOrderingList()
         {
             Task.Run(() =>
             {
-                var orders = DatabaseInstance.OrderingTable.Where(e => e.EmployeeId == employeeId || e.EmployeeId == "3000").ToArray();
-               
+                var orders = DatabaseInstance.OrderingTable
+                    .Where(e => e.EmployeeId == employeeId || e.EmployeeId == "3000").ToArray();
+
                 try
                 {
                     Invoke(new AsyncAction(() =>
@@ -88,7 +105,6 @@ namespace SysDev2019
                     // ignore
                 }
             });
-
         }
 
         delegate void AsyncAction();
@@ -128,16 +144,19 @@ namespace SysDev2019
 
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (!initializing) { 
+            if (!initializing)
+            {
                 DatabaseInstance.OrderingTable.Sync();
                 if (e.ColumnIndex == 6)
                 {
-                    var check = (bool)dataGridView1[e.ColumnIndex, e.RowIndex].Value;
-                    var orderingId = (string)dataGridView1[0, e.RowIndex].Value;
-                    var ordering = DatabaseInstance.OrderingTable.Where(el => el.OrderingId == orderingId).FirstOrDefault();
+                    var check = (bool) dataGridView1[e.ColumnIndex, e.RowIndex].Value;
+                    var orderingId = (string) dataGridView1[0, e.RowIndex].Value;
+                    var ordering = DatabaseInstance.OrderingTable.Where(el => el.OrderingId == orderingId)
+                        .FirstOrDefault();
                     if (ordering != null)
                     {
-                        if (check && MessageBox.Show("在庫を自動的に追加しますか?", "情報", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                        if (check && MessageBox.Show("在庫を自動的に追加しますか?", "情報", MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Information) == DialogResult.Yes)
                         {
                             var stock = new Stock
                             {
@@ -154,6 +173,57 @@ namespace SysDev2019
                 }
             }
         }
+
+        private void printing_Click(object sender, EventArgs e)
+        {
+            pdfFile = CreateDocument();
+
+            Patagames.Pdf.Net.PdfDocument pdf = Patagames.Pdf.Net.PdfDocument.Load(pdfFile);
+            PdfPrintDocument document = new PdfPrintDocument(pdf);
+
+            PrintDialog dialog = new PrintDialog {Document = document};
+            dialog.HelpRequest += DialogOnHelpRequest;
+            dialog.ShowHelp = true;
+            dialog.ShowDialog();
+            document.Dispose();
+        }
+
+        private void DialogOnHelpRequest(object sender, EventArgs e)
+        {
+            Patagames.Pdf.Net.PdfDocument pdf = Patagames.Pdf.Net.PdfDocument.Load(pdfFile);
+            PdfPrintDocument document = new PdfPrintDocument(pdf);
+
+            PrintPreviewDialog dialog = new PrintPreviewDialog {Document = document};
+            dialog.ShowDialog();
+            document.Dispose();
+        }
+
+        public string CreateDocument()
+        {
+            if (!Directory.Exists("Docs"))
+                Directory.CreateDirectory("Docs");
+
+            string file = $"Docs/帳票_{DateTime.Now.Ticks}_(メーカー).pdf";
+            var stream = new MemoryStream();
+            PdfWriter writer = new PdfWriter(stream);
+
+            PdfFont font = PdfFontFactory.CreateFont("c:\\windows\\fonts\\msgothic.ttc,0", "Identity-H");
+
+            PdfDocument pdf = new PdfDocument(writer);
+            Document d = new Document(pdf);
+
+            d.Add(new Paragraph("シベリア送り～").SetFont(font).SetFontSize(20));
+            d.Add(new Paragraph(DateTime.Now.Ticks.ToString()).SetFont(font).SetFontSize(25));
+
+            pdf.Close();
+            d.Close();
+            writer.Close();
+
+            File.WriteAllBytes(file, stream.ToArray());
+
+            stream.Close();
+
+            return file;
+        }
     }
 }
-
