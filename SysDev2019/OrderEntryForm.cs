@@ -163,9 +163,6 @@ namespace SysDev2019
 
                         MessageBox.Show("注文を完了しました", "情報", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                        product.Text = "";
-                        count.Text = "";
-
                         product.Focus();
                     }
                 }
