@@ -135,11 +135,11 @@
     <Compile Include="DataModels\Ordering.cs" />
     <Compile Include="DataModels\Product.cs" />
     <Compile Include="DataModels\Stock.cs" />
-    <Compile Include="Filter_SearchForm.cs">
+    <Compile Include="FilterSearchForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Filter_SearchForm.Designer.cs">
-      <DependentUpon>Filter_SearchForm.cs</DependentUpon>
+    <Compile Include="FilterSearchForm.Designer.cs">
+      <DependentUpon>FilterSearchForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
@@ -203,8 +203,8 @@
     <Content Include="x86\pdfium.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Filter_SearchForm.resx">
-      <DependentUpon>Filter_SearchForm.cs</DependentUpon>
+    <EmbeddedResource Include="FilterSearchForm.resx">
+      <DependentUpon>FilterSearchForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>

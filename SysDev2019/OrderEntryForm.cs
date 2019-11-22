@@ -56,10 +56,12 @@ namespace SysDev2019
                     catch (ObjectDisposedException)
                     {
                         // ignore
+                        break;
                     }
                     catch (InvalidOperationException)
                     {
                         // ignore
+                        break;
                     }
                 }
             }, TaskCreationOptions.LongRunning);

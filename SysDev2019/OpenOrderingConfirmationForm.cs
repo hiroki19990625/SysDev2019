@@ -17,6 +17,7 @@ using iText.Kernel.Pdf.Canvas;
 using iText.Kernel.Pdf.Xobject;
 using iText.Layout;
 using iText.Layout.Element;
+using ObjectDatabase;
 using Patagames.Pdf.Net.Controls.WinForms;
 using Image = iText.Layout.Element.Image;
 
@@ -28,6 +29,8 @@ namespace SysDev2019
         private string employeeId;
         private bool OpenOrdering;
         private bool initializing;
+
+        private BindingList<Ordering> bindingList = new BindingList<Ordering>();
 
         public bool CloseFlag = true;
 
@@ -47,10 +50,17 @@ namespace SysDev2019
         {
             Visible = false;
 
-            Filter_SearchForm filter_SearchForm = new Filter_SearchForm(employeeId);
+            FilterSearchForm filter_SearchForm = new FilterSearchForm(DatabaseInstance.OrderingTable.ToArray());
             filter_SearchForm.ShowDialog();
 
-            Close();
+            Visible = true;
+
+            bindingList.Clear();
+            foreach (DataModel model in filter_SearchForm.Result)
+            {
+                if (model is Ordering ordering)
+                    bindingList.Add(ordering);
+            }
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -76,7 +86,12 @@ namespace SysDev2019
                     Invoke(new AsyncAction(() =>
                     {
                         initializing = true;
-                        dataGridView1.DataSource = orders;
+                        dataGridView1.DataSource = bindingList;
+                        foreach (Ordering ordering in orders)
+                        {
+                            bindingList.Add(ordering);
+                        }
+
                         var cols = dataGridView1.Columns;
                         cols.RemoveAt(cols.Count - 1);
                         cols.RemoveAt(cols.Count - 1);

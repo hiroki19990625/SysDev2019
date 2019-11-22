@@ -14,6 +14,7 @@ namespace SysDev2019
     {
         private string employeeId;
         private bool initializing;
+
         public OpenOrder_Confirmation_Form(string employeeId)
         {
             InitializeComponent();
@@ -25,7 +26,8 @@ namespace SysDev2019
         {
             Visible = false;
 
-            Filter_SearchForm filter_SearchForm = new Filter_SearchForm(employeeId);
+            FilterSearchForm filter_SearchForm =
+                new FilterSearchForm(DatabaseInstance.OrderTable.ToArray());
             filter_SearchForm.ShowDialog();
 
             Close();
@@ -38,12 +40,10 @@ namespace SysDev2019
 
         private void OpenOrder_Confirmation_Form_Load(object sender, EventArgs e)
         {
-
         }
 
         private void backButton_Click(object sender, EventArgs e)
         {
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -92,7 +92,6 @@ namespace SysDev2019
                     // ignore
                 }
             });
-
         }
 
         delegate void AsyncAction();
