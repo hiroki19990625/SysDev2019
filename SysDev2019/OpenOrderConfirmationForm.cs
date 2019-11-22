@@ -55,7 +55,7 @@ namespace SysDev2019
         {
             Task.Run(() =>
             {
-                var orders = DatabaseInstance.OrderTable.ToArray();
+                var orders = DatabaseInstance.OrderTable.Where(e => !e.ShipmentCompleted).ToArray();
 
                 try
                 {

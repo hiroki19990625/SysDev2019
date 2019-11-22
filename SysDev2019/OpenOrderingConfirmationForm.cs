@@ -70,9 +70,7 @@ namespace SysDev2019
         {
             Task.Run(() =>
             {
-                var orders = DatabaseInstance.OrderingTable
-                    .Where(e => e.EmployeeId == employeeId || e.EmployeeId == "3000").ToArray();
-
+                var orders = DatabaseInstance.OrderingTable.Where(e => (e.EmployeeId == employeeId || e.EmployeeId == "3000") && !e.ReceiptComplete).ToArray();
                 try
                 {
                     Invoke(new AsyncAction(() =>
