@@ -80,9 +80,7 @@ namespace SysDev2019
         {
             Task.Run(() =>
             {
-                var orders = DatabaseInstance.OrderingTable
-                    .Where(e => e.EmployeeId == employeeId || e.EmployeeId == "3000").ToArray();
-
+                var orders = DatabaseInstance.OrderingTable.Where(e => (e.EmployeeId == employeeId || e.EmployeeId == "3000") && !e.ReceiptComplete).ToArray();
                 try
                 {
                     Invoke(new AsyncAction(() =>
@@ -227,8 +225,12 @@ namespace SysDev2019
             PdfDocument pdf = new PdfDocument(writer);
             Document d = new Document(pdf);
 
-            d.Add(new Paragraph("シベリア送り～").SetFont(font).SetFontSize(20));
-            d.Add(new Paragraph(DateTime.Now.Ticks.ToString()).SetFont(font).SetFontSize(25));
+            d.Add(new Paragraph($"発注書作成日： {DateTime.Today.ToString("yyyy/MM/dd")}" ).SetFont(font).SetFontSize(15).SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT));
+            d.Add(new Paragraph($"注文番号：{DateTime.Now.Ticks.ToString()}").SetFont(font).SetFontSize(15).SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT));
+            d.Add(new Paragraph("発注書").SetFont(font).SetFontSize(30).SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
+            d.Add(new Paragraph($"　様").SetFont(font).SetFontSize(22).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT));
+            d.Add(new Paragraph($"発注金額  円").SetFont(font).SetFontSize(25).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT));
+            d.Add(new Paragraph($"下記の通り発注致します。").SetFont(font).SetFontSize(15).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT));
 
             Table table = new Table(dataGridView1.ColumnCount - 2);
             table.SetFont(font).SetFontSize(15);
