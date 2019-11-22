@@ -13,6 +13,7 @@ namespace SysDev2019
     public partial class OpenStockListForm : Form
     {
         private string employeeId;
+
         public OpenStockListForm(string employeeId)
         {
             InitializeComponent();
@@ -31,7 +32,7 @@ namespace SysDev2019
         public void OpenFilter_SearchForm()
         {
             Visible = false;
-            Filter_SearchForm filter_SearchForm = new Filter_SearchForm(employeeId);
+            FilterSearchForm filter_SearchForm = new FilterSearchForm(DatabaseInstance.StockTable.ToArray());
             filter_SearchForm.ShowDialog();
             Close();
         }
@@ -48,7 +49,6 @@ namespace SysDev2019
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
         }
 
         public void InitializeStockList()
@@ -56,7 +56,7 @@ namespace SysDev2019
             Task.Run(() =>
             {
                 var orders = DatabaseInstance.StockTable.ToArray();
-                
+
                 try
                 {
                     Invoke(new AsyncAction(() =>
@@ -71,12 +71,10 @@ namespace SysDev2019
                         dataGridView1.Columns[3].HeaderText = "発注点";
                         dataGridView1.Columns[4].HeaderText = "発注点量";
 
-                        
 
                         dataGridView1.Columns[0].ReadOnly = true;
                         dataGridView1.Columns[1].ReadOnly = true;
                         dataGridView1.Columns[2].ReadOnly = true;
-
                     }));
                 }
                 catch (ObjectDisposedException _)
@@ -84,7 +82,6 @@ namespace SysDev2019
                     // ignore
                 }
             });
-
         }
 
         delegate void AsyncAction();
@@ -96,7 +93,6 @@ namespace SysDev2019
 
         private void OpenStockListForm_Load(object sender, EventArgs e)
         {
-
         }
     }
 }

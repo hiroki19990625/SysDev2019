@@ -17,6 +17,7 @@ namespace SysDev2019
         private bool initializing;
 
         public bool CloseFlag = true;
+
         public OrderConfirmForm(string employeeId, bool openEntry = false)
         {
             InitializeComponent();
@@ -29,7 +30,7 @@ namespace SysDev2019
         {
             Visible = false;
 
-            Filter_SearchForm filter_SearchForm = new Filter_SearchForm(employeeId);
+            FilterSearchForm filter_SearchForm = new FilterSearchForm(DatabaseInstance.OrderTable.ToArray());
             filter_SearchForm.ShowDialog();
 
             Close();
@@ -65,7 +66,6 @@ namespace SysDev2019
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
         }
 
         private void OrderConfirmForm_Shown(object sender, EventArgs e)
@@ -78,7 +78,7 @@ namespace SysDev2019
             Task.Run(() =>
             {
                 var orders = DatabaseInstance.OrderTable.Where(e => e.EmployeeId == employeeId).ToArray();
-               
+
                 try
                 {
                     Invoke(new AsyncAction(() =>
@@ -115,14 +115,12 @@ namespace SysDev2019
                     // ignore
                 }
             });
-
         }
 
         delegate void AsyncAction();
 
         private void OrderConfirmForm_Load(object sender, EventArgs e)
         {
-
         }
 
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
