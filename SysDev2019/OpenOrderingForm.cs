@@ -109,6 +109,7 @@ namespace SysDev2019
             Ordering();
 
             product.SelectedIndex = -1;
+            Manufacturer.SelectedIndex = -1;
             count.Value = 1;
         }
 
@@ -116,6 +117,7 @@ namespace SysDev2019
         {
             Ordering();
             product.SelectedIndex = -1;
+            Manufacturer.SelectedIndex = -1;
             count.Value = 1;
 
             OpenOrderingConfirmationForm();
@@ -145,10 +147,6 @@ namespace SysDev2019
                         DatabaseInstance.OrderingTable.Sync();
 
                         MessageBox.Show("発注を完了しました", "情報", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        Manufacturer.Text = "";
-                        product.Text = "";
-                        count.Text = "";
 
                         Manufacturer.Focus();
                     }
