@@ -215,6 +215,30 @@ namespace SysDev2019
             d.Add(new Paragraph("シベリア送り～").SetFont(font).SetFontSize(20));
             d.Add(new Paragraph(DateTime.Now.Ticks.ToString()).SetFont(font).SetFontSize(25));
 
+            Table table = new Table(dataGridView1.ColumnCount - 2);
+            table.SetFont(font).SetFontSize(15);
+            foreach (DataGridViewColumn col in dataGridView1.Columns)
+            {
+                if (col.Index == 5)
+                    break;
+                Cell c = new Cell();
+                c.SetWidth(col.Width);
+                c.Add(new Paragraph(col.HeaderText));
+                table.AddHeaderCell(c);
+            }
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                foreach (DataGridViewColumn column in dataGridView1.Columns)
+                {
+                    if (column.Index == 5)
+                        break;
+                    table.AddCell(row.Cells[column.Index].Value.ToString());
+                }
+            }
+
+            d.Add(table);
+
             pdf.Close();
             d.Close();
             writer.Close();
