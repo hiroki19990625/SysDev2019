@@ -61,6 +61,7 @@
             this.Manufacturer.Name = "Manufacturer";
             this.Manufacturer.Size = new System.Drawing.Size(209, 31);
             this.Manufacturer.TabIndex = 4;
+            this.Manufacturer.SelectedIndexChanged += new System.EventHandler(this.Manufacturer_SelectedIndexChanged);
             this.Manufacturer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Manufacturer_KeyDown);
             this.Manufacturer.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Manufacturer_KeyPress);
             // 

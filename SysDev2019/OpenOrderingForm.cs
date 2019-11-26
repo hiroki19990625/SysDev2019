@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -14,6 +15,9 @@ namespace SysDev2019
     public partial class OpenOrderingForm : Form
     {
         private string employeeId;
+        private readonly CancellationTokenSource _tokenSource = new CancellationTokenSource();
+        private readonly CancellationTokenSource _tokenSource2 = new CancellationTokenSource();
+        private CancellationTokenSource _tokenSource3 = new CancellationTokenSource();
 
         public OpenOrderingForm(string employeeId)
         {
@@ -46,6 +50,7 @@ namespace SysDev2019
                 var manufacturers = DatabaseInstance.ManufacturerTable.ToArray();
                 foreach (var manufacturer in manufacturers)
                 {
+                    _tokenSource.Token.ThrowIfCancellationRequested();
                     try
                     {
                         Invoke(new AsyncAction(() =>
@@ -65,7 +70,7 @@ namespace SysDev2019
                         break;
                     }
                 }
-            }, TaskCreationOptions.LongRunning);
+            }, _tokenSource.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
         }
 
 
@@ -76,6 +81,7 @@ namespace SysDev2019
                 var products = DatabaseInstance.ProductTable.ToArray();
                 foreach (var product in products)
                 {
+                    _tokenSource2.Token.ThrowIfCancellationRequested();
                     try
                     {
                         Invoke(new AsyncAction(() =>
@@ -94,7 +100,7 @@ namespace SysDev2019
                         break;
                     }
                 }
-            }, TaskCreationOptions.LongRunning);
+            }, _tokenSource2.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
         }
 
         delegate void AsyncAction();
@@ -205,6 +211,51 @@ namespace SysDev2019
             if (e.KeyChar == (char) Keys.Enter)
             {
                 e.Handled = true;
+            }
+        }
+
+        private void Manufacturer_SelectedIndexChanged(object sender, EventArgs ev)
+        {
+            if (Manufacturer.SelectedIndex != -1)
+            {
+                var manu = Manufacturer.Text.Split(':');
+
+                if (manu.Length > 0)
+                {
+                    _tokenSource2.Cancel();
+                    _tokenSource3.Cancel();
+
+                    _tokenSource3.Dispose();
+                    _tokenSource3 = new CancellationTokenSource();
+
+                    product.Items.Clear();
+
+                    Task.Factory.StartNew(() =>
+                    {
+                        var products = DatabaseInstance.ProductTable.Where(e => e.ManufacturerId == manu[0]);
+                        foreach (var product in products)
+                        {
+                            _tokenSource3.Token.ThrowIfCancellationRequested();
+                            try
+                            {
+                                Invoke(new AsyncAction(() =>
+                                {
+                                    this.product.Items.Add($"{product.ProductId}:{product.ProductName}");
+                                }));
+                            }
+                            catch (ObjectDisposedException)
+                            {
+                                // ignore
+                                break;
+                            }
+                            catch (InvalidOperationException)
+                            {
+                                // ignore
+                                break;
+                            }
+                        }
+                    }, _tokenSource3.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
+                }
             }
         }
     }
