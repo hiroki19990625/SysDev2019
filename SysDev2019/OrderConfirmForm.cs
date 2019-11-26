@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ObjectDatabase;
+using SysDev2019.DataModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,7 +18,10 @@ namespace SysDev2019
         private bool openEntry;
         private bool initializing;
 
+        private BindingList<Order> bindingList = new BindingList<Order>();
+
         public bool CloseFlag = true;
+        private Order order;
 
         public OrderConfirmForm(string employeeId, bool openEntry = false)
         {
@@ -33,7 +38,15 @@ namespace SysDev2019
             FilterSearchForm filter_SearchForm = new FilterSearchForm(DatabaseInstance.OrderTable.ToArray());
             filter_SearchForm.ShowDialog();
 
-            Close();
+            Visible = true;
+            bindingList.Clear();
+            foreach (DataModel model in filter_SearchForm.Result)
+            {
+                if (model is Order order)
+                    bindingList.Add(order);
+            }
+
+
         }
 
         private void backButton_Click(object sender, EventArgs e)
@@ -84,7 +97,11 @@ namespace SysDev2019
                     Invoke(new AsyncAction(() =>
                     {
                         initializing = true;
-                        dataGridView1.DataSource = orders;
+                        dataGridView1.DataSource = bindingList;
+                        foreach (Order order in orders)
+                        {
+                            bindingList.Add(order);
+                        }
                         var cols = dataGridView1.Columns;
                         cols.RemoveAt(cols.Count - 1);
                         cols.RemoveAt(cols.Count - 1);

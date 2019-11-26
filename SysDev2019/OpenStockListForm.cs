@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ObjectDatabase;
+using SysDev2019.DataModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,6 +15,10 @@ namespace SysDev2019
     public partial class OpenStockListForm : Form
     {
         private string employeeId;
+        private bool initializing;
+
+        private BindingList<Stock> bindingList = new BindingList<Stock>();
+        public bool CloseFlag = true;
 
         public OpenStockListForm(string employeeId)
         {
@@ -32,9 +38,18 @@ namespace SysDev2019
         public void OpenFilter_SearchForm()
         {
             Visible = false;
+
             FilterSearchForm filter_SearchForm = new FilterSearchForm(DatabaseInstance.StockTable.ToArray());
             filter_SearchForm.ShowDialog();
-            Close();
+
+            Visible = true;
+
+            bindingList.Clear();
+            foreach (DataModel model in filter_SearchForm.Result)
+            {
+                if (model is Stock stock)
+                    bindingList.Add(stock);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -61,6 +76,13 @@ namespace SysDev2019
                 {
                     Invoke(new AsyncAction(() =>
                     {
+                        initializing = true;
+                        dataGridView1.DataSource = bindingList;
+                        foreach (Stock stock in orders)
+                        {
+                            bindingList.Add(stock);
+                        }
+
                         dataGridView1.DataSource = orders;
                         var cols = dataGridView1.Columns;
                         cols.RemoveAt(cols.Count - 1);
@@ -75,6 +97,8 @@ namespace SysDev2019
                         dataGridView1.Columns[0].ReadOnly = true;
                         dataGridView1.Columns[1].ReadOnly = true;
                         dataGridView1.Columns[2].ReadOnly = true;
+
+                        initializing = false;
                     }));
                 }
                 catch (ObjectDisposedException _)

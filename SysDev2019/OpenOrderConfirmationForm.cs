@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ObjectDatabase;
+using SysDev2019.DataModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,25 +14,38 @@ namespace SysDev2019
 {
     public partial class OpenOrder_Confirmation_Form : Form
     {
+        private string pdfFile;
         private string employeeId;
+        private bool OpenOrder;
         private bool initializing;
+
+        private BindingList<Order> bindingList = new BindingList<Order>();
+        public bool CloseFlag = true;
 
         public OpenOrder_Confirmation_Form(string employeeId)
         {
             InitializeComponent();
 
             this.employeeId = employeeId;
+            
+
         }
 
         public void OpenFilter_SearchForm()
         {
             Visible = false;
 
-            FilterSearchForm filter_SearchForm =
-                new FilterSearchForm(DatabaseInstance.OrderTable.ToArray());
+            FilterSearchForm filter_SearchForm = new FilterSearchForm(DatabaseInstance.OrderTable.ToArray());
             filter_SearchForm.ShowDialog();
 
-            Close();
+            Visible = true;
+
+            bindingList.Clear();
+            foreach (DataModel model in filter_SearchForm.Result)
+            {
+                if (model is Order order)
+                    bindingList.Add(order);
+            }
         }
 
         public OpenOrder_Confirmation_Form()
@@ -62,7 +77,13 @@ namespace SysDev2019
                     Invoke(new AsyncAction(() =>
                     {
                         initializing = true;
-                        dataGridView1.DataSource = orders;
+                        dataGridView1.DataSource = bindingList;
+
+                        foreach (Order order in orders)
+                        {
+                            bindingList.Add(order);
+                        }
+
                         var cols = dataGridView1.Columns;
                         cols.RemoveAt(cols.Count - 1);
                         cols.RemoveAt(cols.Count - 1);
@@ -110,5 +131,9 @@ namespace SysDev2019
         {
             DatabaseInstance.OrderTable.Sync();
         }
+    }
+
+    internal class Confirmation
+    {
     }
 }
