@@ -126,7 +126,9 @@ namespace SysDev2019
                         }
 
                         stockCnt = DatabaseInstance.StockTable.Where(e => e.ProductId == p.ProductId)
-                            .Sum(s => s.StockQuantity);
+                                       .Sum(s => s.StockQuantity) + DatabaseInstance.OrderingTable
+                                       .Where(e => e.ProductId == p.ProductId && !e.ReceiptComplete)
+                                       .Sum(s => s.OrderingVolume);
                         var orderingPointCnt = DatabaseInstance.StockTable
                             .Where(e => e.ProductId == p.ProductId && e.ReorderPoint != -1).Sum(s => s.ReorderPoint);
                         if (orderingPointCnt >= stockCnt)

@@ -25,7 +25,7 @@ namespace SysDev2019
 {
     public partial class OpenOrderingConfirmationForm : Form
     {
-        private string pdfFile;
+        private (string, string)[] pdfFile;
         private string employeeId;
         private bool OpenOrdering;
         private bool initializing;
@@ -80,7 +80,8 @@ namespace SysDev2019
         {
             Task.Run(() =>
             {
-                var orders = DatabaseInstance.OrderingTable.Where(e => (e.EmployeeId == employeeId || e.EmployeeId == "3000") && !e.ReceiptComplete).ToArray();
+                var orders = DatabaseInstance.OrderingTable.Where(e =>
+                    (e.EmployeeId == employeeId || e.EmployeeId == "3000") && !e.ReceiptComplete).ToArray();
                 try
                 {
                     Invoke(new AsyncAction(() =>
@@ -191,80 +192,84 @@ namespace SysDev2019
         {
             pdfFile = CreateDocument();
 
-            Patagames.Pdf.Net.PdfDocument pdf = Patagames.Pdf.Net.PdfDocument.Load(pdfFile);
-            PdfPrintDocument document = new PdfPrintDocument(pdf);
-
-            PrintPreviewDialog dialog = new PrintPreviewDialog {Document = document};
-            ToolStrip toolStrip = dialog.Controls[1] as ToolStrip;
-            toolStrip?.Items.RemoveAt(9);
-            toolStrip?.Items.Add(new ToolStripButton("詳細設定", null, (s, ev) =>
-            {
-                PrintDialog print = new PrintDialog {Document = document, UseEXDialog = true};
-                if (print.ShowDialog() == DialogResult.OK)
-                {
-                    ToolStripButton button = toolStrip.Items[0] as ToolStripButton;
-                    button?.PerformClick();
-                }
-            }));
-            dialog.WindowState = FormWindowState.Maximized;
+            PrintFilesDialog dialog = new PrintFilesDialog(pdfFile);
             dialog.ShowDialog();
-            document.Dispose();
         }
 
-        public string CreateDocument()
+        public (string, string)[] CreateDocument()
         {
             if (!Directory.Exists("Docs"))
                 Directory.CreateDirectory("Docs");
 
-            string file = $"Docs/帳票_{DateTime.Now.Ticks}_(メーカー).pdf";
-            var stream = new MemoryStream();
-            PdfWriter writer = new PdfWriter(stream);
+            var prod = DatabaseInstance.ProductTable.ToArray();
+            var manifs = DatabaseInstance.OrderingTable.Where(e =>
+                !e.OrderingCompleted && (e.EmployeeId == employeeId || e.EmployeeId == "3000")).GroupBy(e =>
+                prod.First(e1 => e1.ProductId == e.ProductId).Manufacturer.ManufacturerName);
 
-            PdfFont font = PdfFontFactory.CreateFont("c:\\windows\\fonts\\msgothic.ttc,0", "Identity-H");
-
-            PdfDocument pdf = new PdfDocument(writer);
-            Document d = new Document(pdf);
-
-            d.Add(new Paragraph($"発注書作成日： {DateTime.Today.ToString("yyyy/MM/dd")}" ).SetFont(font).SetFontSize(15).SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT));
-            d.Add(new Paragraph($"注文番号：{DateTime.Now.Ticks.ToString()}").SetFont(font).SetFontSize(15).SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT));
-            d.Add(new Paragraph("発注書").SetFont(font).SetFontSize(30).SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
-            d.Add(new Paragraph($"　様").SetFont(font).SetFontSize(22).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT));
-            d.Add(new Paragraph($"発注金額  円").SetFont(font).SetFontSize(25).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT));
-            d.Add(new Paragraph($"下記の通り発注致します。").SetFont(font).SetFontSize(15).SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT));
-
-            Table table = new Table(dataGridView1.ColumnCount - 2);
-            table.SetFont(font).SetFontSize(15);
-            foreach (DataGridViewColumn col in dataGridView1.Columns)
+            var files = new List<(string, string)>();
+            string folder = "Docs/" + DateTime.Now.Ticks;
+            foreach (IGrouping<string, Ordering> manif in manifs)
             {
-                if (col.Index == 5)
-                    break;
-                Cell c = new Cell();
-                c.SetWidth(col.Width);
-                c.Add(new Paragraph(col.HeaderText));
-                table.AddHeaderCell(c);
-            }
+                Directory.CreateDirectory(folder);
 
-            foreach (DataGridViewRow row in dataGridView1.Rows)
-            {
-                foreach (DataGridViewColumn column in dataGridView1.Columns)
+                string file = $"{folder}/帳票_({manif.Key}).pdf";
+                var stream = new MemoryStream();
+                PdfWriter writer = new PdfWriter(stream);
+
+                PdfFont font = PdfFontFactory.CreateFont("c:\\windows\\fonts\\msgothic.ttc,0", "Identity-H");
+
+                PdfDocument pdf = new PdfDocument(writer);
+                Document d = new Document(pdf);
+
+                var sum = manif.Sum(e => prod.First(e1 => e1.ProductId == e.ProductId).UnitPrice);
+
+                d.Add(new Paragraph($"発注書作成日： {DateTime.Today:yyyy/MM/dd}").SetFont(font).SetFontSize(15)
+                    .SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT));
+                d.Add(new Paragraph($"注文番号：{DateTime.Now.Ticks.ToString()}").SetFont(font).SetFontSize(15)
+                    .SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT));
+                d.Add(new Paragraph("発注書").SetFont(font).SetFontSize(30)
+                    .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
+                d.Add(new Paragraph($"{manif.Key} 様").SetFont(font).SetFontSize(22)
+                    .SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT));
+                d.Add(new Paragraph($"発注金額 {sum} 円").SetFont(font).SetFontSize(25)
+                    .SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT));
+                d.Add(new Paragraph($"下記の通り発注致します。").SetFont(font).SetFontSize(15)
+                    .SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT));
+
+                Table table = new Table(4);
+                table.SetFont(font).SetFontSize(15);
+                table.AddHeaderCell(new Paragraph("商品名").SetFont(font).SetFontSize(15));
+                table.AddHeaderCell(new Paragraph("単価 (円)").SetFont(font).SetFontSize(15));
+                table.AddHeaderCell(new Paragraph("個数").SetFont(font).SetFontSize(15));
+                table.AddHeaderCell(new Paragraph("合計 (円)").SetFont(font).SetFontSize(15));
+
+                foreach (Ordering odin in manif)
                 {
-                    if (column.Index == 5)
-                        break;
-                    table.AddCell(row.Cells[column.Index].Value.ToString());
+                    var pd = prod.First(e => e.ProductId == odin.ProductId);
+                    table.AddCell(new Paragraph(pd.ProductName)
+                        .SetFont(font).SetFontSize(12));
+                    table.AddCell(new Paragraph(pd.UnitPrice.ToString())
+                        .SetFont(font).SetFontSize(12));
+                    table.AddCell(new Paragraph(odin.OrderingVolume.ToString())
+                        .SetFont(font).SetFontSize(12));
+                    table.AddCell(new Paragraph((odin.OrderingVolume * pd.UnitPrice).ToString())
+                        .SetFont(font).SetFontSize(12));
                 }
+
+                d.Add(table);
+
+                pdf.Close();
+                d.Close();
+                writer.Close();
+
+                File.WriteAllBytes(file, stream.ToArray());
+
+                stream.Close();
+
+                files.Add((file, manif.Key));
             }
 
-            d.Add(table);
-
-            pdf.Close();
-            d.Close();
-            writer.Close();
-
-            File.WriteAllBytes(file, stream.ToArray());
-
-            stream.Close();
-
-            return file;
+            return files.ToArray();
         }
     }
 }
