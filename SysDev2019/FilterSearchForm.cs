@@ -42,13 +42,39 @@ namespace SysDev2019
 
         private void FilterButton_Click(object sender, EventArgs ev)
         {
-            var filter = models.Where(e =>
+            IEnumerable<DataModel> filter = null;
+            string cond = ConditionsSelect.Items[ConditionsSelect.SelectedIndex].ToString();
+            if (cond == "完全一致")
             {
-                var datas = e.Serialize();
-                return datas.FirstOrDefault(d =>
-                               d.Value.Name == FieldSelect.Text && d.Value.Value.ToString() == ValueSelect.Text)
-                           .Value != null;
-            });
+                filter = models.Where(e =>
+                {
+                    var datas = e.Serialize();
+                    return datas.FirstOrDefault(d =>
+                                   d.Value.Name == FieldSelect.Text && d.Value.Value.ToString() == ValueSelect.Text)
+                               .Value != null;
+                });
+            }
+            else if (cond == "不一致")
+            {
+                filter = models.Where(e =>
+                {
+                    var datas = e.Serialize();
+                    return datas.FirstOrDefault(d =>
+                                   d.Value.Name == FieldSelect.Text && d.Value.Value.ToString() != ValueSelect.Text)
+                               .Value != null;
+                });
+            }
+            else if (cond == "部分一致")
+            {
+                filter = models.Where(e =>
+                {
+                    var datas = e.Serialize();
+                    return datas.FirstOrDefault(d =>
+                                   d.Value.Name == FieldSelect.Text &&
+                                   d.Value.Value.ToString().Contains(ValueSelect.Text))
+                               .Value != null;
+                });
+            }
 
             Result = filter.ToArray();
 
