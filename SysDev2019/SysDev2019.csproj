@@ -189,6 +189,12 @@
     <Compile Include="OrderEntryForm.Designer.cs">
       <DependentUpon>OrderEntryForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PrintFilesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PrintFilesDialog.Designer.cs">
+      <DependentUpon>PrintFilesDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SalesStaffMenuForm.cs">
@@ -229,6 +235,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="OrderEntryForm.resx">
       <DependentUpon>OrderEntryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrintFilesDialog.resx">
+      <DependentUpon>PrintFilesDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
