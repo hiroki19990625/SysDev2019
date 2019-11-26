@@ -82,8 +82,7 @@ namespace SysDev2019
                         {
                             bindingList.Add(stock);
                         }
-
-                        dataGridView1.DataSource = orders;
+                        
                         var cols = dataGridView1.Columns;
                         cols.RemoveAt(cols.Count - 1);
                         dataGridView1.Columns[0].HeaderText = "在庫ID";
