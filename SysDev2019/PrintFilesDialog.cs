@@ -79,5 +79,13 @@ namespace SysDev2019
                 listBox1.Items.Add($"メーカー {tuple.Item2}");
             }
         }
+
+        private void listBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char) Keys.Enter)
+            {
+                listBox1_DoubleClick(this, EventArgs.Empty);
+            }
+        }
     }
 }

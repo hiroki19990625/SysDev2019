@@ -42,6 +42,7 @@
             this.listBox1.Size = new System.Drawing.Size(776, 384);
             this.listBox1.TabIndex = 0;
             this.listBox1.DoubleClick += new System.EventHandler(this.listBox1_DoubleClick);
+            this.listBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.listBox1_KeyPress);
             // 
             // label1
             // 
