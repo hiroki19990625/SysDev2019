@@ -85,6 +85,7 @@
             // count
             // 
             this.count.Font = new System.Drawing.Font("MS UI Gothic", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.count.ImeMode = System.Windows.Forms.ImeMode.Disable;
             this.count.Location = new System.Drawing.Point(347, 230);
             this.count.Name = "count";
             this.count.Size = new System.Drawing.Size(209, 30);
