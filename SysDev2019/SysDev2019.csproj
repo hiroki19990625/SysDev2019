@@ -141,6 +141,12 @@
     <Compile Include="FilterSearchForm.Designer.cs">
       <DependentUpon>FilterSearchForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="LoadViewDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LoadViewDialog.Designer.cs">
+      <DependentUpon>LoadViewDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -211,6 +217,9 @@
     </Content>
     <EmbeddedResource Include="FilterSearchForm.resx">
       <DependentUpon>FilterSearchForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LoadViewDialog.resx">
+      <DependentUpon>LoadViewDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
