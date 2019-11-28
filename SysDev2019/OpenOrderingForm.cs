@@ -47,28 +47,35 @@ namespace SysDev2019
         {
             Task.Factory.StartNew(() =>
             {
-                var manufacturers = DatabaseInstance.ManufacturerTable.ToArray();
-                foreach (var manufacturer in manufacturers)
+                try
                 {
-                    _tokenSource.Token.ThrowIfCancellationRequested();
-                    try
+                    var manufacturers = DatabaseInstance.ManufacturerTable.ToArray();
+                    foreach (var manufacturer in manufacturers)
                     {
-                        Invoke(new AsyncAction(() =>
+                        _tokenSource.Token.ThrowIfCancellationRequested();
+                        try
                         {
-                            this.Manufacturer.Items.Add(
-                                $"{manufacturer.ManufacturerId}:{manufacturer.ManufacturerName}");
-                        }));
+                            Invoke(new AsyncAction(() =>
+                            {
+                                this.Manufacturer.Items.Add(
+                                    $"{manufacturer.ManufacturerId}:{manufacturer.ManufacturerName}");
+                            }));
+                        }
+                        catch (ObjectDisposedException)
+                        {
+                            // ignore
+                            break;
+                        }
+                        catch (InvalidOperationException)
+                        {
+                            // ignore
+                            break;
+                        }
                     }
-                    catch (ObjectDisposedException)
-                    {
-                        // ignore
-                        break;
-                    }
-                    catch (InvalidOperationException)
-                    {
-                        // ignore
-                        break;
-                    }
+                }
+                catch (OperationCanceledException)
+                {
+                    // ignore
                 }
             }, _tokenSource.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
         }
@@ -78,27 +85,34 @@ namespace SysDev2019
         {
             Task.Factory.StartNew(() =>
             {
-                var products = DatabaseInstance.ProductTable.ToArray();
-                foreach (var product in products)
+                try
                 {
-                    _tokenSource2.Token.ThrowIfCancellationRequested();
-                    try
+                    var products = DatabaseInstance.ProductTable.ToArray();
+                    foreach (var product in products)
                     {
-                        Invoke(new AsyncAction(() =>
+                        _tokenSource2.Token.ThrowIfCancellationRequested();
+                        try
                         {
-                            this.product.Items.Add($"{product.ProductId}:{product.ProductName}");
-                        }));
+                            Invoke(new AsyncAction(() =>
+                            {
+                                this.product.Items.Add($"{product.ProductId}:{product.ProductName}");
+                            }));
+                        }
+                        catch (ObjectDisposedException)
+                        {
+                            // ignore
+                            break;
+                        }
+                        catch (InvalidOperationException)
+                        {
+                            // ignore
+                            break;
+                        }
                     }
-                    catch (ObjectDisposedException)
-                    {
-                        // ignore
-                        break;
-                    }
-                    catch (InvalidOperationException)
-                    {
-                        // ignore
-                        break;
-                    }
+                }
+                catch (OperationCanceledException)
+                {
+                    // ignore
                 }
             }, _tokenSource2.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
         }
@@ -232,27 +246,34 @@ namespace SysDev2019
 
                     Task.Factory.StartNew(() =>
                     {
-                        var products = DatabaseInstance.ProductTable.Where(e => e.ManufacturerId == manu[0]);
-                        foreach (var product in products)
+                        try
                         {
-                            _tokenSource3.Token.ThrowIfCancellationRequested();
-                            try
+                            var products = DatabaseInstance.ProductTable.Where(e => e.ManufacturerId == manu[0]);
+                            foreach (var product in products)
                             {
-                                Invoke(new AsyncAction(() =>
+                                _tokenSource3.Token.ThrowIfCancellationRequested();
+                                try
                                 {
-                                    this.product.Items.Add($"{product.ProductId}:{product.ProductName}");
-                                }));
+                                    Invoke(new AsyncAction(() =>
+                                    {
+                                        this.product.Items.Add($"{product.ProductId}:{product.ProductName}");
+                                    }));
+                                }
+                                catch (ObjectDisposedException)
+                                {
+                                    // ignore
+                                    break;
+                                }
+                                catch (InvalidOperationException)
+                                {
+                                    // ignore
+                                    break;
+                                }
                             }
-                            catch (ObjectDisposedException)
-                            {
-                                // ignore
-                                break;
-                            }
-                            catch (InvalidOperationException)
-                            {
-                                // ignore
-                                break;
-                            }
+                        }
+                        catch (OperationCanceledException)
+                        {
+                            // ignore
                         }
                     }, _tokenSource3.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
                 }
