@@ -51,16 +51,17 @@ namespace SysDev2019
             Visible = false;
 
             FilterSearchForm filter_SearchForm = new FilterSearchForm(DatabaseInstance.OrderingTable.ToArray());
-            filter_SearchForm.ShowDialog();
+            if (filter_SearchForm.ShowDialog() == DialogResult.OK)
+            {
+                bindingList.Clear();
+                foreach (DataModel model in filter_SearchForm.Result)
+                {
+                    if (model is Ordering ordering)
+                        bindingList.Add(ordering);
+                }
+            }
 
             Visible = true;
-
-            bindingList.Clear();
-            foreach (DataModel model in filter_SearchForm.Result)
-            {
-                if (model is Ordering ordering)
-                    bindingList.Add(ordering);
-            }
         }
 
         private void label1_Click(object sender, EventArgs e)

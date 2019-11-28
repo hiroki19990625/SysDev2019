@@ -36,17 +36,17 @@ namespace SysDev2019
             Visible = false;
 
             FilterSearchForm filter_SearchForm = new FilterSearchForm(DatabaseInstance.OrderTable.ToArray());
-            filter_SearchForm.ShowDialog();
-
-            Visible = true;
-            bindingList.Clear();
-            foreach (DataModel model in filter_SearchForm.Result)
+            if (filter_SearchForm.ShowDialog() == DialogResult.OK)
             {
-                if (model is Order order)
-                    bindingList.Add(order);
+                bindingList.Clear();
+                foreach (DataModel model in filter_SearchForm.Result)
+                {
+                    if (model is Order order)
+                        bindingList.Add(order);
+                }
             }
 
-
+            Visible = true;
         }
 
         private void backButton_Click(object sender, EventArgs e)
@@ -102,6 +102,7 @@ namespace SysDev2019
                         {
                             bindingList.Add(order);
                         }
+
                         var cols = dataGridView1.Columns;
                         cols.RemoveAt(cols.Count - 1);
                         cols.RemoveAt(cols.Count - 1);

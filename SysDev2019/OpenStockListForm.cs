@@ -40,16 +40,17 @@ namespace SysDev2019
             Visible = false;
 
             FilterSearchForm filter_SearchForm = new FilterSearchForm(DatabaseInstance.StockTable.ToArray());
-            filter_SearchForm.ShowDialog();
+            if (filter_SearchForm.ShowDialog() == DialogResult.OK)
+            {
+                bindingList.Clear();
+                foreach (DataModel model in filter_SearchForm.Result)
+                {
+                    if (model is Stock stock)
+                        bindingList.Add(stock);
+                }
+            }
 
             Visible = true;
-
-            bindingList.Clear();
-            foreach (DataModel model in filter_SearchForm.Result)
-            {
-                if (model is Stock stock)
-                    bindingList.Add(stock);
-            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -82,7 +83,7 @@ namespace SysDev2019
                         {
                             bindingList.Add(stock);
                         }
-                        
+
                         var cols = dataGridView1.Columns;
                         cols.RemoveAt(cols.Count - 1);
                         dataGridView1.Columns[0].HeaderText = "在庫ID";

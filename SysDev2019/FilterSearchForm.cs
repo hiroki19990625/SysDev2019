@@ -76,6 +76,7 @@ namespace SysDev2019
                 });
             }
 
+            DialogResult = DialogResult.OK;
             Result = filter.ToArray();
 
             Close();
