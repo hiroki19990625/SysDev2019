@@ -41,8 +41,10 @@ namespace SysDev2019
 
         public void InitializeProductList()
         {
-            Task.Factory.StartNew(() =>
+            LoadViewDialog dialog = new LoadViewDialog();
+            Action action = () => Task.Factory.StartNew(() =>
             {
+                Invoke(new AsyncAction(() => product.BeginUpdate()));
                 var products = DatabaseInstance.ProductTable.ToArray();
                 foreach (var product in products)
                 {
@@ -64,7 +66,13 @@ namespace SysDev2019
                         break;
                     }
                 }
+
+                Invoke(new AsyncAction(() => product.EndUpdate()));
+
+                dialog.Close();
             }, TaskCreationOptions.LongRunning);
+            dialog.SetCallback(action);
+            dialog.ShowDialog();
         }
 
         delegate void AsyncAction();

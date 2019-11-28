@@ -12,11 +12,23 @@ namespace SysDev2019
 {
     public partial class LoadViewDialog : Form
     {
+        private Action _action;
+
         public LoadViewDialog()
         {
             InitializeComponent();
 
-            progressBar1.MarqueeAnimationSpeed = 100;
+            progressBar1.MarqueeAnimationSpeed = 50;
+        }
+
+        public void SetCallback(Action action)
+        {
+            _action = action;
+        }
+
+        private void LoadViewDialog_Shown(object sender, EventArgs e)
+        {
+            _action();
         }
     }
 }

@@ -54,6 +54,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(400, 200);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.label1);
@@ -63,6 +64,7 @@
             this.Name = "LoadViewDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LoadViewDialog";
+            this.Shown += new System.EventHandler(this.LoadViewDialog_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

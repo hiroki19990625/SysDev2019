@@ -15,9 +15,7 @@ namespace SysDev2019
     public partial class OpenOrderingForm : Form
     {
         private string employeeId;
-        private readonly CancellationTokenSource _tokenSource = new CancellationTokenSource();
-        private readonly CancellationTokenSource _tokenSource2 = new CancellationTokenSource();
-        private CancellationTokenSource _tokenSource3 = new CancellationTokenSource();
+        private CancellationTokenSource _tokenSource = new CancellationTokenSource();
 
         public OpenOrderingForm(string employeeId)
         {
@@ -45,76 +43,67 @@ namespace SysDev2019
 
         public void InitializeManufacturerList()
         {
-            Task.Factory.StartNew(() =>
+            try
             {
-                try
+                var manufacturers = DatabaseInstance.ManufacturerTable.ToArray();
+                foreach (var manufacturer in manufacturers)
                 {
-                    var manufacturers = DatabaseInstance.ManufacturerTable.ToArray();
-                    foreach (var manufacturer in manufacturers)
+                    try
                     {
-                        _tokenSource.Token.ThrowIfCancellationRequested();
-                        try
+                        Invoke(new AsyncAction(() =>
                         {
-                            Invoke(new AsyncAction(() =>
-                            {
-                                this.Manufacturer.Items.Add(
-                                    $"{manufacturer.ManufacturerId}:{manufacturer.ManufacturerName}");
-                            }));
-                        }
-                        catch (ObjectDisposedException)
-                        {
-                            // ignore
-                            break;
-                        }
-                        catch (InvalidOperationException)
-                        {
-                            // ignore
-                            break;
-                        }
+                            this.Manufacturer.Items.Add(
+                                $"{manufacturer.ManufacturerId}:{manufacturer.ManufacturerName}");
+                        }));
+                    }
+                    catch (ObjectDisposedException)
+                    {
+                        // ignore
+                        break;
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        // ignore
+                        break;
                     }
                 }
-                catch (OperationCanceledException)
-                {
-                    // ignore
-                }
-            }, _tokenSource.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
+            }
+            catch (OperationCanceledException)
+            {
+                // ignore
+            }
         }
-
 
         public void InitializeProductList()
         {
-            Task.Factory.StartNew(() =>
+            try
             {
-                try
+                var products = DatabaseInstance.ProductTable.ToArray();
+                foreach (var product in products)
                 {
-                    var products = DatabaseInstance.ProductTable.ToArray();
-                    foreach (var product in products)
+                    try
                     {
-                        _tokenSource2.Token.ThrowIfCancellationRequested();
-                        try
+                        Invoke(new AsyncAction(() =>
                         {
-                            Invoke(new AsyncAction(() =>
-                            {
-                                this.product.Items.Add($"{product.ProductId}:{product.ProductName}");
-                            }));
-                        }
-                        catch (ObjectDisposedException)
-                        {
-                            // ignore
-                            break;
-                        }
-                        catch (InvalidOperationException)
-                        {
-                            // ignore
-                            break;
-                        }
+                            this.product.Items.Add($"{product.ProductId}:{product.ProductName}");
+                        }));
+                    }
+                    catch (ObjectDisposedException)
+                    {
+                        // ignore
+                        break;
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        // ignore
+                        break;
                     }
                 }
-                catch (OperationCanceledException)
-                {
-                    // ignore
-                }
-            }, _tokenSource2.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
+            }
+            catch (OperationCanceledException)
+            {
+                // ignore
+            }
         }
 
         delegate void AsyncAction();
@@ -176,8 +165,20 @@ namespace SysDev2019
 
         private void OpenOrderingFrom_Shown(object sender, EventArgs e)
         {
-            InitializeProductList();
-            InitializeManufacturerList();
+            LoadViewDialog dialog = new LoadViewDialog();
+            Action action = () => Task.Factory.StartNew(() =>
+            {
+                Invoke(new AsyncAction(() => product.BeginUpdate()));
+                Invoke(new AsyncAction(() => Manufacturer.BeginUpdate()));
+                InitializeProductList();
+                InitializeManufacturerList();
+                Invoke(new AsyncAction(() => product.EndUpdate()));
+                Invoke(new AsyncAction(() => Manufacturer.EndUpdate()));
+
+                dialog.Close();
+            });
+            dialog.SetCallback(action);
+            dialog.ShowDialog();
         }
 
         private void Manufacturer_KeyDown(object sender, KeyEventArgs e)
@@ -236,46 +237,56 @@ namespace SysDev2019
 
                 if (manu.Length > 0)
                 {
-                    _tokenSource2.Cancel();
-                    _tokenSource3.Cancel();
+                    _tokenSource.Cancel();
 
-                    _tokenSource3.Dispose();
-                    _tokenSource3 = new CancellationTokenSource();
+                    _tokenSource.Dispose();
+                    _tokenSource = new CancellationTokenSource();
 
                     product.Items.Clear();
 
-                    Task.Factory.StartNew(() =>
+                    LoadViewDialog dialog = new LoadViewDialog();
+                    Action action = () =>
                     {
-                        try
+                        Task.Factory.StartNew(() =>
                         {
-                            var products = DatabaseInstance.ProductTable.Where(e => e.ManufacturerId == manu[0]);
-                            foreach (var product in products)
+                            Invoke(new AsyncAction(() => product.BeginUpdate()));
+                            try
                             {
-                                _tokenSource3.Token.ThrowIfCancellationRequested();
-                                try
+                                var products = DatabaseInstance.ProductTable.Where(e => e.ManufacturerId == manu[0]);
+                                foreach (var product in products)
                                 {
-                                    Invoke(new AsyncAction(() =>
+                                    _tokenSource.Token.ThrowIfCancellationRequested();
+                                    try
                                     {
-                                        this.product.Items.Add($"{product.ProductId}:{product.ProductName}");
-                                    }));
-                                }
-                                catch (ObjectDisposedException)
-                                {
-                                    // ignore
-                                    break;
-                                }
-                                catch (InvalidOperationException)
-                                {
-                                    // ignore
-                                    break;
+                                        Invoke(new AsyncAction(() =>
+                                        {
+                                            this.product.Items.Add($"{product.ProductId}:{product.ProductName}");
+                                        }));
+                                    }
+                                    catch (ObjectDisposedException)
+                                    {
+                                        // ignore
+                                        break;
+                                    }
+                                    catch (InvalidOperationException)
+                                    {
+                                        // ignore
+                                        break;
+                                    }
                                 }
                             }
-                        }
-                        catch (OperationCanceledException)
-                        {
-                            // ignore
-                        }
-                    }, _tokenSource3.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
+                            catch (OperationCanceledException)
+                            {
+                                // ignore
+                            }
+
+                            Invoke(new AsyncAction(() => product.EndUpdate()));
+
+                            dialog.Close();
+                        }, _tokenSource.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
+                    };
+                    dialog.SetCallback(action);
+                    dialog.ShowDialog();
                 }
             }
         }
