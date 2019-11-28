@@ -47,7 +47,7 @@ namespace SysDev2019.DatabaseConsole
                 productTable.Delete(p => true);
                 manufacturerTable.Delete(p => true);
 
-                for (int i = 0; i < 200; i++)
+                for (int i = 0; i < 1000; i++)
                 {
                     manufacturerTable.Insert(new Manufacturer
                     {
@@ -58,14 +58,14 @@ namespace SysDev2019.DatabaseConsole
 
                 Random r = new Random();
 
-                for (int i = 0; i < 20000; i++)
+                for (int i = 0; i < 12000; i++)
                 {
                     productTable.Insert(new Product
                     {
                         ProductId = i.ToString(),
-                        ManufacturerId = r.Next(0, 200).ToString(),
+                        ManufacturerId = r.Next(0, 1000).ToString(),
                         ProductName = Guid.NewGuid().ToString(),
-                        UnitPrice = r.Next(800, 20000)
+                        UnitPrice = r.Next(10, 5000) * 10
                     });
                 }
             }

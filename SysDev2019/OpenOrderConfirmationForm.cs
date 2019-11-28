@@ -27,8 +27,6 @@ namespace SysDev2019
             InitializeComponent();
 
             this.employeeId = employeeId;
-            
-
         }
 
         public void OpenFilter_SearchForm()
@@ -36,16 +34,17 @@ namespace SysDev2019
             Visible = false;
 
             FilterSearchForm filter_SearchForm = new FilterSearchForm(DatabaseInstance.OrderTable.ToArray());
-            filter_SearchForm.ShowDialog();
+            if (filter_SearchForm.ShowDialog() == DialogResult.OK)
+            {
+                bindingList.Clear();
+                foreach (DataModel model in filter_SearchForm.Result)
+                {
+                    if (model is Order order)
+                        bindingList.Add(order);
+                }
+            }
 
             Visible = true;
-
-            bindingList.Clear();
-            foreach (DataModel model in filter_SearchForm.Result)
-            {
-                if (model is Order order)
-                    bindingList.Add(order);
-            }
         }
 
         public OpenOrder_Confirmation_Form()
