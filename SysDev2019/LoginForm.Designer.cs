@@ -71,6 +71,7 @@
             // Employeenumber
             // 
             this.Employeenumber.Font = new System.Drawing.Font("MS UI Gothic", 14F);
+            this.Employeenumber.ImeMode = System.Windows.Forms.ImeMode.Disable;
             this.Employeenumber.Location = new System.Drawing.Point(300, 133);
             this.Employeenumber.Name = "Employeenumber";
             this.Employeenumber.Size = new System.Drawing.Size(209, 31);
