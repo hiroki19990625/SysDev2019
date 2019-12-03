@@ -280,8 +280,7 @@ namespace SysDev2019
                             }
 
                             Invoke(new AsyncAction(() => product.EndUpdate()));
-
-                            dialog.Close();
+                            Invoke(new AsyncAction(() => dialog.Close()));
                         }, _tokenSource.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
                     };
                     dialog.SetCallback(action);

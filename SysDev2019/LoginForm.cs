@@ -21,6 +21,20 @@ namespace SysDev2019
             InitializeComponent();
         }
 
+        private void LoginForm_Shown(object sender, EventArgs e)
+        {
+            LoadViewDialog dialog = new LoadViewDialog();
+            dialog.SetCallback(() =>
+            {
+                Task.Factory.StartNew(() =>
+                {
+                    var _ = DatabaseInstance.Database;
+                    Invoke(new Action(() => dialog.Close()));
+                });
+            });
+            dialog.ShowDialog();
+        }
+
         public bool Login(string employeeId, string password)
         {
             return DatabaseInstance.EmployeeTable.Where(e => e.EmployeeId == employeeId).FirstOrDefault()?.Password ==
@@ -150,7 +164,7 @@ namespace SysDev2019
 
         private void Employeenumber_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Enter)
+            if (e.KeyChar == (char) Keys.Enter)
             {
                 e.Handled = true;
             }
@@ -158,11 +172,10 @@ namespace SysDev2019
 
         private void Password_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Enter)
+            if (e.KeyChar == (char) Keys.Enter)
             {
                 e.Handled = true;
             }
-        
         }
     }
 }

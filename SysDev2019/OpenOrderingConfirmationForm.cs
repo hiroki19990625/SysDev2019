@@ -11,14 +11,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BinaryIO;
+using iText.Kernel.Colors;
 using iText.Kernel.Font;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas;
 using iText.Kernel.Pdf.Xobject;
 using iText.Layout;
+using iText.Layout.Borders;
 using iText.Layout.Element;
+using iText.Layout.Properties;
 using ObjectDatabase;
 using Patagames.Pdf.Net.Controls.WinForms;
+using Color = iText.Kernel.Colors.Color;
+using HorizontalAlignment = iText.Layout.Properties.HorizontalAlignment;
 using Image = iText.Layout.Element.Image;
 
 namespace SysDev2019
@@ -222,7 +227,7 @@ namespace SysDev2019
                 PdfDocument pdf = new PdfDocument(writer);
                 Document d = new Document(pdf);
 
-                var sum = manif.Sum(e => prod.First(e1 => e1.ProductId == e.ProductId).UnitPrice);
+                var sum = manif.Sum(e => prod.First(e1 => e1.ProductId == e.ProductId).UnitPrice * e.OrderingVolume);
 
                 d.Add(new Paragraph($"発注書作成日： {DateTime.Today:yyyy/MM/dd}").SetFont(font).SetFontSize(15)
                     .SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT));
@@ -231,33 +236,76 @@ namespace SysDev2019
                 d.Add(new Paragraph("発注書").SetFont(font).SetFontSize(30)
                     .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
                 d.Add(new Paragraph($"{manif.Key} 様").SetFont(font).SetFontSize(22)
-                    .SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT));
-                d.Add(new Paragraph($"発注金額 {sum} 円").SetFont(font).SetFontSize(25)
+                    .SetUnderline()
+                    .SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT));
+                d.Add(new Paragraph());
+                d.Add(new Paragraph());
+                d.Add(new Paragraph());
+                d.Add(new Paragraph($"発注金額 {(sum * 1.1):C0}-")
+                    .SetUnderline()
+                    .SetFont(font)
+                    .SetFontSize(25)
                     .SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT));
                 d.Add(new Paragraph($"下記の通り発注致します。").SetFont(font).SetFontSize(15)
                     .SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT));
 
                 Table table = new Table(4);
-                table.SetFont(font).SetFontSize(15);
+                table.SetFont(font).SetFontSize(15).SetWidth(UnitValue.CreatePercentValue(100));
                 table.AddHeaderCell(new Paragraph("商品名").SetFont(font).SetFontSize(15));
-                table.AddHeaderCell(new Paragraph("単価 (円)").SetFont(font).SetFontSize(15));
-                table.AddHeaderCell(new Paragraph("個数").SetFont(font).SetFontSize(15));
-                table.AddHeaderCell(new Paragraph("合計 (円)").SetFont(font).SetFontSize(15));
+                table.AddHeaderCell(new Paragraph("個数").SetFont(font).SetFontSize(15).SetWidth(75));
+                table.AddHeaderCell(new Paragraph("単価").SetFont(font).SetFontSize(15).SetWidth(75));
+                table.AddHeaderCell(new Paragraph("合計").SetFont(font).SetFontSize(15).SetWidth(75));
 
                 foreach (Ordering odin in manif)
                 {
                     var pd = prod.First(e => e.ProductId == odin.ProductId);
                     table.AddCell(new Paragraph(pd.ProductName)
                         .SetFont(font).SetFontSize(12));
-                    table.AddCell(new Paragraph(pd.UnitPrice.ToString())
-                        .SetFont(font).SetFontSize(12));
                     table.AddCell(new Paragraph(odin.OrderingVolume.ToString())
-                        .SetFont(font).SetFontSize(12));
-                    table.AddCell(new Paragraph((odin.OrderingVolume * pd.UnitPrice).ToString())
-                        .SetFont(font).SetFontSize(12));
+                        .SetFont(font).SetFontSize(12).SetTextAlignment(TextAlignment.RIGHT));
+                    table.AddCell(new Paragraph($"{pd.UnitPrice:C0}")
+                        .SetFont(font).SetFontSize(12).SetTextAlignment(TextAlignment.RIGHT));
+                    table.AddCell(new Paragraph($"{(odin.OrderingVolume * pd.UnitPrice):C0}")
+                        .SetFont(font).SetFontSize(12).SetTextAlignment(TextAlignment.RIGHT));
                 }
 
+                table.AddCell(new Paragraph("")
+                    .SetFont(font).SetFontSize(15));
+                table.AddCell(new Paragraph("")
+                    .SetFont(font).SetFontSize(15));
+                table.AddCell(new Paragraph("小計")
+                    .SetFont(font).SetFontSize(15).SetTextAlignment(TextAlignment.CENTER));
+                table.AddCell(new Paragraph($"{sum:C0}")
+                    .SetFont(font).SetFontSize(15).SetTextAlignment(TextAlignment.RIGHT));
+
+                table.AddCell(new Paragraph("")
+                    .SetFont(font).SetFontSize(15));
+                table.AddCell(new Paragraph("")
+                    .SetFont(font).SetFontSize(15));
+                table.AddCell(new Paragraph("消費税")
+                    .SetFont(font).SetFontSize(15).SetTextAlignment(TextAlignment.CENTER));
+                table.AddCell(new Paragraph($"{(sum * 0.1):C0}")
+                    .SetFont(font).SetFontSize(15).SetTextAlignment(TextAlignment.RIGHT));
+
+
+                table.AddCell(new Paragraph("")
+                    .SetFont(font).SetFontSize(15));
+                table.AddCell(new Paragraph("")
+                    .SetFont(font).SetFontSize(15));
+                table.AddCell(new Paragraph("合計")
+                    .SetFont(font).SetFontSize(15).SetTextAlignment(TextAlignment.CENTER));
+                table.AddCell(new Paragraph($"{(sum * 1.1):C0}-")
+                    .SetFont(font).SetFontSize(15).SetTextAlignment(TextAlignment.RIGHT));
+
                 d.Add(table);
+
+                int max = pdf.GetNumberOfPages();
+                for (int i = 1; i <= max; i++)
+                {
+                    d.ShowTextAligned(new Paragraph($"ページ {i} / {max}").SetFont(font), 559, 820, i,
+                        TextAlignment.CENTER,
+                        VerticalAlignment.BOTTOM, 0);
+                }
 
                 pdf.Close();
                 d.Close();

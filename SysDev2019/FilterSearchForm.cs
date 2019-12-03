@@ -24,7 +24,11 @@ namespace SysDev2019
             InitializeComponent();
 
             if (model.Length == 0)
+            {
+                MessageBox.Show("検索するデータがありません。");
                 return;
+            }
+
             this.models = model;
             this.model = model[0];
             foreach (var field in this.model.Serialize())
@@ -85,6 +89,9 @@ namespace SysDev2019
         private void FieldSelect_SelectedIndexChanged(object sender, EventArgs ev)
         {
             ValueSelect.Items.Clear();
+
+            if (ValueSelect.SelectedIndex != -1)
+                return;
 
             List<string> list = new List<string>();
             foreach (var dataModel in models.Select(m => m.Serialize()))
