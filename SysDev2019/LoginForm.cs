@@ -150,7 +150,7 @@ namespace SysDev2019
 
         private void Employeenumber_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Enter)
+            if (e.KeyChar == (char) Keys.Enter)
             {
                 e.Handled = true;
             }
@@ -158,11 +158,10 @@ namespace SysDev2019
 
         private void Password_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Enter)
+            if (e.KeyChar == (char) Keys.Enter)
             {
                 e.Handled = true;
             }
-        
         }
     }
 }
