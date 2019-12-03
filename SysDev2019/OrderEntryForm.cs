@@ -68,8 +68,7 @@ namespace SysDev2019
                 }
 
                 Invoke(new AsyncAction(() => product.EndUpdate()));
-
-                dialog.Close();
+                Invoke(new AsyncAction(() => dialog.Close()));
             }, TaskCreationOptions.LongRunning);
             dialog.SetCallback(action);
             dialog.ShowDialog();
