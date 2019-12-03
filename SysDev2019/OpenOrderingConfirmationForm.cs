@@ -263,9 +263,9 @@ namespace SysDev2019
                         .SetFont(font).SetFontSize(12));
                     table.AddCell(new Paragraph(odin.OrderingVolume.ToString())
                         .SetFont(font).SetFontSize(12).SetTextAlignment(TextAlignment.RIGHT));
-                    table.AddCell(new Paragraph($"{pd.UnitPrice:C0}-")
+                    table.AddCell(new Paragraph($"{pd.UnitPrice:C0}")
                         .SetFont(font).SetFontSize(12).SetTextAlignment(TextAlignment.RIGHT));
-                    table.AddCell(new Paragraph($"{(odin.OrderingVolume * pd.UnitPrice):C0}-")
+                    table.AddCell(new Paragraph($"{(odin.OrderingVolume * pd.UnitPrice):C0}")
                         .SetFont(font).SetFontSize(12).SetTextAlignment(TextAlignment.RIGHT));
                 }
 
@@ -275,7 +275,7 @@ namespace SysDev2019
                     .SetFont(font).SetFontSize(15));
                 table.AddCell(new Paragraph("小計")
                     .SetFont(font).SetFontSize(15).SetTextAlignment(TextAlignment.CENTER));
-                table.AddCell(new Paragraph($"{sum:C0}-")
+                table.AddCell(new Paragraph($"{sum:C0}")
                     .SetFont(font).SetFontSize(15).SetTextAlignment(TextAlignment.RIGHT));
 
                 table.AddCell(new Paragraph("")
@@ -284,7 +284,7 @@ namespace SysDev2019
                     .SetFont(font).SetFontSize(15));
                 table.AddCell(new Paragraph("消費税")
                     .SetFont(font).SetFontSize(15).SetTextAlignment(TextAlignment.CENTER));
-                table.AddCell(new Paragraph($"{(sum * 0.1):C0}-")
+                table.AddCell(new Paragraph($"{(sum * 0.1):C0}")
                     .SetFont(font).SetFontSize(15).SetTextAlignment(TextAlignment.RIGHT));
 
 
@@ -302,7 +302,8 @@ namespace SysDev2019
                 int max = pdf.GetNumberOfPages();
                 for (int i = 1; i <= max; i++)
                 {
-                    d.ShowTextAligned(new Paragraph($"ページ {i} / {max}").SetFont(font), 559, 806, i, TextAlignment.CENTER,
+                    d.ShowTextAligned(new Paragraph($"ページ {i} / {max}").SetFont(font), 559, 820, i,
+                        TextAlignment.CENTER,
                         VerticalAlignment.BOTTOM, 0);
                 }
 
