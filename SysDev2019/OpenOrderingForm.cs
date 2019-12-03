@@ -174,8 +174,7 @@ namespace SysDev2019
                 InitializeManufacturerList();
                 Invoke(new AsyncAction(() => product.EndUpdate()));
                 Invoke(new AsyncAction(() => Manufacturer.EndUpdate()));
-
-                dialog.Close();
+                Invoke(new AsyncAction(() => dialog.Close()));
             });
             dialog.SetCallback(action);
             dialog.ShowDialog();
