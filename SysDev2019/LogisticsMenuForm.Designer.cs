@@ -1,6 +1,6 @@
 ﻿namespace SysDev2019
 {
-    partial class LogisticsManagerMenuForm
+    partial class LogisticsMenuForm
     {
         /// <summary>
         /// Required designer variable.
@@ -40,10 +40,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("MS UI Gothic", 30F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(318, 43);
-            this.label1.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.label1.Location = new System.Drawing.Point(209, 59);
+            this.label1.Margin = new System.Windows.Forms.Padding(200, 50, 3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(595, 80);
+            this.label1.Size = new System.Drawing.Size(376, 50);
             this.label1.TabIndex = 0;
             this.label1.Text = "物流担当メニュー";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -52,20 +52,20 @@
             // 
             this.EmpName.AutoSize = true;
             this.EmpName.Font = new System.Drawing.Font("MS UI Gothic", 12F);
-            this.EmpName.Location = new System.Drawing.Point(988, 62);
-            this.EmpName.Margin = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.EmpName.Location = new System.Drawing.Point(638, 89);
+            this.EmpName.Margin = new System.Windows.Forms.Padding(50, 0, 3, 0);
             this.EmpName.Name = "EmpName";
-            this.EmpName.Size = new System.Drawing.Size(79, 33);
+            this.EmpName.Size = new System.Drawing.Size(49, 20);
             this.EmpName.TabIndex = 1;
             this.EmpName.Text = "名前";
             // 
             // stockListButton
             // 
             this.stockListButton.Font = new System.Drawing.Font("MS UI Gothic", 19.8F, System.Drawing.FontStyle.Bold);
-            this.stockListButton.Location = new System.Drawing.Point(84, 234);
-            this.stockListButton.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.stockListButton.Location = new System.Drawing.Point(159, 179);
+            this.stockListButton.Margin = new System.Windows.Forms.Padding(150, 70, 150, 3);
             this.stockListButton.Name = "stockListButton";
-            this.stockListButton.Size = new System.Drawing.Size(671, 82);
+            this.stockListButton.Size = new System.Drawing.Size(564, 51);
             this.stockListButton.TabIndex = 2;
             this.stockListButton.Text = "在庫一覧・発注点設定画面";
             this.stockListButton.UseVisualStyleBackColor = true;
@@ -74,10 +74,10 @@
             // orderingButton
             // 
             this.orderingButton.Font = new System.Drawing.Font("MS UI Gothic", 19.8F, System.Drawing.FontStyle.Bold);
-            this.orderingButton.Location = new System.Drawing.Point(804, 234);
-            this.orderingButton.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.orderingButton.Location = new System.Drawing.Point(159, 263);
+            this.orderingButton.Margin = new System.Windows.Forms.Padding(3, 30, 3, 3);
             this.orderingButton.Name = "orderingButton";
-            this.orderingButton.Size = new System.Drawing.Size(390, 82);
+            this.orderingButton.Size = new System.Drawing.Size(564, 51);
             this.orderingButton.TabIndex = 3;
             this.orderingButton.Text = "発注画面";
             this.orderingButton.UseVisualStyleBackColor = true;
@@ -86,11 +86,11 @@
             // orderingConfirmationButton
             // 
             this.orderingConfirmationButton.Font = new System.Drawing.Font("MS UI Gothic", 19.8F, System.Drawing.FontStyle.Bold);
-            this.orderingConfirmationButton.Location = new System.Drawing.Point(145, 410);
-            this.orderingConfirmationButton.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.orderingConfirmationButton.Location = new System.Drawing.Point(159, 437);
+            this.orderingConfirmationButton.Margin = new System.Windows.Forms.Padding(3, 30, 3, 3);
             this.orderingConfirmationButton.Name = "orderingConfirmationButton";
-            this.orderingConfirmationButton.Size = new System.Drawing.Size(481, 91);
-            this.orderingConfirmationButton.TabIndex = 4;
+            this.orderingConfirmationButton.Size = new System.Drawing.Size(564, 57);
+            this.orderingConfirmationButton.TabIndex = 5;
             this.orderingConfirmationButton.Text = "発注確認画面";
             this.orderingConfirmationButton.UseVisualStyleBackColor = true;
             this.orderingConfirmationButton.Click += new System.EventHandler(this.button3_Click);
@@ -98,20 +98,20 @@
             // orderConfirmationButton
             // 
             this.orderConfirmationButton.Font = new System.Drawing.Font("MS UI Gothic", 19.8F, System.Drawing.FontStyle.Bold);
-            this.orderConfirmationButton.Location = new System.Drawing.Point(770, 410);
-            this.orderConfirmationButton.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.orderConfirmationButton.Location = new System.Drawing.Point(159, 347);
+            this.orderConfirmationButton.Margin = new System.Windows.Forms.Padding(3, 30, 3, 3);
             this.orderConfirmationButton.Name = "orderConfirmationButton";
-            this.orderConfirmationButton.Size = new System.Drawing.Size(444, 91);
-            this.orderConfirmationButton.TabIndex = 5;
+            this.orderConfirmationButton.Size = new System.Drawing.Size(564, 57);
+            this.orderConfirmationButton.TabIndex = 4;
             this.orderConfirmationButton.Text = "受注確認画面";
             this.orderConfirmationButton.UseVisualStyleBackColor = true;
             this.orderConfirmationButton.Click += new System.EventHandler(this.button4_Click);
             // 
-            // LogisticsManagerMenuForm
+            // LogisticsMenuForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1300, 720);
+            this.ClientSize = new System.Drawing.Size(882, 553);
             this.Controls.Add(this.orderConfirmationButton);
             this.Controls.Add(this.orderingConfirmationButton);
             this.Controls.Add(this.orderingButton);
@@ -119,12 +119,10 @@
             this.Controls.Add(this.EmpName);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "LogisticsManagerMenuForm";
+            this.Name = "LogisticsMenuForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "LogisticsManagerMenuForm";
             this.Load += new System.EventHandler(this.LogisticsManagerMenuForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

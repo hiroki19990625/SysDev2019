@@ -8,7 +8,7 @@ namespace SysDev2019
 {
     public static class DatabaseInstance
     {
-        private static Logger _logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
 
         public static readonly ObjectDatabase.ObjectDatabase Database;
 

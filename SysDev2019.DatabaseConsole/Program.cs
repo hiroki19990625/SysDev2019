@@ -41,6 +41,8 @@ namespace SysDev2019.DatabaseConsole
             orderingTable.Union(employeeTable, "EmployeeId");
             stockTable.Union(productTable);
 
+            database.GenerateCode("SysDev2019");
+
             if (cmd == "seed")
             {
                 // All Delete

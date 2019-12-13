@@ -12,7 +12,8 @@ namespace SysDev2019.DataModels
         [SerializeProperty("発注点")] public int ReorderPoint { get; set; }
         [SerializeProperty("発注点量")] public int OrderQuantity { get; set; }
 
-        [IgnoreProperty, UnionTarget("ProductId")]
+        [IgnoreProperty]
+        [UnionTarget("ProductId")]
         public Product Product { get; set; }
     }
 }

@@ -1,15 +1,10 @@
-﻿using LogAdapter;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using NLog;
+using SysDev2019.Dialog;
 using NLogger = NLog.Logger;
 
 namespace SysDev2019
@@ -21,24 +16,15 @@ namespace SysDev2019
             InitializeComponent();
         }
 
-        private void LoginForm_Shown(object sender, EventArgs e)
+        public void ErrorMessage(string message)
         {
-            LoadViewDialog dialog = new LoadViewDialog();
-            dialog.SetCallback(() =>
-            {
-                Task.Factory.StartNew(() =>
-                {
-                    var _ = DatabaseInstance.Database;
-                    Invoke(new Action(() => dialog.Close()));
-                });
-            });
-            dialog.ShowDialog();
+            MessageBox.Show(message, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        public bool Login(string employeeId, string password)
+        public void InvalidAuthMessage()
         {
-            return DatabaseInstance.EmployeeTable.Where(e => e.EmployeeId == employeeId).FirstOrDefault()?.Password ==
-                   ToSha256(password);
+            ErrorMessage("ログインに失敗しました。");
+            Password.Text = "";
         }
 
         public bool IsLogisticsManager(string employeeId)
@@ -53,13 +39,19 @@ namespace SysDev2019
                        .FirstOrDefault() != null;
         }
 
+        public bool Login(string employeeId, string password)
+        {
+            return DatabaseInstance.EmployeeTable.Where(e => e.EmployeeId == employeeId).FirstOrDefault()?.Password ==
+                   ToSha256(password);
+        }
+
         public void NextForm(string employeeId)
         {
             if (IsSalesStaff(employeeId))
             {
                 Visible = false;
 
-                SalesStaffMenuForm staffMenuForm = new SalesStaffMenuForm(employeeId);
+                var staffMenuForm = new SalesStaffMenuForm(employeeId);
                 staffMenuForm.ShowDialog();
 
                 Visible = true;
@@ -73,7 +65,7 @@ namespace SysDev2019
             {
                 Visible = false;
 
-                LogisticsManagerMenuForm LogisticsManagerMenuForm = new LogisticsManagerMenuForm(employeeId);
+                var LogisticsManagerMenuForm = new LogisticsMenuForm(employeeId);
                 LogisticsManagerMenuForm.ShowDialog();
 
                 Visible = true;
@@ -89,17 +81,6 @@ namespace SysDev2019
             }
         }
 
-        public void InvalidAuthMessage()
-        {
-            ErrorMessage("ログインに失敗しました。");
-            Password.Text = "";
-        }
-
-        public void ErrorMessage(string message)
-        {
-            MessageBox.Show(message, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
         public void NotPermissionMessage()
         {
             ErrorMessage("権限がありません。");
@@ -108,14 +89,25 @@ namespace SysDev2019
             Employeenumber.Focus();
         }
 
-        static string ToSha256(string password)
+        private void button1_Click(object sender, EventArgs e)
         {
-            SHA256 sha256 = SHA256.Create();
-            sha256.Initialize();
+            var empId = Employeenumber.Text;
+            var pass = Password.Text;
 
-            Encoding encoding = Encoding.UTF8;
-            byte[] hash = sha256.ComputeHash(encoding.GetBytes(password));
-            return Convert.ToBase64String(hash);
+            if (Login(empId, pass))
+                NextForm(empId);
+            else
+                InvalidAuthMessage();
+        }
+
+        private void Employeenumber_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) SendKeys.Send("{TAB}");
+        }
+
+        private void Employeenumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char) Keys.Enter) e.Handled = true;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -126,56 +118,43 @@ namespace SysDev2019
         {
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            string empId = Employeenumber.Text;
-            string pass = Password.Text;
-
-            if (Login(empId, pass))
-            {
-                NextForm(empId);
-            }
-            else
-            {
-                InvalidAuthMessage();
-            }
-        }
-
         private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             // DatabaseInstance.Database.Dispose();
         }
 
-        private void Employeenumber_KeyDown(object sender, KeyEventArgs e)
+        private void LoginForm_Shown(object sender, EventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            var dialog = new ProgressDialog();
+            dialog.SetCallback(() =>
             {
-                SendKeys.Send("{TAB}");
-            }
+                Task.Factory.StartNew(() =>
+                {
+                    var _ = DatabaseInstance.Database;
+                    Invoke(new Action(() => dialog.Close()));
+                });
+            });
+            dialog.ShowDialog();
         }
 
         private void Password_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                button1_Click(this, EventArgs.Empty);
-            }
-        }
-
-        private void Employeenumber_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == (char) Keys.Enter)
-            {
-                e.Handled = true;
-            }
+            if (e.KeyCode == Keys.Enter) button1_Click(this, EventArgs.Empty);
         }
 
         private void Password_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char) Keys.Enter)
-            {
-                e.Handled = true;
-            }
+            if (e.KeyChar == (char) Keys.Enter) e.Handled = true;
+        }
+
+        private static string ToSha256(string password)
+        {
+            var sha256 = SHA256.Create();
+            sha256.Initialize();
+
+            var encoding = Encoding.UTF8;
+            var hash = sha256.ComputeHash(encoding.GetBytes(password));
+            return Convert.ToBase64String(hash);
         }
     }
 }

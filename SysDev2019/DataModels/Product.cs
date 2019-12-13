@@ -11,7 +11,8 @@ namespace SysDev2019.DataModels
         [SerializeProperty("単価")] public int UnitPrice { get; set; }
         [SerializeProperty("メーカーID")] public string ManufacturerId { get; set; }
 
-        [IgnoreProperty, UnionTarget("ManufacturerId")]
+        [IgnoreProperty]
+        [UnionTarget("ManufacturerId")]
         public Manufacturer Manufacturer { get; set; }
     }
 }

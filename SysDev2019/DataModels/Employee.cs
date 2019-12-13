@@ -11,7 +11,8 @@ namespace SysDev2019.DataModels
         [SerializeProperty("パスワード")] public string Password { get; set; }
         [SerializeProperty("部署ID")] public string DepartmentId { get; set; }
 
-        [IgnoreProperty, UnionTarget("DepartmentId")]
+        [IgnoreProperty]
+        [UnionTarget("DepartmentId")]
         public Department Department { get; set; }
     }
 }

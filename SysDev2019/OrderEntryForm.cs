@@ -1,20 +1,15 @@
-﻿using SysDev2019.DataModels;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SysDev2019.DataModels;
+using SysDev2019.Dialog;
 
 namespace SysDev2019
 {
     public partial class OrderEntryForm : Form
     {
-        private string employeeId;
+        private readonly string employeeId;
 
         public OrderEntryForm(string employeeId)
         {
@@ -26,28 +21,14 @@ namespace SysDev2019
             this.employeeId = employeeId;
         }
 
-        public void OpenOrderConfirmForm()
-        {
-            Visible = false;
-
-            OrderConfirmForm OrderConfirmForm = new OrderConfirmForm(employeeId, true);
-            OrderConfirmForm.ShowDialog();
-
-            if (OrderConfirmForm.CloseFlag)
-                Close();
-            else
-                Visible = true;
-        }
-
         public void InitializeProductList()
         {
-            LoadViewDialog dialog = new LoadViewDialog();
+            var dialog = new ProgressDialog();
             Action action = () => Task.Factory.StartNew(() =>
             {
                 Invoke(new AsyncAction(() => product.BeginUpdate()));
                 var products = DatabaseInstance.ProductTable.ToArray();
                 foreach (var product in products)
-                {
                     try
                     {
                         Invoke(new AsyncAction(() =>
@@ -65,7 +46,6 @@ namespace SysDev2019
                         // ignore
                         break;
                     }
-                }
 
                 Invoke(new AsyncAction(() => product.EndUpdate()));
                 Invoke(new AsyncAction(() => dialog.Close()));
@@ -74,27 +54,27 @@ namespace SysDev2019
             dialog.ShowDialog();
         }
 
-        delegate void AsyncAction();
-
-        private void orderEntryButton_Click(object sender, EventArgs e)
+        public void OpenOrderConfirmForm()
         {
-            Order();
+            Visible = false;
 
-            product.SelectedIndex = -1;
-            count.Value = 1;
+            var OrderConfirmForm = new OrderConfirmForm(employeeId, true);
+            OrderConfirmForm.ShowDialog();
+
+            if (OrderConfirmForm.CloseFlag)
+                Close();
+            else
+                Visible = true;
         }
 
-        private void orderConfirmButton_Click(object sender, EventArgs e)
+        private void count_KeyDown(object sender, KeyEventArgs e)
         {
-            Order();
-
-            product.SelectedIndex = -1;
-            count.Value = 1;
-            OpenOrderConfirmForm();
+            if (e.KeyCode == Keys.Enter) orderEntryButton_Click(this, EventArgs.Empty);
         }
 
-        private void product_SelectedIndexChanged(object sender, EventArgs e)
+        private void count_KeyPress(object sender, KeyPressEventArgs e)
         {
+            if (e.KeyChar == (char) Keys.Enter) e.Handled = true;
         }
 
         private void Order()
@@ -117,7 +97,7 @@ namespace SysDev2019
 
                         var stocks = DatabaseInstance.StockTable.Where(e => e.ProductId == p.ProductId);
                         var diffs = (int) count.Value;
-                        foreach (Stock stock in stocks)
+                        foreach (var stock in stocks)
                         {
                             var diffAny = stock.StockQuantity;
                             if (diffAny >= diffs)
@@ -178,42 +158,43 @@ namespace SysDev2019
             }
         }
 
+        private void orderConfirmButton_Click(object sender, EventArgs e)
+        {
+            Order();
+
+            product.SelectedIndex = -1;
+            count.Value = 1;
+            OpenOrderConfirmForm();
+        }
+
+        private void orderEntryButton_Click(object sender, EventArgs e)
+        {
+            Order();
+
+            product.SelectedIndex = -1;
+            count.Value = 1;
+        }
+
 
         private void OrderEntryForm_Shown(object sender, EventArgs e)
         {
             InitializeProductList();
         }
 
-        private void count_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                orderEntryButton_Click(this, EventArgs.Empty);
-            }
-        }
-
         private void product_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
-            {
-                SendKeys.Send("{TAB}");
-            }
+            if (e.KeyCode == Keys.Enter) SendKeys.Send("{TAB}");
         }
 
         private void product_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char) Keys.Enter)
-            {
-                e.Handled = true;
-            }
+            if (e.KeyChar == (char) Keys.Enter) e.Handled = true;
         }
 
-        private void count_KeyPress(object sender, KeyPressEventArgs e)
+        private void product_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (e.KeyChar == (char) Keys.Enter)
-            {
-                e.Handled = true;
-            }
         }
+
+        private delegate void AsyncAction();
     }
 }
