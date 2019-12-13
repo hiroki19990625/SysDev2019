@@ -131,7 +131,11 @@ namespace SysDev2019
                 Task.Factory.StartNew(() =>
                 {
                     var _ = DatabaseInstance.Database;
-                    Invoke(new Action(() => dialog.Close()));
+                    Invoke(new Action(() =>
+                    {
+                        dialog.DialogResult = DialogResult.OK;
+                        dialog.Close();
+                    }));
                 });
             });
             dialog.ShowDialog();

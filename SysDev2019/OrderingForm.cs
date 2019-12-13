@@ -175,7 +175,11 @@ namespace SysDev2019
                             }
 
                             Invoke(new AsyncAction(() => product.EndUpdate()));
-                            Invoke(new AsyncAction(() => dialog.Close()));
+                            Invoke(new AsyncAction(() =>
+                            {
+                                dialog.DialogResult = DialogResult.OK;
+                                dialog.Close();
+                            }));
                         }, _tokenSource.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
                     };
                     dialog.SetCallback(action);
@@ -195,7 +199,11 @@ namespace SysDev2019
                 InitializeManufacturerList();
                 Invoke(new AsyncAction(() => product.EndUpdate()));
                 Invoke(new AsyncAction(() => Manufacturer.EndUpdate()));
-                Invoke(new AsyncAction(() => dialog.Close()));
+                Invoke(new AsyncAction(() =>
+                {
+                    dialog.DialogResult = DialogResult.OK;
+                    dialog.Close();
+                }));
             });
             dialog.SetCallback(action);
             dialog.ShowDialog();
