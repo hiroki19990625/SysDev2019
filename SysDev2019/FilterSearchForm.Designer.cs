@@ -147,6 +147,7 @@
             this.MinimizeBox = false;
             this.Name = "FilterSearchForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Shown += new System.EventHandler(this.FilterSearchForm_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -14,23 +14,8 @@ namespace SysDev2019
         public FilterSearchForm(DataModel[] model)
         {
             InitializeComponent();
-
-            if (model.Length == 0)
-            {
-                MessageBox.Show("検索するデータがありません。");
-                return;
-            }
-
-            models = model;
-            this.model = model[0];
-            foreach (var field in this.model.Serialize()) FieldSelect.Items.Add(field.Value.Name);
-
-            FieldSelect.SelectedIndex = 0;
-
-            ConditionsSelect.Items.Add("部分一致");
-            ConditionsSelect.Items.Add("完全一致");
-            ConditionsSelect.Items.Add("不一致");
-            ConditionsSelect.SelectedIndex = 0;
+            
+            this.models = model;
         }
 
         public DataModel[] Result { get; private set; } = new DataModel[0];
@@ -87,6 +72,52 @@ namespace SysDev2019
             Result = filter.ToArray();
 
             Close();
+        }
+
+        private void FieldSelect_SelectedIndexChanged(object sender, EventArgs ev)
+        {
+            ValueSelect.Items.Clear();
+
+            if (ValueSelect.SelectedIndex != -1)
+                return;
+
+            List<string> list = new List<string>();
+            foreach (var dataModel in models.Select(m => m.Serialize()))
+            {
+                var val = dataModel.FirstOrDefault(e =>
+                    e.Value.Name == FieldSelect.Items[FieldSelect.SelectedIndex].ToString());
+                if (!string.IsNullOrEmpty(val.Key))
+                {
+                    list.Add(val.Value.Value.ToString());
+                }
+            }
+
+            ValueSelect.Items.AddRange(list.Distinct().ToArray());
+        }
+
+        private void FilterSearchForm_Shown(object sender, EventArgs e)
+        {
+            if (models.Length == 0)
+            {
+                MessageBox.Show("検索するデータがありません。");
+                Close();
+                return;
+            }
+
+            this.model = models[0];
+
+            foreach (var field in this.model.Serialize())
+            {
+                FieldSelect.Items.Add(field.Value.Name);
+            }
+
+            FieldSelect.SelectedIndex = 0;
+
+            ConditionsSelect.Items.Add("部分一致");
+            ConditionsSelect.Items.Add("完全一致");
+            ConditionsSelect.Items.Add("不一致");
+            ConditionsSelect.SelectedIndex = 0;
+
         }
     }
 }
