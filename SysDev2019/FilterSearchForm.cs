@@ -23,25 +23,7 @@ namespace SysDev2019
         {
             InitializeComponent();
 
-            if (model.Length == 0)
-            {
-                MessageBox.Show("検索するデータがありません。");
-                return;
-            }
-
-            this.models = model;
-            this.model = model[0];
-            foreach (var field in this.model.Serialize())
-            {
-                FieldSelect.Items.Add(field.Value.Name);
-            }
-
-            FieldSelect.SelectedIndex = 0;
-
-            ConditionsSelect.Items.Add("部分一致");
-            ConditionsSelect.Items.Add("完全一致");
-            ConditionsSelect.Items.Add("不一致");
-            ConditionsSelect.SelectedIndex = 0;
+            this.models = model;      
         }
 
         private void FilterButton_Click(object sender, EventArgs ev)
@@ -105,6 +87,31 @@ namespace SysDev2019
             }
 
             ValueSelect.Items.AddRange(list.Distinct().ToArray());
+        }
+
+        private void FilterSearchForm_Shown(object sender, EventArgs e)
+        {
+            if (models.Length == 0)
+            {
+                MessageBox.Show("検索するデータがありません。");
+                Close();
+                return;
+            }
+
+            this.model = models[0];
+
+            foreach (var field in this.model.Serialize())
+            {
+                FieldSelect.Items.Add(field.Value.Name);
+            }
+
+            FieldSelect.SelectedIndex = 0;
+
+            ConditionsSelect.Items.Add("部分一致");
+            ConditionsSelect.Items.Add("完全一致");
+            ConditionsSelect.Items.Add("不一致");
+            ConditionsSelect.SelectedIndex = 0;
+
         }
     }
 }
