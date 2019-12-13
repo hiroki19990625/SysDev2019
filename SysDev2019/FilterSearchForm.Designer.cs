@@ -128,6 +128,7 @@
             this.Name = "FilterSearchForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "絞り込み_検索画面";
+            this.Shown += new System.EventHandler(this.FilterSearchForm_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 
