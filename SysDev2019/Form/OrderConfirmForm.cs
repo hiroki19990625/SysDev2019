@@ -16,7 +16,6 @@ namespace SysDev2019
 
         public bool CloseFlag = true;
         private bool initializing;
-        private Order order;
 
         public OrderConfirmForm(string employeeId, bool openEntry = false)
         {
@@ -30,7 +29,8 @@ namespace SysDev2019
         {
             Task.Run(() =>
             {
-                var orders = DatabaseInstance.OrderTable.Where(e => e.EmployeeId == employeeId).ToArray();
+                var orders = DatabaseInstance.OrderTable.Where(e => e.EmployeeId == employeeId && !e.CancelOrder)
+                    .ToArray();
 
                 try
                 {
@@ -99,7 +99,34 @@ namespace SysDev2019
 
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            DatabaseInstance.OrderTable.Sync();
+            if (!initializing)
+            {
+                DatabaseInstance.OrderTable.Sync();
+                if (e.ColumnIndex == 6)
+                {
+                    var check = (bool) dataGridView1[e.ColumnIndex, e.RowIndex].Value;
+                    var orderId = (string) dataGridView1[0, e.RowIndex].Value;
+                    var order = DatabaseInstance.OrderTable.Where(el => el.OrderId == orderId)
+                        .FirstOrDefault();
+                    if (order != null)
+                    {
+                        if (check && MessageBox.Show("キャンセルしますか?", "情報", MessageBoxButtons.YesNo,
+                                MessageBoxIcon.Information) == DialogResult.Yes)
+                        {
+                            Stock stock = new Stock
+                            {
+                                StockId = Guid.NewGuid().ToString(),
+                                ProductId = order.ProductId,
+                                StockQuantity = order.OrderVolume,
+                                ReorderPoint = -1,
+                                OrderQuantity = -1
+                            };
+                            DatabaseInstance.StockTable.Insert(stock);
+                            DatabaseInstance.StockTable.Sync();
+                        }
+                    }
+                }
+            }
         }
 
         private void filterButton_Click(object sender, EventArgs e)
