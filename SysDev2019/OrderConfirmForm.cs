@@ -1,26 +1,20 @@
-﻿using ObjectDatabase;
-using SysDev2019.DataModels;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SysDev2019.DataModels;
 
 namespace SysDev2019
 {
     public partial class OrderConfirmForm : Form
     {
-        private string employeeId;
-        private bool openEntry;
-        private bool initializing;
-
-        private BindingList<Order> bindingList = new BindingList<Order>();
+        private readonly BindingList<Order> bindingList = new BindingList<Order>();
 
         public bool CloseFlag = true;
+        private readonly string employeeId;
+        private bool initializing;
+        private readonly bool openEntry;
         private Order order;
 
         public OrderConfirmForm(string employeeId, bool openEntry = false)
@@ -29,61 +23,6 @@ namespace SysDev2019
 
             this.employeeId = employeeId;
             this.openEntry = openEntry;
-        }
-
-        public void OpenFilter_SearchForm()
-        {
-            Visible = false;
-
-            FilterSearchForm filter_SearchForm = new FilterSearchForm(DatabaseInstance.OrderTable.ToArray());
-            if (filter_SearchForm.ShowDialog() == DialogResult.OK)
-            {
-                bindingList.Clear();
-                foreach (DataModel model in filter_SearchForm.Result)
-                {
-                    if (model is Order order)
-                        bindingList.Add(order);
-                }
-            }
-
-            Visible = true;
-        }
-
-        private void backButton_Click(object sender, EventArgs e)
-        {
-            OpenOrderEntryForm();
-        }
-
-        private void OpenOrderEntryForm()
-        {
-            if (openEntry)
-            {
-                CloseFlag = false;
-                Close();
-            }
-            else
-            {
-                Visible = false;
-
-                OrderEntryForm form = new OrderEntryForm(employeeId);
-                form.ShowDialog();
-
-                Close();
-            }
-        }
-
-        private void filterButton_Click(object sender, EventArgs e)
-        {
-            OpenFilter_SearchForm();
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-        }
-
-        private void OrderConfirmForm_Shown(object sender, EventArgs e)
-        {
-            InitializeOrderList();
         }
 
         public void InitializeOrderList()
@@ -98,10 +37,7 @@ namespace SysDev2019
                     {
                         initializing = true;
                         dataGridView1.DataSource = bindingList;
-                        foreach (Order order in orders)
-                        {
-                            bindingList.Add(order);
-                        }
+                        foreach (var order in orders) bindingList.Add(order);
 
                         var cols = dataGridView1.Columns;
                         cols.RemoveAt(cols.Count - 1);
@@ -135,9 +71,28 @@ namespace SysDev2019
             });
         }
 
-        delegate void AsyncAction();
+        public void OpenFilter_SearchForm()
+        {
+            Visible = false;
 
-        private void OrderConfirmForm_Load(object sender, EventArgs e)
+            var filter_SearchForm = new FilterSearchForm(DatabaseInstance.OrderTable.ToArray());
+            if (filter_SearchForm.ShowDialog() == DialogResult.OK)
+            {
+                bindingList.Clear();
+                foreach (var model in filter_SearchForm.Result)
+                    if (model is Order order)
+                        bindingList.Add(order);
+            }
+
+            Visible = true;
+        }
+
+        private void backButton_Click(object sender, EventArgs e)
+        {
+            OpenOrderEntryForm();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
         }
 
@@ -146,9 +101,43 @@ namespace SysDev2019
             DatabaseInstance.OrderTable.Sync();
         }
 
+        private void filterButton_Click(object sender, EventArgs e)
+        {
+            OpenFilter_SearchForm();
+        }
+
+        private void OpenOrderEntryForm()
+        {
+            if (openEntry)
+            {
+                CloseFlag = false;
+                Close();
+            }
+            else
+            {
+                Visible = false;
+
+                var form = new OrderEntryForm(employeeId);
+                form.ShowDialog();
+
+                Close();
+            }
+        }
+
         private void OrderConfirmForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             DatabaseInstance.OrderTable.Sync();
         }
+
+        private void OrderConfirmForm_Load(object sender, EventArgs e)
+        {
+        }
+
+        private void OrderConfirmForm_Shown(object sender, EventArgs e)
+        {
+            InitializeOrderList();
+        }
+
+        private delegate void AsyncAction();
     }
 }

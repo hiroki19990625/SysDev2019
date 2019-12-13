@@ -1,19 +1,12 @@
-﻿using SysDev2019.DataModels;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SysDev2019
 {
     public partial class SalesStaffMenuForm : Form
     {
-        private string employeeId;
+        private readonly string employeeId;
 
         public SalesStaffMenuForm(string employeeId)
         {
@@ -23,30 +16,24 @@ namespace SysDev2019
             EmpName.Text = GetEmployeeName();
         }
 
-        public void OpenOrderEntryForm()
-        {
-            Visible = false;
-
-            OrderEntryForm OrderEntryForm = new OrderEntryForm(employeeId);
-            OrderEntryForm.ShowDialog();
-
-            Visible = true;
-        }
-
         public void OpenOrderConfirmForm()
         {
             Visible = false;
 
-            OrderConfirmForm OrderConfirmForm = new OrderConfirmForm(employeeId);
+            var OrderConfirmForm = new OrderConfirmForm(employeeId);
             OrderConfirmForm.ShowDialog();
 
             Visible = true;
         }
 
-        private string GetEmployeeName()
+        public void OpenOrderEntryForm()
         {
-            var emp = DatabaseInstance.EmployeeTable.Where(e => e.EmployeeId == employeeId).First();
-            return $"名前: {emp.Name}";
+            Visible = false;
+
+            var OrderEntryForm = new OrderEntryForm(employeeId);
+            OrderEntryForm.ShowDialog();
+
+            Visible = true;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -57,12 +44,16 @@ namespace SysDev2019
         private void button2_Click(object sender, EventArgs e)
         {
             OpenOrderConfirmForm();
+        }
 
+        private string GetEmployeeName()
+        {
+            var emp = DatabaseInstance.EmployeeTable.Where(e => e.EmployeeId == employeeId).First();
+            return $"名前: {emp.Name}";
         }
 
         private void SalesStaffMenuForm_Load(object sender, EventArgs e)
         {
-
         }
     }
 }

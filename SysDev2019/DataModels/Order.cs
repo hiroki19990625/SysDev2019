@@ -1,5 +1,4 @@
-﻿using System;
-using ObjectDatabase;
+﻿using ObjectDatabase;
 
 namespace SysDev2019.DataModels
 {
@@ -16,10 +15,12 @@ namespace SysDev2019.DataModels
         [SerializeProperty("注文キャンセル")] public bool CancelOrder { get; set; }
         [SerializeProperty("出荷完了")] public bool ShipmentCompleted { get; set; }
 
-        [IgnoreProperty, UnionTarget("EmployeeId")]
+        [IgnoreProperty]
+        [UnionTarget("EmployeeId")]
         public Employee Employee { get; set; }
 
-        [IgnoreProperty, UnionTarget("ProductId")]
+        [IgnoreProperty]
+        [UnionTarget("ProductId")]
         public Product Product { get; set; }
     }
 }

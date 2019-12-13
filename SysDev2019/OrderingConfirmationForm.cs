@@ -1,48 +1,29 @@
-﻿using SysDev2019.DataModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using BinaryIO;
-using iText.Kernel.Colors;
 using iText.Kernel.Font;
 using iText.Kernel.Pdf;
-using iText.Kernel.Pdf.Canvas;
-using iText.Kernel.Pdf.Xobject;
 using iText.Layout;
-using iText.Layout.Borders;
 using iText.Layout.Element;
 using iText.Layout.Properties;
-using ObjectDatabase;
-using Patagames.Pdf.Net.Controls.WinForms;
+using SysDev2019.DataModels;
 using SysDev2019.Dialog;
-using Color = iText.Kernel.Colors.Color;
-using HorizontalAlignment = iText.Layout.Properties.HorizontalAlignment;
-using Image = iText.Layout.Element.Image;
 
 namespace SysDev2019
 {
     public partial class OrderingConfirmationForm : Form
     {
-        private (string, string)[] pdfFile;
-        private string employeeId;
-        private bool OpenOrdering;
-        private bool initializing;
-
-        private BindingList<Ordering> bindingList = new BindingList<Ordering>();
+        private readonly BindingList<Ordering> bindingList = new BindingList<Ordering>();
 
         public bool CloseFlag = true;
-
-        static OrderingConfirmationForm()
-        {
-        }
+        private readonly string employeeId;
+        private bool initializing;
+        private readonly bool OpenOrdering;
+        private (string, string)[] pdfFile;
 
         public OrderingConfirmationForm(string employeeId, bool OpenOrdering = false)
         {
@@ -52,31 +33,121 @@ namespace SysDev2019
             this.OpenOrdering = OpenOrdering;
         }
 
-        public void OpenFilter_SearchForm()
+        public (string, string)[] CreateDocument()
         {
-            Visible = false;
+            if (!Directory.Exists("Docs"))
+                Directory.CreateDirectory("Docs");
 
-            FilterSearchForm filter_SearchForm = new FilterSearchForm(DatabaseInstance.OrderingTable.ToArray());
-            if (filter_SearchForm.ShowDialog() == DialogResult.OK)
+            var prod = DatabaseInstance.ProductTable.ToArray();
+            var manifs = DatabaseInstance.OrderingTable.Where(e =>
+                !e.OrderingCompleted && (e.EmployeeId == employeeId || e.EmployeeId == "3000")).GroupBy(e =>
+                prod.First(e1 => e1.ProductId == e.ProductId).Manufacturer.ManufacturerName);
+
+            var files = new List<(string, string)>();
+            var folder = "Docs/" + DateTime.Now.Ticks;
+            foreach (var manif in manifs)
             {
-                bindingList.Clear();
-                foreach (DataModel model in filter_SearchForm.Result)
+                Directory.CreateDirectory(folder);
+
+                var file = $"{folder}/帳票_({manif.Key}).pdf";
+                var stream = new MemoryStream();
+                var writer = new PdfWriter(stream);
+
+                var font = PdfFontFactory.CreateFont("c:\\windows\\fonts\\msgothic.ttc,0", "Identity-H");
+
+                var pdf = new PdfDocument(writer);
+                var d = new Document(pdf);
+
+                var sum = manif.Sum(e => prod.First(e1 => e1.ProductId == e.ProductId).UnitPrice * e.OrderingVolume);
+
+                d.Add(new Paragraph($"発注書作成日： {DateTime.Today:yyyy/MM/dd}").SetFont(font).SetFontSize(15)
+                    .SetTextAlignment(TextAlignment.RIGHT));
+                d.Add(new Paragraph($"注文番号：{DateTime.Now.Ticks.ToString()}").SetFont(font).SetFontSize(15)
+                    .SetTextAlignment(TextAlignment.RIGHT));
+                d.Add(new Paragraph("発注書").SetFont(font).SetFontSize(30)
+                    .SetTextAlignment(TextAlignment.CENTER));
+                d.Add(new Paragraph($"{manif.Key} 様").SetFont(font).SetFontSize(22)
+                    .SetUnderline()
+                    .SetTextAlignment(TextAlignment.RIGHT));
+                d.Add(new Paragraph());
+                d.Add(new Paragraph());
+                d.Add(new Paragraph());
+                d.Add(new Paragraph($"発注金額 {sum * 1.1:C0}-")
+                    .SetUnderline()
+                    .SetFont(font)
+                    .SetFontSize(25)
+                    .SetTextAlignment(TextAlignment.LEFT));
+                d.Add(new Paragraph("下記の通り発注致します。").SetFont(font).SetFontSize(15)
+                    .SetTextAlignment(TextAlignment.LEFT));
+
+                var table = new Table(4);
+                table.SetFont(font).SetFontSize(15).SetWidth(UnitValue.CreatePercentValue(100));
+                table.AddHeaderCell(new Paragraph("商品名").SetFont(font).SetFontSize(15));
+                table.AddHeaderCell(new Paragraph("個数").SetFont(font).SetFontSize(15).SetWidth(75));
+                table.AddHeaderCell(new Paragraph("単価").SetFont(font).SetFontSize(15).SetWidth(75));
+                table.AddHeaderCell(new Paragraph("合計").SetFont(font).SetFontSize(15).SetWidth(75));
+
+                foreach (var odin in manif)
                 {
-                    if (model is Ordering ordering)
-                        bindingList.Add(ordering);
+                    var pd = prod.First(e => e.ProductId == odin.ProductId);
+                    table.AddCell(new Paragraph(pd.ProductName)
+                        .SetFont(font).SetFontSize(12));
+                    table.AddCell(new Paragraph(odin.OrderingVolume.ToString())
+                        .SetFont(font).SetFontSize(12).SetTextAlignment(TextAlignment.RIGHT));
+                    table.AddCell(new Paragraph($"{pd.UnitPrice:C0}")
+                        .SetFont(font).SetFontSize(12).SetTextAlignment(TextAlignment.RIGHT));
+                    table.AddCell(new Paragraph($"{odin.OrderingVolume * pd.UnitPrice:C0}")
+                        .SetFont(font).SetFontSize(12).SetTextAlignment(TextAlignment.RIGHT));
                 }
+
+                table.AddCell(new Paragraph("")
+                    .SetFont(font).SetFontSize(15));
+                table.AddCell(new Paragraph("")
+                    .SetFont(font).SetFontSize(15));
+                table.AddCell(new Paragraph("小計")
+                    .SetFont(font).SetFontSize(15).SetTextAlignment(TextAlignment.CENTER));
+                table.AddCell(new Paragraph($"{sum:C0}")
+                    .SetFont(font).SetFontSize(15).SetTextAlignment(TextAlignment.RIGHT));
+
+                table.AddCell(new Paragraph("")
+                    .SetFont(font).SetFontSize(15));
+                table.AddCell(new Paragraph("")
+                    .SetFont(font).SetFontSize(15));
+                table.AddCell(new Paragraph("消費税")
+                    .SetFont(font).SetFontSize(15).SetTextAlignment(TextAlignment.CENTER));
+                table.AddCell(new Paragraph($"{sum * 0.1:C0}")
+                    .SetFont(font).SetFontSize(15).SetTextAlignment(TextAlignment.RIGHT));
+
+
+                table.AddCell(new Paragraph("")
+                    .SetFont(font).SetFontSize(15));
+                table.AddCell(new Paragraph("")
+                    .SetFont(font).SetFontSize(15));
+                table.AddCell(new Paragraph("合計")
+                    .SetFont(font).SetFontSize(15).SetTextAlignment(TextAlignment.CENTER));
+                table.AddCell(new Paragraph($"{sum * 1.1:C0}-")
+                    .SetFont(font).SetFontSize(15).SetTextAlignment(TextAlignment.RIGHT));
+
+                d.Add(table);
+
+                var max = pdf.GetNumberOfPages();
+                for (var i = 1; i <= max; i++)
+                    d.ShowTextAligned(new Paragraph($"ページ {i} / {max}").SetFont(font), 559, 820, i,
+                        TextAlignment.CENTER,
+                        VerticalAlignment.BOTTOM, 0);
+
+                pdf.Close();
+                d.Close();
+                writer.Close();
+
+                File.WriteAllBytes(file, stream.ToArray());
+
+                stream.Close();
+
+                files.Add((file, manif.Key));
             }
 
-            Visible = true;
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void filterButton_Click(object sender, EventArgs e)
-        {
-            OpenFilter_SearchForm();
+            return files.ToArray();
         }
 
         public void InitializeOrderingList()
@@ -91,10 +162,7 @@ namespace SysDev2019
                     {
                         initializing = true;
                         dataGridView1.DataSource = bindingList;
-                        foreach (Ordering ordering in orders)
-                        {
-                            bindingList.Add(ordering);
-                        }
+                        foreach (var ordering in orders) bindingList.Add(ordering);
 
                         var cols = dataGridView1.Columns;
                         cols.RemoveAt(cols.Count - 1);
@@ -124,39 +192,25 @@ namespace SysDev2019
             });
         }
 
-        delegate void AsyncAction();
-
-        private void OpenOrderingConfirmationForm_Shown(object sender, EventArgs e)
+        public void OpenFilter_SearchForm()
         {
-            InitializeOrderingList();
+            Visible = false;
+
+            var filter_SearchForm = new FilterSearchForm(DatabaseInstance.OrderingTable.ToArray());
+            if (filter_SearchForm.ShowDialog() == DialogResult.OK)
+            {
+                bindingList.Clear();
+                foreach (var model in filter_SearchForm.Result)
+                    if (model is Ordering ordering)
+                        bindingList.Add(ordering);
+            }
+
+            Visible = true;
         }
 
         private void backButton_Click(object sender, EventArgs e)
         {
             OpenOrderingForm();
-        }
-
-        private void OpenOrderingForm()
-        {
-            if (OpenOrdering)
-            {
-                CloseFlag = false;
-                Close();
-            }
-            else
-            {
-                Visible = false;
-
-                OrderingForm form = new OrderingForm(employeeId);
-                form.ShowDialog();
-
-                Close();
-            }
-        }
-
-        private void OpenOrderingConfirmationForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            DatabaseInstance.OrderingTable.Sync();
         }
 
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -171,7 +225,6 @@ namespace SysDev2019
                     var ordering = DatabaseInstance.OrderingTable.Where(el => el.OrderingId == orderingId)
                         .FirstOrDefault();
                     if (ordering != null)
-                    {
                         if (check && MessageBox.Show("在庫を自動的に追加しますか?", "情報", MessageBoxButtons.YesNo,
                                 MessageBoxIcon.Information) == DialogResult.Yes)
                         {
@@ -186,8 +239,44 @@ namespace SysDev2019
                             DatabaseInstance.StockTable.Insert(stock);
                             DatabaseInstance.StockTable.Sync();
                         }
-                    }
                 }
+            }
+        }
+
+        private void filterButton_Click(object sender, EventArgs e)
+        {
+            OpenFilter_SearchForm();
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void OpenOrderingConfirmationForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            DatabaseInstance.OrderingTable.Sync();
+        }
+
+        private void OpenOrderingConfirmationForm_Shown(object sender, EventArgs e)
+        {
+            InitializeOrderingList();
+        }
+
+        private void OpenOrderingForm()
+        {
+            if (OpenOrdering)
+            {
+                CloseFlag = false;
+                Close();
+            }
+            else
+            {
+                Visible = false;
+
+                var form = new OrderingForm(employeeId);
+                form.ShowDialog();
+
+                Close();
             }
         }
 
@@ -195,127 +284,10 @@ namespace SysDev2019
         {
             pdfFile = CreateDocument();
 
-            PrintFilesDialog dialog = new PrintFilesDialog(pdfFile);
+            var dialog = new PrintFilesDialog(pdfFile);
             dialog.ShowDialog();
         }
 
-        public (string, string)[] CreateDocument()
-        {
-            if (!Directory.Exists("Docs"))
-                Directory.CreateDirectory("Docs");
-
-            var prod = DatabaseInstance.ProductTable.ToArray();
-            var manifs = DatabaseInstance.OrderingTable.Where(e =>
-                !e.OrderingCompleted && (e.EmployeeId == employeeId || e.EmployeeId == "3000")).GroupBy(e =>
-                prod.First(e1 => e1.ProductId == e.ProductId).Manufacturer.ManufacturerName);
-
-            var files = new List<(string, string)>();
-            string folder = "Docs/" + DateTime.Now.Ticks;
-            foreach (IGrouping<string, Ordering> manif in manifs)
-            {
-                Directory.CreateDirectory(folder);
-
-                string file = $"{folder}/帳票_({manif.Key}).pdf";
-                var stream = new MemoryStream();
-                PdfWriter writer = new PdfWriter(stream);
-
-                PdfFont font = PdfFontFactory.CreateFont("c:\\windows\\fonts\\msgothic.ttc,0", "Identity-H");
-
-                PdfDocument pdf = new PdfDocument(writer);
-                Document d = new Document(pdf);
-
-                var sum = manif.Sum(e => prod.First(e1 => e1.ProductId == e.ProductId).UnitPrice * e.OrderingVolume);
-
-                d.Add(new Paragraph($"発注書作成日： {DateTime.Today:yyyy/MM/dd}").SetFont(font).SetFontSize(15)
-                    .SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT));
-                d.Add(new Paragraph($"注文番号：{DateTime.Now.Ticks.ToString()}").SetFont(font).SetFontSize(15)
-                    .SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT));
-                d.Add(new Paragraph("発注書").SetFont(font).SetFontSize(30)
-                    .SetTextAlignment(iText.Layout.Properties.TextAlignment.CENTER));
-                d.Add(new Paragraph($"{manif.Key} 様").SetFont(font).SetFontSize(22)
-                    .SetUnderline()
-                    .SetTextAlignment(iText.Layout.Properties.TextAlignment.RIGHT));
-                d.Add(new Paragraph());
-                d.Add(new Paragraph());
-                d.Add(new Paragraph());
-                d.Add(new Paragraph($"発注金額 {(sum * 1.1):C0}-")
-                    .SetUnderline()
-                    .SetFont(font)
-                    .SetFontSize(25)
-                    .SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT));
-                d.Add(new Paragraph($"下記の通り発注致します。").SetFont(font).SetFontSize(15)
-                    .SetTextAlignment(iText.Layout.Properties.TextAlignment.LEFT));
-
-                Table table = new Table(4);
-                table.SetFont(font).SetFontSize(15).SetWidth(UnitValue.CreatePercentValue(100));
-                table.AddHeaderCell(new Paragraph("商品名").SetFont(font).SetFontSize(15));
-                table.AddHeaderCell(new Paragraph("個数").SetFont(font).SetFontSize(15).SetWidth(75));
-                table.AddHeaderCell(new Paragraph("単価").SetFont(font).SetFontSize(15).SetWidth(75));
-                table.AddHeaderCell(new Paragraph("合計").SetFont(font).SetFontSize(15).SetWidth(75));
-
-                foreach (Ordering odin in manif)
-                {
-                    var pd = prod.First(e => e.ProductId == odin.ProductId);
-                    table.AddCell(new Paragraph(pd.ProductName)
-                        .SetFont(font).SetFontSize(12));
-                    table.AddCell(new Paragraph(odin.OrderingVolume.ToString())
-                        .SetFont(font).SetFontSize(12).SetTextAlignment(TextAlignment.RIGHT));
-                    table.AddCell(new Paragraph($"{pd.UnitPrice:C0}")
-                        .SetFont(font).SetFontSize(12).SetTextAlignment(TextAlignment.RIGHT));
-                    table.AddCell(new Paragraph($"{(odin.OrderingVolume * pd.UnitPrice):C0}")
-                        .SetFont(font).SetFontSize(12).SetTextAlignment(TextAlignment.RIGHT));
-                }
-
-                table.AddCell(new Paragraph("")
-                    .SetFont(font).SetFontSize(15));
-                table.AddCell(new Paragraph("")
-                    .SetFont(font).SetFontSize(15));
-                table.AddCell(new Paragraph("小計")
-                    .SetFont(font).SetFontSize(15).SetTextAlignment(TextAlignment.CENTER));
-                table.AddCell(new Paragraph($"{sum:C0}")
-                    .SetFont(font).SetFontSize(15).SetTextAlignment(TextAlignment.RIGHT));
-
-                table.AddCell(new Paragraph("")
-                    .SetFont(font).SetFontSize(15));
-                table.AddCell(new Paragraph("")
-                    .SetFont(font).SetFontSize(15));
-                table.AddCell(new Paragraph("消費税")
-                    .SetFont(font).SetFontSize(15).SetTextAlignment(TextAlignment.CENTER));
-                table.AddCell(new Paragraph($"{(sum * 0.1):C0}")
-                    .SetFont(font).SetFontSize(15).SetTextAlignment(TextAlignment.RIGHT));
-
-
-                table.AddCell(new Paragraph("")
-                    .SetFont(font).SetFontSize(15));
-                table.AddCell(new Paragraph("")
-                    .SetFont(font).SetFontSize(15));
-                table.AddCell(new Paragraph("合計")
-                    .SetFont(font).SetFontSize(15).SetTextAlignment(TextAlignment.CENTER));
-                table.AddCell(new Paragraph($"{(sum * 1.1):C0}-")
-                    .SetFont(font).SetFontSize(15).SetTextAlignment(TextAlignment.RIGHT));
-
-                d.Add(table);
-
-                int max = pdf.GetNumberOfPages();
-                for (int i = 1; i <= max; i++)
-                {
-                    d.ShowTextAligned(new Paragraph($"ページ {i} / {max}").SetFont(font), 559, 820, i,
-                        TextAlignment.CENTER,
-                        VerticalAlignment.BOTTOM, 0);
-                }
-
-                pdf.Close();
-                d.Close();
-                writer.Close();
-
-                File.WriteAllBytes(file, stream.ToArray());
-
-                stream.Close();
-
-                files.Add((file, manif.Key));
-            }
-
-            return files.ToArray();
-        }
+        private delegate void AsyncAction();
     }
 }

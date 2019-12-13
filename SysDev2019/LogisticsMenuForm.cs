@@ -1,18 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SysDev2019
 {
     public partial class LogisticsMenuForm : Form
     {
-        private string employeeId;
+        private readonly string employeeId;
 
         public LogisticsMenuForm(string employeeId)
         {
@@ -21,12 +15,20 @@ namespace SysDev2019
             EmpName.Text = GetEmployeeName();
         }
 
-        public void OpenStockList()
+        public void OpenOrderConfirmationForm()
         {
             Visible = false;
+            var Openorder_Confirmation_Form = new OrderConfirmationForm(employeeId);
+            Openorder_Confirmation_Form.ShowDialog();
 
-            StockListForm OpenStockListForm = new StockListForm(employeeId);
-            OpenStockListForm.ShowDialog();
+            Visible = true;
+        }
+
+        public void OpenOrderingConfirmationForm()
+        {
+            Visible = false;
+            var OpenOrderingConfirmationForm = new OrderingConfirmationForm(employeeId);
+            OpenOrderingConfirmationForm.ShowDialog();
 
             Visible = true;
         }
@@ -35,39 +37,20 @@ namespace SysDev2019
         {
             Visible = false;
 
-            OrderingForm OpenOrderingForm = new OrderingForm(employeeId);
+            var OpenOrderingForm = new OrderingForm(employeeId);
             OpenOrderingForm.ShowDialog();
 
             Visible = true;
         }
 
-        public void OpenOrderingConfirmationForm()
+        public void OpenStockList()
         {
             Visible = false;
-            OrderingConfirmationForm OpenOrderingConfirmationForm = new OrderingConfirmationForm(employeeId);
-            OpenOrderingConfirmationForm.ShowDialog();
+
+            var OpenStockListForm = new StockListForm(employeeId);
+            OpenStockListForm.ShowDialog();
 
             Visible = true;
-        }
-
-        public void OpenOrderConfirmationForm()
-        {
-            Visible = false;
-            OrderConfirmationForm Openorder_Confirmation_Form = new OrderConfirmationForm(employeeId);
-            Openorder_Confirmation_Form.ShowDialog();
-
-            Visible = true;
-        }
-
-        private string GetEmployeeName()
-        {
-            var emp = DatabaseInstance.EmployeeTable.Where(e => e.EmployeeId == employeeId).First();
-            return $"名前: {emp.Name}";
-        }
-
-
-        private void label1_Click(object sender, EventArgs e)
-        {
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -88,6 +71,17 @@ namespace SysDev2019
         private void button4_Click(object sender, EventArgs e)
         {
             OpenOrderConfirmationForm();
+        }
+
+        private string GetEmployeeName()
+        {
+            var emp = DatabaseInstance.EmployeeTable.Where(e => e.EmployeeId == employeeId).First();
+            return $"名前: {emp.Name}";
+        }
+
+
+        private void label1_Click(object sender, EventArgs e)
+        {
         }
 
         private void LogisticsManagerMenuForm_Load(object sender, EventArgs e)
