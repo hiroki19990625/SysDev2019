@@ -146,10 +146,10 @@
     <Compile Include="DataModels\Ordering.cs" />
     <Compile Include="DataModels\Product.cs" />
     <Compile Include="DataModels\Stock.cs" />
-    <Compile Include="FilterSearchForm.cs">
+    <Compile Include="Form\FilterSearchForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FilterSearchForm.Designer.cs">
+    <Compile Include="Form\FilterSearchForm.Designer.cs">
       <DependentUpon>FilterSearchForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialog\ProgressDialog.cs">
@@ -158,52 +158,52 @@
     <Compile Include="Dialog\ProgressDialog.Designer.cs">
       <DependentUpon>ProgressDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoginForm.cs">
+    <Compile Include="Form\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoginForm.Designer.cs">
+    <Compile Include="Form\LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="LogisticsMenuForm.cs">
+    <Compile Include="Form\LogisticsMenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LogisticsMenuForm.Designer.cs">
+    <Compile Include="Form\LogisticsMenuForm.Designer.cs">
       <DependentUpon>LogisticsMenuForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="OrderConfirmationForm.cs">
+    <Compile Include="Form\OrderConfirmationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OrderConfirmationForm.Designer.cs">
+    <Compile Include="Form\OrderConfirmationForm.Designer.cs">
       <DependentUpon>OrderConfirmationForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="OrderingConfirmationForm.cs">
+    <Compile Include="Form\OrderingConfirmationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OrderingConfirmationForm.Designer.cs">
+    <Compile Include="Form\OrderingConfirmationForm.Designer.cs">
       <DependentUpon>OrderingConfirmationForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="OrderingForm.cs">
+    <Compile Include="Form\OrderingForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OrderingForm.Designer.cs">
+    <Compile Include="Form\OrderingForm.Designer.cs">
       <DependentUpon>OrderingForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="StockListForm.cs">
+    <Compile Include="Form\StockListForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StockListForm.Designer.cs">
+    <Compile Include="Form\StockListForm.Designer.cs">
       <DependentUpon>StockListForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="OrderConfirmForm.cs">
+    <Compile Include="Form\OrderConfirmForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OrderConfirmForm.Designer.cs">
+    <Compile Include="Form\OrderConfirmForm.Designer.cs">
       <DependentUpon>OrderConfirmForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="OrderEntryForm.cs">
+    <Compile Include="Form\OrderEntryForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OrderEntryForm.Designer.cs">
+    <Compile Include="Form\OrderEntryForm.Designer.cs">
       <DependentUpon>OrderEntryForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialog\PrintFilesDialog.cs">
@@ -214,10 +214,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SalesStaffMenuForm.cs">
+    <Compile Include="Form\SalesStaffMenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SalesStaffMenuForm.Designer.cs">
+    <Compile Include="Form\SalesStaffMenuForm.Designer.cs">
       <DependentUpon>SalesStaffMenuForm.cs</DependentUpon>
     </Compile>
     <Content Include="x64\pdfium.dll">
@@ -226,34 +226,34 @@
     <Content Include="x86\pdfium.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="FilterSearchForm.resx">
+    <EmbeddedResource Include="Form\FilterSearchForm.resx">
       <DependentUpon>FilterSearchForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialog\ProgressDialog.resx">
       <DependentUpon>ProgressDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoginForm.resx">
+    <EmbeddedResource Include="Form\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogisticsMenuForm.resx">
+    <EmbeddedResource Include="Form\LogisticsMenuForm.resx">
       <DependentUpon>LogisticsMenuForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OrderConfirmationForm.resx">
+    <EmbeddedResource Include="Form\OrderConfirmationForm.resx">
       <DependentUpon>OrderConfirmationForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OrderingConfirmationForm.resx">
+    <EmbeddedResource Include="Form\OrderingConfirmationForm.resx">
       <DependentUpon>OrderingConfirmationForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OrderingForm.resx">
+    <EmbeddedResource Include="Form\OrderingForm.resx">
       <DependentUpon>OrderingForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StockListForm.resx">
+    <EmbeddedResource Include="Form\StockListForm.resx">
       <DependentUpon>StockListForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OrderConfirmForm.resx">
+    <EmbeddedResource Include="Form\OrderConfirmForm.resx">
       <DependentUpon>OrderConfirmForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OrderEntryForm.resx">
+    <EmbeddedResource Include="Form\OrderEntryForm.resx">
       <DependentUpon>OrderEntryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialog\PrintFilesDialog.resx">
@@ -269,7 +269,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="SalesStaffMenuForm.resx">
+    <EmbeddedResource Include="Form\SalesStaffMenuForm.resx">
       <DependentUpon>SalesStaffMenuForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Diagram\SysDev2019.cd" />
@@ -298,8 +298,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Form\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
