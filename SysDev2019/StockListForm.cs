@@ -9,8 +9,8 @@ namespace SysDev2019
     public partial class StockListForm : Form
     {
         private readonly BindingList<Stock> bindingList = new BindingList<Stock>();
-        public bool CloseFlag = true;
         private readonly string employeeId;
+        public bool CloseFlag = true;
         private bool initializing;
 
         public StockListForm(string employeeId)

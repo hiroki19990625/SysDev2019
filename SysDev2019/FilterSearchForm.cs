@@ -8,14 +8,14 @@ namespace SysDev2019
 {
     public partial class FilterSearchForm : Form
     {
-        private readonly DataModel model;
         private readonly DataModel[] models;
+        private DataModel model;
 
         public FilterSearchForm(DataModel[] model)
         {
             InitializeComponent();
-            
-            this.models = model;
+
+            models = model;
         }
 
         public DataModel[] Result { get; private set; } = new DataModel[0];
@@ -74,27 +74,6 @@ namespace SysDev2019
             Close();
         }
 
-        private void FieldSelect_SelectedIndexChanged(object sender, EventArgs ev)
-        {
-            ValueSelect.Items.Clear();
-
-            if (ValueSelect.SelectedIndex != -1)
-                return;
-
-            List<string> list = new List<string>();
-            foreach (var dataModel in models.Select(m => m.Serialize()))
-            {
-                var val = dataModel.FirstOrDefault(e =>
-                    e.Value.Name == FieldSelect.Items[FieldSelect.SelectedIndex].ToString());
-                if (!string.IsNullOrEmpty(val.Key))
-                {
-                    list.Add(val.Value.Value.ToString());
-                }
-            }
-
-            ValueSelect.Items.AddRange(list.Distinct().ToArray());
-        }
-
         private void FilterSearchForm_Shown(object sender, EventArgs e)
         {
             if (models.Length == 0)
@@ -104,12 +83,9 @@ namespace SysDev2019
                 return;
             }
 
-            this.model = models[0];
+            model = models[0];
 
-            foreach (var field in this.model.Serialize())
-            {
-                FieldSelect.Items.Add(field.Value.Name);
-            }
+            foreach (var field in model.Serialize()) FieldSelect.Items.Add(field.Value.Name);
 
             FieldSelect.SelectedIndex = 0;
 
@@ -117,7 +93,6 @@ namespace SysDev2019
             ConditionsSelect.Items.Add("完全一致");
             ConditionsSelect.Items.Add("不一致");
             ConditionsSelect.SelectedIndex = 0;
-
         }
     }
 }

@@ -10,11 +10,11 @@ namespace SysDev2019
     public partial class OrderConfirmForm : Form
     {
         private readonly BindingList<Order> bindingList = new BindingList<Order>();
+        private readonly string employeeId;
+        private readonly bool openEntry;
 
         public bool CloseFlag = true;
-        private readonly string employeeId;
         private bool initializing;
-        private readonly bool openEntry;
         private Order order;
 
         public OrderConfirmForm(string employeeId, bool openEntry = false)

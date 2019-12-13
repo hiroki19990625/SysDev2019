@@ -10,8 +10,8 @@ namespace SysDev2019
 {
     public partial class OrderingForm : Form
     {
-        private CancellationTokenSource _tokenSource = new CancellationTokenSource();
         private readonly string employeeId;
+        private CancellationTokenSource _tokenSource = new CancellationTokenSource();
 
         public OrderingForm(string employeeId)
         {

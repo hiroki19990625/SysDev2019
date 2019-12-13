@@ -18,11 +18,11 @@ namespace SysDev2019
     public partial class OrderingConfirmationForm : Form
     {
         private readonly BindingList<Ordering> bindingList = new BindingList<Ordering>();
+        private readonly string employeeId;
+        private readonly bool OpenOrdering;
 
         public bool CloseFlag = true;
-        private readonly string employeeId;
         private bool initializing;
-        private readonly bool OpenOrdering;
         private (string, string)[] pdfFile;
 
         public OrderingConfirmationForm(string employeeId, bool OpenOrdering = false)
