@@ -2,11 +2,12 @@
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetroFramework.Forms;
 using SysDev2019.DataModels;
 
 namespace SysDev2019
 {
-    public partial class StockListForm : Form
+    public partial class StockListForm : MetroForm
     {
         private readonly BindingList<Stock> bindingList = new BindingList<Stock>();
         private readonly string employeeId;

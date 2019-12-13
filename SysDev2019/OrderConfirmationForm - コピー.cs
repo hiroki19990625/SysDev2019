@@ -3,33 +3,37 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetroFramework.Forms;
 using SysDev2019.DataModels;
 
 namespace SysDev2019
 {
-    public partial class OrderConfirmForm : Form
+    public partial class OrderConfirmationForm : MetroForm
     {
         private readonly BindingList<Order> bindingList = new BindingList<Order>();
-        private readonly string employeeId;
-        private readonly bool openEntry;
-
         public bool CloseFlag = true;
+        private string employeeId;
         private bool initializing;
-        private Order order;
+        private bool OpenOrder;
+        private string pdfFile;
 
-        public OrderConfirmForm(string employeeId, bool openEntry = false)
+        public OrderConfirmationForm(string employeeId)
         {
             InitializeComponent();
 
             this.employeeId = employeeId;
-            this.openEntry = openEntry;
+        }
+
+        public OrderConfirmationForm()
+        {
+            InitializeComponent();
         }
 
         public void InitializeOrderList()
         {
             Task.Run(() =>
             {
-                var orders = DatabaseInstance.OrderTable.Where(e => e.EmployeeId == employeeId).ToArray();
+                var orders = DatabaseInstance.OrderTable.Where(e => !e.ShipmentCompleted).ToArray();
 
                 try
                 {
@@ -37,6 +41,7 @@ namespace SysDev2019
                     {
                         initializing = true;
                         dataGridView1.DataSource = bindingList;
+
                         foreach (var order in orders) bindingList.Add(order);
 
                         var cols = dataGridView1.Columns;
@@ -48,8 +53,7 @@ namespace SysDev2019
                         dataGridView1.Columns[2].ReadOnly = true;
                         dataGridView1.Columns[3].ReadOnly = true;
                         dataGridView1.Columns[4].ReadOnly = true;
-                        dataGridView1.Columns[5].ReadOnly = true;
-                        dataGridView1.Columns[7].ReadOnly = true;
+                        dataGridView1.Columns[6].ReadOnly = true;
 
 
                         dataGridView1.Columns[0].HeaderText = "受注ID";
@@ -87,13 +91,9 @@ namespace SysDev2019
             Visible = true;
         }
 
-        private void backButton_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            OpenOrderEntryForm();
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
+            OpenFilter_SearchForm();
         }
 
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -101,39 +101,12 @@ namespace SysDev2019
             DatabaseInstance.OrderTable.Sync();
         }
 
-        private void filterButton_Click(object sender, EventArgs e)
-        {
-            OpenFilter_SearchForm();
-        }
-
-        private void OpenOrderEntryForm()
-        {
-            if (openEntry)
-            {
-                CloseFlag = false;
-                Close();
-            }
-            else
-            {
-                Visible = false;
-
-                var form = new OrderEntryForm(employeeId);
-                form.ShowDialog();
-
-                Close();
-            }
-        }
-
-        private void OrderConfirmForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void OpenOrder_Confirmation_Form_FormClosed(object sender, FormClosedEventArgs e)
         {
             DatabaseInstance.OrderTable.Sync();
         }
 
-        private void OrderConfirmForm_Load(object sender, EventArgs e)
-        {
-        }
-
-        private void OrderConfirmForm_Shown(object sender, EventArgs e)
+        private void OpenOrderConfirmationForm_Shown(object sender, EventArgs e)
         {
             InitializeOrderList();
         }

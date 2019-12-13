@@ -3,12 +3,13 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetroFramework.Forms;
 using SysDev2019.DataModels;
 using SysDev2019.Dialog;
 
 namespace SysDev2019
 {
-    public partial class OrderingForm : Form
+    public partial class OrderingForm : MetroForm
     {
         private readonly string employeeId;
         private CancellationTokenSource _tokenSource = new CancellationTokenSource();
@@ -174,7 +175,11 @@ namespace SysDev2019
                             }
 
                             Invoke(new AsyncAction(() => product.EndUpdate()));
-                            Invoke(new AsyncAction(() => dialog.Close()));
+                            Invoke(new AsyncAction(() =>
+                            {
+                                dialog.DialogResult = DialogResult.OK;
+                                dialog.Close();
+                            }));
                         }, _tokenSource.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
                     };
                     dialog.SetCallback(action);
@@ -194,7 +199,11 @@ namespace SysDev2019
                 InitializeManufacturerList();
                 Invoke(new AsyncAction(() => product.EndUpdate()));
                 Invoke(new AsyncAction(() => Manufacturer.EndUpdate()));
-                Invoke(new AsyncAction(() => dialog.Close()));
+                Invoke(new AsyncAction(() =>
+                {
+                    dialog.DialogResult = DialogResult.OK;
+                    dialog.Close();
+                }));
             });
             dialog.SetCallback(action);
             dialog.ShowDialog();

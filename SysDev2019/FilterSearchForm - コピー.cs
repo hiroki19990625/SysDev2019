@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using MetroFramework.Forms;
 using ObjectDatabase;
 
 namespace SysDev2019
 {
-    public partial class FilterSearchForm : Form
+    public partial class FilterSearchForm : MetroForm
     {
         private readonly DataModel[] models;
         private DataModel model;

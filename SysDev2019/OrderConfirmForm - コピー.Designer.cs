@@ -1,6 +1,6 @@
 ﻿namespace SysDev2019
 {
-    partial class OrderingConfirmationForm
+    partial class OrderConfirmForm
     {
         /// <summary>
         /// Required designer variable.
@@ -32,7 +32,6 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.backButton = new System.Windows.Forms.Button();
             this.filterButton = new System.Windows.Forms.Button();
-            this.printing = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,8 +44,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(257, 40);
             this.label1.TabIndex = 0;
-            this.label1.Text = "発注確認画面";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.label1.Text = "注文確認画面";
             // 
             // dataGridView1
             // 
@@ -60,6 +58,7 @@
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(858, 407);
             this.dataGridView1.TabIndex = 1;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
             // 
             // backButton
@@ -70,7 +69,7 @@
             this.backButton.Name = "backButton";
             this.backButton.Size = new System.Drawing.Size(213, 56);
             this.backButton.TabIndex = 2;
-            this.backButton.Text = "発注画面へ";
+            this.backButton.Text = "注文入力画面へ";
             this.backButton.UseVisualStyleBackColor = true;
             this.backButton.Click += new System.EventHandler(this.backButton_Click);
             // 
@@ -86,34 +85,23 @@
             this.filterButton.UseVisualStyleBackColor = true;
             this.filterButton.Click += new System.EventHandler(this.filterButton_Click);
             // 
-            // printing
-            // 
-            this.printing.Font = new System.Drawing.Font("MS UI Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.printing.Location = new System.Drawing.Point(657, 10);
-            this.printing.Name = "printing";
-            this.printing.Size = new System.Drawing.Size(213, 56);
-            this.printing.TabIndex = 4;
-            this.printing.Text = "発注表の印刷";
-            this.printing.UseVisualStyleBackColor = true;
-            this.printing.Click += new System.EventHandler(this.printing_Click);
-            // 
-            // OrderingConfirmationForm
+            // OrderConfirmForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(882, 553);
-            this.Controls.Add(this.printing);
             this.Controls.Add(this.filterButton);
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "OrderingConfirmationForm";
+            this.Name = "OrderConfirmForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OpenOrderingConfirmationForm_FormClosed);
-            this.Shown += new System.EventHandler(this.OpenOrderingConfirmationForm_Shown);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OrderConfirmForm_FormClosed);
+            this.Load += new System.EventHandler(this.OrderConfirmForm_Load);
+            this.Shown += new System.EventHandler(this.OrderConfirmForm_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -126,6 +114,5 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button backButton;
         private System.Windows.Forms.Button filterButton;
-        private System.Windows.Forms.Button printing;
     }
 }

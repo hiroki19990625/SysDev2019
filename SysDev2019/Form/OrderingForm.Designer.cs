@@ -165,7 +165,7 @@
             this.Controls.Add(this.product);
             this.Controls.Add(this.Manufacturer);
             this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "OrderingForm";

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using MetroFramework.Forms;
 
 namespace SysDev2019
 {
-    public partial class SalesStaffMenuForm : Form
+    public partial class SalesStaffMenuForm : MetroForm
     {
         private readonly string employeeId;
 
