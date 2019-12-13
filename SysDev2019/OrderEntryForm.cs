@@ -2,12 +2,13 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetroFramework.Forms;
 using SysDev2019.DataModels;
 using SysDev2019.Dialog;
 
 namespace SysDev2019
 {
-    public partial class OrderEntryForm : Form
+    public partial class OrderEntryForm : MetroForm
     {
         private readonly string employeeId;
 

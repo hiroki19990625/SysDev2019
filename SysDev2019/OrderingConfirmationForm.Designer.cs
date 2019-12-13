@@ -89,7 +89,7 @@
             // printing
             // 
             this.printing.Font = new System.Drawing.Font("MS UI Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.printing.Location = new System.Drawing.Point(657, 10);
+            this.printing.Location = new System.Drawing.Point(12, 10);
             this.printing.Name = "printing";
             this.printing.Size = new System.Drawing.Size(213, 56);
             this.printing.TabIndex = 4;
@@ -107,7 +107,7 @@
             this.Controls.Add(this.backButton);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "OrderingConfirmationForm";

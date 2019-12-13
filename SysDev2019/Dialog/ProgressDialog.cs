@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Windows.Forms;
+using MetroFramework.Forms;
 
 namespace SysDev2019.Dialog
 {
-    public partial class ProgressDialog : Form
+    public partial class ProgressDialog : MetroForm
     {
         private Action _action;
 

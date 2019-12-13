@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using MetroFramework.Forms;
 using Patagames.Pdf.Net;
 using Patagames.Pdf.Net.Controls.WinForms;
 
 namespace SysDev2019.Dialog
 {
-    public partial class PrintFilesDialog : Form
+    public partial class PrintFilesDialog : MetroForm
     {
         private (string, string)[] pdfFile;
 

@@ -3,11 +3,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetroFramework.Forms;
 using SysDev2019.DataModels;
 
 namespace SysDev2019
 {
-    public partial class OrderConfirmForm : Form
+    public partial class OrderConfirmForm : MetroForm
     {
         private readonly BindingList<Order> bindingList = new BindingList<Order>();
         private readonly string employeeId;

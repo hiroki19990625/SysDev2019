@@ -3,12 +3,13 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetroFramework.Forms;
 using SysDev2019.DataModels;
 using SysDev2019.Dialog;
 
 namespace SysDev2019
 {
-    public partial class OrderingForm : Form
+    public partial class OrderingForm : MetroForm
     {
         private readonly string employeeId;
         private CancellationTokenSource _tokenSource = new CancellationTokenSource();

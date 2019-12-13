@@ -10,12 +10,13 @@ using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using MetroFramework.Forms;
 using SysDev2019.DataModels;
 using SysDev2019.Dialog;
 
 namespace SysDev2019
 {
-    public partial class OrderingConfirmationForm : Form
+    public partial class OrderingConfirmationForm : MetroForm
     {
         private readonly BindingList<Ordering> bindingList = new BindingList<Ordering>();
         private readonly string employeeId;

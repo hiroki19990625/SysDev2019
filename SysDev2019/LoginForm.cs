@@ -4,12 +4,12 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetroFramework.Forms;
 using SysDev2019.Dialog;
-using NLogger = NLog.Logger;
 
 namespace SysDev2019
 {
-    public partial class LoginForm : Form
+    public partial class LoginForm : MetroForm
     {
         public LoginForm()
         {

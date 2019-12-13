@@ -3,11 +3,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetroFramework.Forms;
 using SysDev2019.DataModels;
 
 namespace SysDev2019
 {
-    public partial class OrderConfirmationForm : Form
+    public partial class OrderConfirmationForm : MetroForm
     {
         private readonly BindingList<Order> bindingList = new BindingList<Order>();
         public bool CloseFlag = true;
