@@ -11,8 +11,6 @@ namespace SysDev2019.Dialog
         public ProgressDialog()
         {
             InitializeComponent();
-
-            progressBar1.MarqueeAnimationSpeed = 50;
         }
 
         public void SetCallback(Action action)

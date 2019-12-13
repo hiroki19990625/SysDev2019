@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.metroProgressSpinner1 = new MetroFramework.Controls.MetroProgressSpinner();
             this.SuspendLayout();
             // 
             // label1
@@ -42,24 +42,28 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "データを取得しています...";
             // 
-            // progressBar1
+            // metroProgressSpinner1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(12, 90);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(376, 23);
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
-            this.progressBar1.TabIndex = 1;
+            this.metroProgressSpinner1.Location = new System.Drawing.Point(165, 127);
+            this.metroProgressSpinner1.Margin = new System.Windows.Forms.Padding(145, 3, 3, 3);
+            this.metroProgressSpinner1.Maximum = 100;
+            this.metroProgressSpinner1.Name = "metroProgressSpinner1";
+            this.metroProgressSpinner1.Size = new System.Drawing.Size(50, 50);
+            this.metroProgressSpinner1.TabIndex = 2;
+            this.metroProgressSpinner1.UseSelectable = true;
+            this.metroProgressSpinner1.Value = 85;
             // 
             // ProgressDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(400, 200);
-            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.metroProgressSpinner1);
             this.Controls.Add(this.label1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ProgressDialog";
+            this.Resizable = false;
             this.Shown += new System.EventHandler(this.LoadViewDialog_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -69,6 +73,6 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ProgressBar progressBar1;
+        private MetroFramework.Controls.MetroProgressSpinner metroProgressSpinner1;
     }
 }
