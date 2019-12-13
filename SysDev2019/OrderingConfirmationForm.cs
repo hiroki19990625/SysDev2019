@@ -22,13 +22,14 @@ using iText.Layout.Element;
 using iText.Layout.Properties;
 using ObjectDatabase;
 using Patagames.Pdf.Net.Controls.WinForms;
+using SysDev2019.Dialog;
 using Color = iText.Kernel.Colors.Color;
 using HorizontalAlignment = iText.Layout.Properties.HorizontalAlignment;
 using Image = iText.Layout.Element.Image;
 
 namespace SysDev2019
 {
-    public partial class OpenOrderingConfirmationForm : Form
+    public partial class OrderingConfirmationForm : Form
     {
         private (string, string)[] pdfFile;
         private string employeeId;
@@ -39,11 +40,11 @@ namespace SysDev2019
 
         public bool CloseFlag = true;
 
-        static OpenOrderingConfirmationForm()
+        static OrderingConfirmationForm()
         {
         }
 
-        public OpenOrderingConfirmationForm(string employeeId, bool OpenOrdering = false)
+        public OrderingConfirmationForm(string employeeId, bool OpenOrdering = false)
         {
             InitializeComponent();
 
@@ -76,10 +77,6 @@ namespace SysDev2019
         private void filterButton_Click(object sender, EventArgs e)
         {
             OpenFilter_SearchForm();
-        }
-
-        private void OpenOrderingConfirmationForm_Load(object sender, EventArgs e)
-        {
         }
 
         public void InitializeOrderingList()
@@ -150,7 +147,7 @@ namespace SysDev2019
             {
                 Visible = false;
 
-                OpenOrderingForm form = new OpenOrderingForm(employeeId);
+                OrderingForm form = new OrderingForm(employeeId);
                 form.ShowDialog();
 
                 Close();

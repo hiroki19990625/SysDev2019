@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace SysDev2019
 {
-    public partial class LogisticsManagerMenuForm : Form
+    public partial class LogisticsMenuForm : Form
     {
-
         private string employeeId;
-        public LogisticsManagerMenuForm(string employeeId)
+
+        public LogisticsMenuForm(string employeeId)
         {
             InitializeComponent();
             this.employeeId = employeeId;
@@ -25,7 +25,7 @@ namespace SysDev2019
         {
             Visible = false;
 
-            OpenStockListForm OpenStockListForm = new OpenStockListForm(employeeId);
+            StockListForm OpenStockListForm = new StockListForm(employeeId);
             OpenStockListForm.ShowDialog();
 
             Visible = true;
@@ -35,7 +35,7 @@ namespace SysDev2019
         {
             Visible = false;
 
-            OpenOrderingForm OpenOrderingForm = new OpenOrderingForm(employeeId);
+            OrderingForm OpenOrderingForm = new OrderingForm(employeeId);
             OpenOrderingForm.ShowDialog();
 
             Visible = true;
@@ -44,7 +44,7 @@ namespace SysDev2019
         public void OpenOrderingConfirmationForm()
         {
             Visible = false;
-            OpenOrderingConfirmationForm OpenOrderingConfirmationForm = new OpenOrderingConfirmationForm(employeeId);
+            OrderingConfirmationForm OpenOrderingConfirmationForm = new OrderingConfirmationForm(employeeId);
             OpenOrderingConfirmationForm.ShowDialog();
 
             Visible = true;
@@ -53,7 +53,7 @@ namespace SysDev2019
         public void OpenOrderConfirmationForm()
         {
             Visible = false;
-            OpenOrder_Confirmation_Form Openorder_Confirmation_Form = new OpenOrder_Confirmation_Form(employeeId);
+            OrderConfirmationForm Openorder_Confirmation_Form = new OrderConfirmationForm(employeeId);
             Openorder_Confirmation_Form.ShowDialog();
 
             Visible = true;
@@ -68,7 +68,6 @@ namespace SysDev2019
 
         private void label1_Click(object sender, EventArgs e)
         {
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -84,7 +83,6 @@ namespace SysDev2019
         private void button3_Click(object sender, EventArgs e)
         {
             OpenOrderingConfirmationForm();
-
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -94,7 +92,6 @@ namespace SysDev2019
 
         private void LogisticsManagerMenuForm_Load(object sender, EventArgs e)
         {
-
         }
     }
 }

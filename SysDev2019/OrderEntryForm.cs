@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SysDev2019.Dialog;
 
 namespace SysDev2019
 {
@@ -41,7 +42,7 @@ namespace SysDev2019
 
         public void InitializeProductList()
         {
-            LoadViewDialog dialog = new LoadViewDialog();
+            ProgressDialog dialog = new ProgressDialog();
             Action action = () => Task.Factory.StartNew(() =>
             {
                 Invoke(new AsyncAction(() => product.BeginUpdate()));

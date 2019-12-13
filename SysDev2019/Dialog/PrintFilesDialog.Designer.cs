@@ -1,4 +1,4 @@
-﻿namespace SysDev2019
+﻿namespace SysDev2019.Dialog
 {
     partial class PrintFilesDialog
     {

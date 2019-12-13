@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using Patagames.Pdf.Net.Controls.WinForms;
 using SysDev2019.DataModels;
 
-namespace SysDev2019
+namespace SysDev2019.Dialog
 {
     public partial class PrintFilesDialog : Form
     {

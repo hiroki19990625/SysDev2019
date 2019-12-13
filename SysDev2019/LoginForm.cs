@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using NLog;
+using SysDev2019.Dialog;
 using NLogger = NLog.Logger;
 
 namespace SysDev2019
@@ -23,7 +24,7 @@ namespace SysDev2019
 
         private void LoginForm_Shown(object sender, EventArgs e)
         {
-            LoadViewDialog dialog = new LoadViewDialog();
+            ProgressDialog dialog = new ProgressDialog();
             dialog.SetCallback(() =>
             {
                 Task.Factory.StartNew(() =>
@@ -73,7 +74,7 @@ namespace SysDev2019
             {
                 Visible = false;
 
-                LogisticsManagerMenuForm LogisticsManagerMenuForm = new LogisticsManagerMenuForm(employeeId);
+                LogisticsMenuForm LogisticsManagerMenuForm = new LogisticsMenuForm(employeeId);
                 LogisticsManagerMenuForm.ShowDialog();
 
                 Visible = true;

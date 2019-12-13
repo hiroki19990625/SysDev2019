@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace SysDev2019
 {
-    public partial class OpenOrder_Confirmation_Form : Form
+    public partial class OrderConfirmationForm : Form
     {
         private string pdfFile;
         private string employeeId;
@@ -22,7 +22,7 @@ namespace SysDev2019
         private BindingList<Order> bindingList = new BindingList<Order>();
         public bool CloseFlag = true;
 
-        public OpenOrder_Confirmation_Form(string employeeId)
+        public OrderConfirmationForm(string employeeId)
         {
             InitializeComponent();
 
@@ -47,17 +47,9 @@ namespace SysDev2019
             Visible = true;
         }
 
-        public OpenOrder_Confirmation_Form()
+        public OrderConfirmationForm()
         {
             InitializeComponent();
-        }
-
-        private void OpenOrder_Confirmation_Form_Load(object sender, EventArgs e)
-        {
-        }
-
-        private void backButton_Click(object sender, EventArgs e)
-        {
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -130,9 +122,5 @@ namespace SysDev2019
         {
             DatabaseInstance.OrderTable.Sync();
         }
-    }
-
-    internal class Confirmation
-    {
     }
 }

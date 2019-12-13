@@ -1,4 +1,4 @@
-﻿namespace SysDev2019
+﻿namespace SysDev2019.Dialog
 {
     partial class ProgressDialog
     {
@@ -50,7 +50,7 @@
             this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.progressBar1.TabIndex = 1;
             // 
-            // ProgressDialog
+            // LoadViewDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -61,9 +61,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "ProgressDialog";
+            this.Name = "LoadViewDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ProgressDialog";
+            this.Text = "LoadViewDialog";
             this.Shown += new System.EventHandler(this.LoadViewDialog_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();

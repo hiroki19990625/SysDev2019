@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace SysDev2019
 {
-    public partial class OpenStockListForm : Form
+    public partial class StockListForm : Form
     {
         private string employeeId;
         private bool initializing;
@@ -20,7 +20,7 @@ namespace SysDev2019
         private BindingList<Stock> bindingList = new BindingList<Stock>();
         public bool CloseFlag = true;
 
-        public OpenStockListForm(string employeeId)
+        public StockListForm(string employeeId)
         {
             InitializeComponent();
 
@@ -30,7 +30,7 @@ namespace SysDev2019
         public void LogisticsManagerMenuForm()
         {
             Visible = false;
-            LogisticsManagerMenuForm LogisticsManagerMenuForm = new LogisticsManagerMenuForm(employeeId);
+            LogisticsMenuForm LogisticsManagerMenuForm = new LogisticsMenuForm(employeeId);
             LogisticsManagerMenuForm.ShowDialog();
             Close();
         }

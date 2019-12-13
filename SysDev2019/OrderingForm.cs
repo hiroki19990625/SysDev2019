@@ -9,15 +9,16 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using SysDev2019.Dialog;
 
 namespace SysDev2019
 {
-    public partial class OpenOrderingForm : Form
+    public partial class OrderingForm : Form
     {
         private string employeeId;
         private CancellationTokenSource _tokenSource = new CancellationTokenSource();
 
-        public OpenOrderingForm(string employeeId)
+        public OrderingForm(string employeeId)
         {
             InitializeComponent();
 
@@ -31,8 +32,8 @@ namespace SysDev2019
         {
             Visible = false;
 
-            OpenOrderingConfirmationForm OpenOrderingConfirmationForm =
-                new OpenOrderingConfirmationForm(employeeId, true);
+            OrderingConfirmationForm OpenOrderingConfirmationForm =
+                new OrderingConfirmationForm(employeeId, true);
             OpenOrderingConfirmationForm.ShowDialog();
 
             if (OpenOrderingConfirmationForm.CloseFlag)
@@ -165,7 +166,7 @@ namespace SysDev2019
 
         private void OpenOrderingFrom_Shown(object sender, EventArgs e)
         {
-            LoadViewDialog dialog = new LoadViewDialog();
+            ProgressDialog dialog = new ProgressDialog();
             Action action = () => Task.Factory.StartNew(() =>
             {
                 Invoke(new AsyncAction(() => product.BeginUpdate()));
@@ -243,7 +244,7 @@ namespace SysDev2019
 
                     product.Items.Clear();
 
-                    LoadViewDialog dialog = new LoadViewDialog();
+                    ProgressDialog dialog = new ProgressDialog();
                     Action action = () =>
                     {
                         Task.Factory.StartNew(() =>

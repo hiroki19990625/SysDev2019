@@ -8,13 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SysDev2019
+namespace SysDev2019.Dialog
 {
-    public partial class LoadViewDialog : Form
+    public partial class ProgressDialog : Form
     {
         private Action _action;
 
-        public LoadViewDialog()
+        public ProgressDialog()
         {
             InitializeComponent();
 
