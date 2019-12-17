@@ -23,6 +23,8 @@ namespace SysDev2019
             Openorder_Confirmation_Form.ShowDialog();
 
             Visible = true;
+
+            Activate();
         }
 
         public void OpenOrderingConfirmationForm()
@@ -32,6 +34,8 @@ namespace SysDev2019
             OpenOrderingConfirmationForm.ShowDialog();
 
             Visible = true;
+
+            Activate();
         }
 
         public void OpenOrderingForm()
@@ -42,6 +46,8 @@ namespace SysDev2019
             OpenOrderingForm.ShowDialog();
 
             Visible = true;
+
+            Activate();
         }
 
         public void OpenStockList()
@@ -52,6 +58,8 @@ namespace SysDev2019
             OpenStockListForm.ShowDialog();
 
             Visible = true;
+
+            Activate();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -81,12 +89,9 @@ namespace SysDev2019
         }
 
 
-        private void label1_Click(object sender, EventArgs e)
+        private void LogisticsMenuForm_Shown(object sender, EventArgs e)
         {
-        }
-
-        private void LogisticsManagerMenuForm_Load(object sender, EventArgs e)
-        {
+            Activate();
         }
     }
 }

@@ -46,7 +46,6 @@
             this.label1.Size = new System.Drawing.Size(376, 50);
             this.label1.TabIndex = 0;
             this.label1.Text = "物流担当メニュー";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // EmpName
             // 
@@ -118,12 +117,11 @@
             this.Controls.Add(this.stockListButton);
             this.Controls.Add(this.EmpName);
             this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "LogisticsMenuForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Load += new System.EventHandler(this.LogisticsManagerMenuForm_Load);
+            this.Shown += new System.EventHandler(this.LogisticsMenuForm_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

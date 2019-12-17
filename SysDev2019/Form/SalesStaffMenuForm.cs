@@ -25,6 +25,8 @@ namespace SysDev2019
             OrderConfirmForm.ShowDialog();
 
             Visible = true;
+
+            Activate();
         }
 
         public void OpenOrderEntryForm()
@@ -35,6 +37,8 @@ namespace SysDev2019
             OrderEntryForm.ShowDialog();
 
             Visible = true;
+
+            Activate();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -53,8 +57,9 @@ namespace SysDev2019
             return $"名前: {emp.Name}";
         }
 
-        private void SalesStaffMenuForm_Load(object sender, EventArgs e)
+        private void SalesStaffMenuForm_Shown(object sender, EventArgs e)
         {
+            Activate();
         }
     }
 }

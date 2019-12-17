@@ -81,6 +81,8 @@ namespace SysDev2019
             }
 
             Visible = true;
+
+            Activate();
         }
 
         private void backButton_Click(object sender, EventArgs e)
@@ -91,19 +93,15 @@ namespace SysDev2019
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFilter_SearchForm();
-        }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-        }
-
-        private void OpenStockListForm_Load(object sender, EventArgs e)
-        {
+            Activate();
         }
 
         private void OpenStockListForm_Shown(object sender, EventArgs e)
         {
             InitializeStockList();
+
+            Activate();
         }
 
         private delegate void AsyncAction();

@@ -69,7 +69,11 @@ namespace SysDev2019
             if (OrderConfirmForm.CloseFlag)
                 Close();
             else
+            {
                 Visible = true;
+
+                Activate();
+            }
         }
 
         private void count_KeyDown(object sender, KeyEventArgs e)
@@ -184,6 +188,8 @@ namespace SysDev2019
         private void OrderEntryForm_Shown(object sender, EventArgs e)
         {
             InitializeProductList();
+
+            Activate();
         }
 
         private void product_KeyDown(object sender, KeyEventArgs e)
@@ -194,10 +200,6 @@ namespace SysDev2019
         private void product_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char) Keys.Enter) e.Handled = true;
-        }
-
-        private void product_SelectedIndexChanged(object sender, EventArgs e)
-        {
         }
 
         private delegate void AsyncAction();

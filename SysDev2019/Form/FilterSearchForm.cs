@@ -94,6 +94,8 @@ namespace SysDev2019
             ConditionsSelect.Items.Add("完全一致");
             ConditionsSelect.Items.Add("不一致");
             ConditionsSelect.SelectedIndex = 0;
+
+            Activate();
         }
     }
 }

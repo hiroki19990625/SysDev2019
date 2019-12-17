@@ -96,7 +96,11 @@ namespace SysDev2019
             if (OpenOrderingConfirmationForm.CloseFlag)
                 Close();
             else
+            {
                 Visible = true;
+
+                Activate();
+            }
         }
 
         private void count_KeyDown(object sender, KeyEventArgs e)
@@ -207,6 +211,8 @@ namespace SysDev2019
             });
             dialog.SetCallback(action);
             dialog.ShowDialog();
+
+            Activate();
         }
 
         private void Ordering()
