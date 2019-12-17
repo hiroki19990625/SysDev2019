@@ -86,15 +86,13 @@ namespace SysDev2019
             }
 
             Visible = true;
+
+            Activate();
         }
 
         private void backButton_Click(object sender, EventArgs e)
         {
             OpenOrderEntryForm();
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
         }
 
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -157,13 +155,11 @@ namespace SysDev2019
             DatabaseInstance.OrderTable.Sync();
         }
 
-        private void OrderConfirmForm_Load(object sender, EventArgs e)
-        {
-        }
-
         private void OrderConfirmForm_Shown(object sender, EventArgs e)
         {
             InitializeOrderList();
+
+            Activate();
         }
 
         private delegate void AsyncAction();

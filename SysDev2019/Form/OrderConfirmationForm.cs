@@ -89,6 +89,8 @@ namespace SysDev2019
             }
 
             Visible = true;
+
+            Activate();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -109,6 +111,8 @@ namespace SysDev2019
         private void OpenOrderConfirmationForm_Shown(object sender, EventArgs e)
         {
             InitializeOrderList();
+
+            Activate();
         }
 
         private delegate void AsyncAction();

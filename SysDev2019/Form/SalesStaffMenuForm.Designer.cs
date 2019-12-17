@@ -89,12 +89,10 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SalesStaffMenuForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Load += new System.EventHandler(this.SalesStaffMenuForm_Load);
+            this.Shown += new System.EventHandler(this.SalesStaffMenuForm_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -56,6 +56,8 @@ namespace SysDev2019
 
                 Visible = true;
 
+                Activate();
+
                 Employeenumber.Text = "";
                 Password.Text = "";
 
@@ -69,6 +71,8 @@ namespace SysDev2019
                 LogisticsManagerMenuForm.ShowDialog();
 
                 Visible = true;
+
+                Activate();
 
                 Employeenumber.Text = "";
                 Password.Text = "";
@@ -110,14 +114,6 @@ namespace SysDev2019
             if (e.KeyChar == (char) Keys.Enter) e.Handled = true;
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-        }
-
         private void LoginForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             // DatabaseInstance.Database.Dispose();
@@ -139,6 +135,8 @@ namespace SysDev2019
                 });
             });
             dialog.ShowDialog();
+
+            Activate();
         }
 
         private void Password_KeyDown(object sender, KeyEventArgs e)

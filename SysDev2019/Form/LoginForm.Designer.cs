@@ -46,7 +46,6 @@
             this.label1.Size = new System.Drawing.Size(173, 50);
             this.label1.TabIndex = 0;
             this.label1.Text = "ログイン";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -58,7 +57,6 @@
             this.label2.Size = new System.Drawing.Size(147, 33);
             this.label2.TabIndex = 1;
             this.label2.Text = "社員番号";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
@@ -98,7 +96,7 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("MS UI Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button1.Location = new System.Drawing.Point(357, 438);
+            this.button1.Location = new System.Drawing.Point(357, 439);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 3, 350, 50);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(166, 56);

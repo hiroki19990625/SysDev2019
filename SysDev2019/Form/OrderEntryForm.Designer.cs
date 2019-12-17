@@ -82,7 +82,6 @@
             this.product.Name = "product";
             this.product.Size = new System.Drawing.Size(209, 31);
             this.product.TabIndex = 2;
-            this.product.SelectedIndexChanged += new System.EventHandler(this.product_SelectedIndexChanged);
             this.product.KeyDown += new System.Windows.Forms.KeyEventHandler(this.product_KeyDown);
             this.product.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.product_KeyPress);
             // 
@@ -135,11 +134,9 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "OrderEntryForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Shown += new System.EventHandler(this.OrderEntryForm_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.count)).EndInit();
             this.ResumeLayout(false);
