@@ -10,18 +10,15 @@ namespace SysDev2019
 {
     public partial class OrderConfirmationForm : MetroForm
     {
-        private readonly BindingList<Order> bindingList = new BindingList<Order>();
+        private readonly BindingList<Order> _bindingList = new BindingList<Order>();
         public bool CloseFlag = true;
-        private string employeeId;
-        private bool initializing;
-        private bool OpenOrder;
-        private string pdfFile;
+        private string _employeeId;
 
         public OrderConfirmationForm(string employeeId)
         {
             InitializeComponent();
 
-            this.employeeId = employeeId;
+            this._employeeId = employeeId;
         }
 
         public OrderConfirmationForm()
@@ -39,10 +36,9 @@ namespace SysDev2019
                 {
                     Invoke(new AsyncAction(() =>
                     {
-                        initializing = true;
-                        dataGridView1.DataSource = bindingList;
+                        dataGridView1.DataSource = _bindingList;
 
-                        foreach (var order in orders) bindingList.Add(order);
+                        foreach (var order in orders) _bindingList.Add(order);
 
                         var cols = dataGridView1.Columns;
                         cols.RemoveAt(cols.Count - 1);
@@ -63,11 +59,9 @@ namespace SysDev2019
                         dataGridView1.Columns[5].HeaderText = "受注完了";
                         dataGridView1.Columns[6].HeaderText = "注文キャンセル";
                         dataGridView1.Columns[7].HeaderText = "出荷完了";
-
-                        initializing = false;
                     }));
                 }
-                catch (ObjectDisposedException _)
+                catch (ObjectDisposedException)
                 {
                     // ignore
                 }
@@ -81,10 +75,10 @@ namespace SysDev2019
             var filter_SearchForm = new FilterSearchForm(DatabaseInstance.OrderTable.ToArray());
             if (filter_SearchForm.ShowDialog() == DialogResult.OK)
             {
-                bindingList.Clear();
+                _bindingList.Clear();
                 foreach (var model in filter_SearchForm.Result)
                     if (model is Order order)
-                        bindingList.Add(order);
+                        _bindingList.Add(order);
             }
 
             Visible = true;
