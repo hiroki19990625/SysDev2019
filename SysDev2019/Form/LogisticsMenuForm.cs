@@ -1,26 +1,25 @@
 ﻿using System;
 using System.Linq;
-using System.Windows.Forms;
 using MetroFramework.Forms;
 
 namespace SysDev2019
 {
     public partial class LogisticsMenuForm : MetroForm
     {
-        private readonly string employeeId;
+        private readonly string _employeeId;
 
         public LogisticsMenuForm(string employeeId)
         {
             InitializeComponent();
-            this.employeeId = employeeId;
+            this._employeeId = employeeId;
             EmpName.Text = GetEmployeeName();
         }
 
         public void OpenOrderConfirmationForm()
         {
             Visible = false;
-            var Openorder_Confirmation_Form = new OrderConfirmationForm(employeeId);
-            Openorder_Confirmation_Form.ShowDialog();
+            var orderConfirmationForm = new OrderConfirmationForm();
+            orderConfirmationForm.ShowDialog();
 
             Visible = true;
 
@@ -30,8 +29,8 @@ namespace SysDev2019
         public void OpenOrderingConfirmationForm()
         {
             Visible = false;
-            var OpenOrderingConfirmationForm = new OrderingConfirmationForm(employeeId);
-            OpenOrderingConfirmationForm.ShowDialog();
+            var orderingConfirmationForm = new OrderingConfirmationForm(_employeeId);
+            orderingConfirmationForm.ShowDialog();
 
             Visible = true;
 
@@ -42,8 +41,8 @@ namespace SysDev2019
         {
             Visible = false;
 
-            var OpenOrderingForm = new OrderingForm(employeeId);
-            OpenOrderingForm.ShowDialog();
+            var orderingForm = new OrderingForm(_employeeId);
+            orderingForm.ShowDialog();
 
             Visible = true;
 
@@ -54,8 +53,8 @@ namespace SysDev2019
         {
             Visible = false;
 
-            var OpenStockListForm = new StockListForm(employeeId);
-            OpenStockListForm.ShowDialog();
+            var stockListForm = new StockListForm(_employeeId);
+            stockListForm.ShowDialog();
 
             Visible = true;
 
@@ -84,7 +83,7 @@ namespace SysDev2019
 
         private string GetEmployeeName()
         {
-            var emp = DatabaseInstance.EmployeeTable.Where(e => e.EmployeeId == employeeId).First();
+            var emp = DatabaseInstance.EmployeeTable.Where(e => e.EmployeeId == _employeeId).First();
             return $"名前: {emp.Name}";
         }
 
