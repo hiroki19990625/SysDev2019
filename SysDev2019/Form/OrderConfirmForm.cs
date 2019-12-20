@@ -107,11 +107,10 @@ namespace SysDev2019
                     var order = DatabaseInstance.OrderTable.Where(el => el.OrderId == orderId)
                         .FirstOrDefault();
                     if (order != null)
-                    {
                         if (check && MessageBox.Show("キャンセルしますか?", "情報", MessageBoxButtons.YesNo,
                                 MessageBoxIcon.Information) == DialogResult.Yes)
                         {
-                            Stock stock = new Stock
+                            var stock = new Stock
                             {
                                 StockId = Guid.NewGuid().ToString(),
                                 ProductId = order.ProductId,
@@ -122,7 +121,6 @@ namespace SysDev2019
                             DatabaseInstance.StockTable.Insert(stock);
                             DatabaseInstance.StockTable.Sync();
                         }
-                    }
                 }
             }
         }

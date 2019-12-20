@@ -94,7 +94,9 @@ namespace SysDev2019
             OpenOrderingConfirmationForm.ShowDialog();
 
             if (OpenOrderingConfirmationForm.CloseFlag)
+            {
                 Close();
+            }
             else
             {
                 Visible = true;

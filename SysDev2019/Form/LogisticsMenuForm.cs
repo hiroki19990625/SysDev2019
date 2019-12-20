@@ -11,7 +11,7 @@ namespace SysDev2019
         public LogisticsMenuForm(string employeeId)
         {
             InitializeComponent();
-            this._employeeId = employeeId;
+            _employeeId = employeeId;
             EmpName.Text = GetEmployeeName();
         }
 

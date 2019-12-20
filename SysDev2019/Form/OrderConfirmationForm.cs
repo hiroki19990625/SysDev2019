@@ -11,14 +11,14 @@ namespace SysDev2019
     public partial class OrderConfirmationForm : MetroForm
     {
         private readonly BindingList<Order> _bindingList = new BindingList<Order>();
-        public bool CloseFlag = true;
         private string _employeeId;
+        public bool CloseFlag = true;
 
         public OrderConfirmationForm(string employeeId)
         {
             InitializeComponent();
 
-            this._employeeId = employeeId;
+            _employeeId = employeeId;
         }
 
         public OrderConfirmationForm()
