@@ -186,7 +186,7 @@ namespace SysDev2019
                         initializing = false;
                     }));
                 }
-                catch (ObjectDisposedException _)
+                catch (ObjectDisposedException)
                 {
                     // ignore
                 }

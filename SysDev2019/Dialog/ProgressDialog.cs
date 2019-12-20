@@ -25,10 +25,7 @@ namespace SysDev2019.Dialog
 
         private void ProgressDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (DialogResult != DialogResult.OK)
-            {
-                e.Cancel = true;
-            }
+            if (DialogResult != DialogResult.OK) e.Cancel = true;
         }
     }
 }

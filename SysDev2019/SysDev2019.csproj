@@ -88,8 +88,8 @@
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.6.8\lib\net45\NLog.dll</HintPath>
     </Reference>
-    <Reference Include="ObjectDatabase, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ObjectDatabase.1.2.0\lib\net461\ObjectDatabase.dll</HintPath>
+    <Reference Include="ObjectDatabase, Version=1.2.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ObjectDatabase.1.2.2\lib\net461\ObjectDatabase.dll</HintPath>
     </Reference>
     <Reference Include="Patagames.Pdf, Version=4.18.15.461, Culture=neutral, PublicKeyToken=60fd6cf9b15941cf, processorArchitecture=MSIL">
       <HintPath>..\packages\Pdfium.Net.SDK.4.21.2704\lib\net461\Patagames.Pdf.dll</HintPath>

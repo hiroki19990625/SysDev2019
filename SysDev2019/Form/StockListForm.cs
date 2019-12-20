@@ -12,7 +12,6 @@ namespace SysDev2019
         private readonly BindingList<Stock> bindingList = new BindingList<Stock>();
         private readonly string employeeId;
         public bool CloseFlag = true;
-        private bool initializing;
 
         public StockListForm(string employeeId)
         {
@@ -31,7 +30,6 @@ namespace SysDev2019
                 {
                     Invoke(new AsyncAction(() =>
                     {
-                        initializing = true;
                         dataGridView1.DataSource = bindingList;
                         foreach (var stock in orders) bindingList.Add(stock);
 
@@ -48,11 +46,9 @@ namespace SysDev2019
                         dataGridView1.Columns[0].ReadOnly = true;
                         dataGridView1.Columns[1].ReadOnly = true;
                         dataGridView1.Columns[2].ReadOnly = true;
-
-                        initializing = false;
                     }));
                 }
-                catch (ObjectDisposedException _)
+                catch (ObjectDisposedException)
                 {
                     // ignore
                 }
