@@ -146,6 +146,7 @@ namespace SysDev2019
 
                             DatabaseInstance.OrderingTable.Insert(ordering);
                             DatabaseInstance.OrderingTable.Sync();
+                            DatabaseInstance.UpdateUnion();
                         }
 
 
@@ -160,6 +161,7 @@ namespace SysDev2019
 
                         DatabaseInstance.OrderTable.Insert(order);
                         DatabaseInstance.OrderTable.Sync();
+                        DatabaseInstance.UpdateUnion();
 
                         MessageBox.Show("注文を完了しました", "情報", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

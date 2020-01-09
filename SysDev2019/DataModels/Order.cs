@@ -8,7 +8,12 @@ namespace SysDev2019.DataModels
         public string OrderId { get; set; }
 
         [SerializeProperty("社員ID")] public string EmployeeId { get; set; }
+        [IgnoreProperty] public string Name => Employee.Name;
+        [IgnoreProperty] public string DepartmentName => Employee.Department.DepartmentName;
         [SerializeProperty("商品ID")] public string ProductId { get; set; }
+        [IgnoreProperty] public string ProductName => Product.ProductName;
+        [IgnoreProperty] public int UnitPrice => Product.UnitPrice;
+        [IgnoreProperty] public string ManufacturerName => Product.Manufacturer.ManufacturerName;
         [SerializeProperty("受注量")] public int OrderVolume { get; set; }
         [SerializeProperty("受注日")] public string OrderDate { get; set; }
         [SerializeProperty("受注完了")] public bool OrderCompletion { get; set; }
