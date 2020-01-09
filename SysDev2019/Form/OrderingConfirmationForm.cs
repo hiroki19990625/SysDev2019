@@ -165,23 +165,34 @@ namespace SysDev2019
                         dataGridView1.DataSource = bindingList;
                         foreach (var ordering in orders) bindingList.Add(ordering);
 
-                        var cols = dataGridView1.Columns;
-                        cols.RemoveAt(cols.Count - 1);
-                        cols.RemoveAt(cols.Count - 1);
+                        dataGridView1.Columns[0].HeaderText = "受注ID";
+                        dataGridView1.Columns[1].HeaderText = "社員ID";
+                        dataGridView1.Columns[2].HeaderText = "社員名";
+                        dataGridView1.Columns[3].HeaderText = "部署名";
+                        dataGridView1.Columns[4].HeaderText = "商品ID";
+                        dataGridView1.Columns[5].HeaderText = "商品名";
+                        dataGridView1.Columns[6].HeaderText = "単価";
+                        dataGridView1.Columns[7].HeaderText = "メーカー名";
+                        dataGridView1.Columns[8].HeaderText = "受注量";
+                        dataGridView1.Columns[9].HeaderText = "受注日";
+                        dataGridView1.Columns[10].HeaderText = "発注完了";
+                        dataGridView1.Columns[11].HeaderText = "受け取り完了";
+
+                        dataGridView1.Columns[1].Visible = false;
+                        dataGridView1.Columns[4].Visible = false;
+                        dataGridView1.Columns[12].Visible = false;
+                        dataGridView1.Columns[13].Visible = false;
 
                         dataGridView1.Columns[0].ReadOnly = true;
                         dataGridView1.Columns[1].ReadOnly = true;
                         dataGridView1.Columns[2].ReadOnly = true;
                         dataGridView1.Columns[3].ReadOnly = true;
                         dataGridView1.Columns[4].ReadOnly = true;
-
-                        dataGridView1.Columns[0].HeaderText = "発注ID";
-                        dataGridView1.Columns[1].HeaderText = "商品ID";
-                        dataGridView1.Columns[2].HeaderText = "社員ID";
-                        dataGridView1.Columns[3].HeaderText = "発注量";
-                        dataGridView1.Columns[4].HeaderText = "発注日";
-                        dataGridView1.Columns[5].HeaderText = "発注完了";
-                        dataGridView1.Columns[6].HeaderText = "受け取り完了";
+                        dataGridView1.Columns[5].ReadOnly = true;
+                        dataGridView1.Columns[6].ReadOnly = true;
+                        dataGridView1.Columns[7].ReadOnly = true;
+                        dataGridView1.Columns[8].ReadOnly = true;
+                        dataGridView1.Columns[9].ReadOnly = true;
 
                         initializing = false;
                     }));
@@ -221,7 +232,7 @@ namespace SysDev2019
             if (!initializing)
             {
                 DatabaseInstance.OrderingTable.Sync();
-                if (e.ColumnIndex == 6)
+                if (e.ColumnIndex == 11)
                 {
                     var check = (bool) dataGridView1[e.ColumnIndex, e.RowIndex].Value;
                     var orderingId = (string) dataGridView1[0, e.RowIndex].Value;
