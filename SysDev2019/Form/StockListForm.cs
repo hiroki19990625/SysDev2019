@@ -34,18 +34,23 @@ namespace SysDev2019
                         foreach (var stock in orders) bindingList.Add(stock);
 
                         var cols = dataGridView1.Columns;
-                        cols.RemoveAt(cols.Count - 1);
                         dataGridView1.Columns[0].HeaderText = "在庫ID";
-
                         dataGridView1.Columns[1].HeaderText = "商品ID";
-                        dataGridView1.Columns[2].HeaderText = "在庫数";
-                        dataGridView1.Columns[3].HeaderText = "発注点";
-                        dataGridView1.Columns[4].HeaderText = "発注点量";
-
+                        dataGridView1.Columns[2].HeaderText = "商品名";
+                        dataGridView1.Columns[3].HeaderText = "単価";
+                        dataGridView1.Columns[4].HeaderText = "メーカー名";
+                        dataGridView1.Columns[5].HeaderText = "在庫数";
+                        dataGridView1.Columns[6].HeaderText = "発注点";
+                        dataGridView1.Columns[7].HeaderText = "発注点量";
+                        ;
+                        dataGridView1.Columns[1].Visible = false;
+                        dataGridView1.Columns[8].Visible = false;
 
                         dataGridView1.Columns[0].ReadOnly = true;
-                        dataGridView1.Columns[1].ReadOnly = true;
                         dataGridView1.Columns[2].ReadOnly = true;
+                        dataGridView1.Columns[3].ReadOnly = true;
+                        dataGridView1.Columns[4].ReadOnly = true;
+                        dataGridView1.Columns[5].ReadOnly = true;
                     }));
                 }
                 catch (ObjectDisposedException)

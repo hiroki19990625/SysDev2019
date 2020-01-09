@@ -241,6 +241,7 @@ namespace SysDev2019
                             };
                             DatabaseInstance.StockTable.Insert(stock);
                             DatabaseInstance.StockTable.Sync();
+                            DatabaseInstance.UpdateUnion();
                         }
                 }
             }

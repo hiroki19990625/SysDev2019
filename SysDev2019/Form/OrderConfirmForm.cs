@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -40,9 +41,24 @@ namespace SysDev2019
                         dataGridView1.DataSource = bindingList;
                         foreach (var order in orders) bindingList.Add(order);
 
-                        var cols = dataGridView1.Columns;
-                        cols.RemoveAt(cols.Count - 1);
-                        cols.RemoveAt(cols.Count - 1);
+                        dataGridView1.Columns[0].HeaderText = "受注ID";
+                        dataGridView1.Columns[1].HeaderText = "社員ID";
+                        dataGridView1.Columns[2].HeaderText = "社員名";
+                        dataGridView1.Columns[3].HeaderText = "部署名";
+                        dataGridView1.Columns[4].HeaderText = "商品ID";
+                        dataGridView1.Columns[5].HeaderText = "商品名";
+                        dataGridView1.Columns[6].HeaderText = "単価";
+                        dataGridView1.Columns[7].HeaderText = "メーカー名";
+                        dataGridView1.Columns[8].HeaderText = "受注量";
+                        dataGridView1.Columns[9].HeaderText = "受注日";
+                        dataGridView1.Columns[10].HeaderText = "受注完了";
+                        dataGridView1.Columns[11].HeaderText = "注文キャンセル";
+                        dataGridView1.Columns[12].HeaderText = "出荷完了";
+
+                        dataGridView1.Columns[1].Visible = false;
+                        dataGridView1.Columns[4].Visible = false;
+                        dataGridView1.Columns[13].Visible = false;
+                        dataGridView1.Columns[14].Visible = false;
 
                         dataGridView1.Columns[0].ReadOnly = true;
                         dataGridView1.Columns[1].ReadOnly = true;
@@ -50,17 +66,12 @@ namespace SysDev2019
                         dataGridView1.Columns[3].ReadOnly = true;
                         dataGridView1.Columns[4].ReadOnly = true;
                         dataGridView1.Columns[5].ReadOnly = true;
+                        dataGridView1.Columns[6].ReadOnly = true;
                         dataGridView1.Columns[7].ReadOnly = true;
-
-
-                        dataGridView1.Columns[0].HeaderText = "受注ID";
-                        dataGridView1.Columns[1].HeaderText = "社員ID";
-                        dataGridView1.Columns[2].HeaderText = "商品ID";
-                        dataGridView1.Columns[3].HeaderText = "受注量";
-                        dataGridView1.Columns[4].HeaderText = "受注日";
-                        dataGridView1.Columns[5].HeaderText = "受注完了";
-                        dataGridView1.Columns[6].HeaderText = "注文キャンセル";
-                        dataGridView1.Columns[7].HeaderText = "出荷完了";
+                        dataGridView1.Columns[8].ReadOnly = true;
+                        dataGridView1.Columns[9].ReadOnly = true;
+                        dataGridView1.Columns[10].ReadOnly = true;
+                        dataGridView1.Columns[12].ReadOnly = true;
 
                         initializing = false;
                     }));
@@ -100,7 +111,7 @@ namespace SysDev2019
             if (!initializing)
             {
                 DatabaseInstance.OrderTable.Sync();
-                if (e.ColumnIndex == 6)
+                if (e.ColumnIndex == 11)
                 {
                     var check = (bool) dataGridView1[e.ColumnIndex, e.RowIndex].Value;
                     var orderId = (string) dataGridView1[0, e.RowIndex].Value;
@@ -120,6 +131,7 @@ namespace SysDev2019
                             };
                             DatabaseInstance.StockTable.Insert(stock);
                             DatabaseInstance.StockTable.Sync();
+                            DatabaseInstance.UpdateUnion();
                         }
                 }
             }
@@ -161,5 +173,22 @@ namespace SysDev2019
         }
 
         private delegate void AsyncAction();
+
+        private void dataGridView1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex == -1 && e.ColumnIndex >= 0)
+            {
+                e.Handled = true;
+                e.PaintBackground(e.ClipBounds, false);
+                string text = dataGridView1.Columns[e.ColumnIndex].HeaderText;
+                Font font = dataGridView1.ColumnHeadersDefaultCellStyle.Font;
+                Brush foreBrush = new SolidBrush(
+                    dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor);
+                StringFormat sf = new StringFormat(StringFormatFlags.DirectionVertical);
+                sf.Alignment = StringAlignment.Near;
+                sf.LineAlignment = StringAlignment.Center;
+                e.Graphics.DrawString(text, font, foreBrush, e.CellBounds, sf);
+            }
+        }
     }
 }

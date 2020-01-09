@@ -47,6 +47,15 @@ namespace SysDev2019
             StockTable.Union(ProductTable);
         }
 
+        public static void UpdateUnion()
+        {
+            OrderTable.Union(EmployeeTable, "EmployeeId");
+            OrderTable.Union(ProductTable, "ProductId");
+            OrderingTable.Union(ProductTable, "ProductId");
+            OrderingTable.Union(EmployeeTable, "EmployeeId");
+            StockTable.Union(ProductTable);
+        }
+
         private static void OnLog(ILogMessage msg)
         {
             _logger.Info(msg.Data);

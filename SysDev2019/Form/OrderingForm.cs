@@ -239,6 +239,7 @@ namespace SysDev2019
 
                         DatabaseInstance.OrderingTable.Insert(ordering);
                         DatabaseInstance.OrderingTable.Sync();
+                        DatabaseInstance.UpdateUnion();
 
                         MessageBox.Show("発注を完了しました", "情報", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
