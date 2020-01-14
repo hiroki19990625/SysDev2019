@@ -39,9 +39,9 @@ namespace SysDev2019
                     {
                         dataGridView1.DataSource = _bindingList;
 
+                        dataGridView1.SuspendLayout();
                         foreach (var order in orders) _bindingList.Add(order);
 
-                        var cols = dataGridView1.Columns;
                         dataGridView1.Columns[0].HeaderText = "受注ID";
                         dataGridView1.Columns[1].HeaderText = "社員ID";
                         dataGridView1.Columns[2].HeaderText = "社員名";
@@ -72,6 +72,8 @@ namespace SysDev2019
                         dataGridView1.Columns[8].ReadOnly = true;
                         dataGridView1.Columns[9].ReadOnly = true;
                         dataGridView1.Columns[11].ReadOnly = true;
+
+                        dataGridView1.ResumeLayout();
                     }));
                 }
                 catch (ObjectDisposedException)
@@ -102,11 +104,6 @@ namespace SysDev2019
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFilter_SearchForm();
-        }
-
-        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            DatabaseInstance.OrderTable.Sync();
         }
 
         private void OpenOrder_Confirmation_Form_FormClosed(object sender, FormClosedEventArgs e)

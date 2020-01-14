@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -163,6 +164,8 @@ namespace SysDev2019
                     {
                         initializing = true;
                         dataGridView1.DataSource = bindingList;
+
+                        dataGridView1.SuspendLayout();
                         foreach (var ordering in orders) bindingList.Add(ordering);
 
                         dataGridView1.Columns[0].HeaderText = "受注ID";
@@ -193,6 +196,8 @@ namespace SysDev2019
                         dataGridView1.Columns[7].ReadOnly = true;
                         dataGridView1.Columns[8].ReadOnly = true;
                         dataGridView1.Columns[9].ReadOnly = true;
+
+                        dataGridView1.ResumeLayout();
 
                         initializing = false;
                     }));
@@ -306,5 +311,22 @@ namespace SysDev2019
         }
 
         private delegate void AsyncAction();
+
+        private void dataGridView1_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex == -1 && e.ColumnIndex >= 0)
+            {
+                e.Handled = true;
+                e.PaintBackground(e.ClipBounds, false);
+                string text = dataGridView1.Columns[e.ColumnIndex].HeaderText;
+                Font font = dataGridView1.ColumnHeadersDefaultCellStyle.Font;
+                Brush foreBrush = new SolidBrush(
+                    dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor);
+                StringFormat sf = new StringFormat(StringFormatFlags.DirectionVertical);
+                sf.Alignment = StringAlignment.Near;
+                sf.LineAlignment = StringAlignment.Center;
+                e.Graphics.DrawString(text, font, foreBrush, e.CellBounds, sf);
+            }
+        }
     }
 }

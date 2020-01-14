@@ -61,7 +61,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(858, 407);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dataGridView1_CellPainting);
-            this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
             // 
             // filterButton
             // 
