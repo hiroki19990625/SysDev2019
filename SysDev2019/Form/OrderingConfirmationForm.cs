@@ -164,6 +164,8 @@ namespace SysDev2019
                     {
                         initializing = true;
                         dataGridView1.DataSource = bindingList;
+
+                        dataGridView1.SuspendLayout();
                         foreach (var ordering in orders) bindingList.Add(ordering);
 
                         dataGridView1.Columns[0].HeaderText = "受注ID";
@@ -194,6 +196,8 @@ namespace SysDev2019
                         dataGridView1.Columns[7].ReadOnly = true;
                         dataGridView1.Columns[8].ReadOnly = true;
                         dataGridView1.Columns[9].ReadOnly = true;
+
+                        dataGridView1.ResumeLayout();
 
                         initializing = false;
                     }));

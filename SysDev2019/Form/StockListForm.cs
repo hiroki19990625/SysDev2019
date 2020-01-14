@@ -31,6 +31,8 @@ namespace SysDev2019
                     Invoke(new AsyncAction(() =>
                     {
                         dataGridView1.DataSource = bindingList;
+
+                        dataGridView1.SuspendLayout();
                         foreach (var stock in orders) bindingList.Add(stock);
 
                         var cols = dataGridView1.Columns;
@@ -51,6 +53,8 @@ namespace SysDev2019
                         dataGridView1.Columns[3].ReadOnly = true;
                         dataGridView1.Columns[4].ReadOnly = true;
                         dataGridView1.Columns[5].ReadOnly = true;
+
+                        dataGridView1.ResumeLayout();
                     }));
                 }
                 catch (ObjectDisposedException)
