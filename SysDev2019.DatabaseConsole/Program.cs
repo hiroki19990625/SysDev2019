@@ -46,30 +46,71 @@ namespace SysDev2019.DatabaseConsole
             if (cmd == "seed")
             {
                 // All Delete
+                stockTable.Delete(p => true);
                 productTable.Delete(p => true);
                 manufacturerTable.Delete(p => true);
 
-                for (int i = 0; i < 1000; i++)
+                List<Manufacturer> manufacturers = new List<Manufacturer>();
+                for (int i = 0; i < 100; i++)
                 {
-                    manufacturerTable.Insert(new Manufacturer
+                    manufacturers.Add(new Manufacturer
                     {
                         ManufacturerId = i.ToString(),
-                        ManufacturerName = Guid.NewGuid().ToString()
+                        ManufacturerName = $"化粧品メーカー_{i}"
                     });
                 }
+
+                manufacturerTable.Insert(manufacturers.ToArray());
 
                 Random r = new Random();
-
+                List<Product> products = new List<Product>();
                 for (int i = 0; i < 12000; i++)
                 {
-                    productTable.Insert(new Product
+                    var price = r.Next(100, 1000) * 10;
+
+                    products.Add(new Product
                     {
                         ProductId = i.ToString(),
-                        ManufacturerId = r.Next(0, 1000).ToString(),
-                        ProductName = Guid.NewGuid().ToString(),
-                        UnitPrice = r.Next(10, 5000) * 10
+                        ManufacturerId = r.Next(0, 100).ToString(),
+                        ProductName = price >= 6000 ? $"高級化粧品_{i}" : $"化粧品_{i}",
+                        UnitPrice = price
                     });
                 }
+
+                productTable.Insert(products.ToArray());
+
+                stockTable.Insert(new Stock
+                {
+                    StockId = Guid.NewGuid().ToString(),
+                    ProductId = "0",
+                    StockQuantity = 1000,
+                    ReorderPoint = 400,
+                    OrderQuantity = 1000
+                });
+                stockTable.Insert(new Stock
+                {
+                    StockId = Guid.NewGuid().ToString(),
+                    ProductId = "1",
+                    StockQuantity = 600,
+                    ReorderPoint = 500,
+                    OrderQuantity = 1000
+                });
+                stockTable.Insert(new Stock
+                {
+                    StockId = Guid.NewGuid().ToString(),
+                    ProductId = "2",
+                    StockQuantity = 100,
+                    ReorderPoint = 10,
+                    OrderQuantity = 100
+                });
+                stockTable.Insert(new Stock
+                {
+                    StockId = Guid.NewGuid().ToString(),
+                    ProductId = "3",
+                    StockQuantity = 3000,
+                    ReorderPoint = 400,
+                    OrderQuantity = 1000
+                });
             }
             else if (cmd == "user")
             {
